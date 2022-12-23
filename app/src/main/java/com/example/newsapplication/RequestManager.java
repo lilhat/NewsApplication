@@ -1,6 +1,9 @@
 package com.example.newsapplication;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.newsapplication.Models.ApiResponse;
@@ -15,16 +18,16 @@ import retrofit2.http.Query;
 
 public class RequestManager {
     Context context;
-
+    String text;
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2/")
+            .baseUrl("https://newsdata.io/api/1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
     public void getNewsHeadlines(OnFetchDataListener<ApiResponse> listener, String category, String query)
     {
         CallNewsApi callNewsApi = retrofit.create(CallNewsApi.class);
-        Call<ApiResponse> call = callNewsApi.callHeadlines(null , null, query, context.getString(R.string.api_key));
+        Call<ApiResponse> call = callNewsApi.callHeadlines(context.getString(R.string.api_key) , "gb", category, "en", query);
 
         try {
             call.enqueue(new Callback<ApiResponse>() {
@@ -33,7 +36,8 @@ public class RequestManager {
                    if (!response.isSuccessful()){
                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                    }
-                   listener.onFetchData(response.body().getArticles(), response.message());
+                   Log.d(TAG,"response.raw().request().url();"+response.raw().request().url());
+                   listener.onFetchData(response.body().getResults(), response.message());
                 }
 
                 @Override
@@ -47,18 +51,24 @@ public class RequestManager {
         }
     }
 
+    public String getUrl(){
+        return text;
+    }
+    
     public RequestManager(Context context) {
         this.context = context;
     }
 
     // TODO - Create another function to search everything
     public interface CallNewsApi {
-        @GET("everything")
+        @GET("news")
         Call<ApiResponse> callHeadlines(
-               @Query("country") String country,
-               @Query("category") String category,
-               @Query("q") String query,
-               @Query("apiKey") String api_key
+                @Query("apiKey") String api_key,
+                @Query("country") String country,
+                @Query("category") String category,
+                @Query("language") String language,
+                @Query("q") String query
+
         );
     }
 }

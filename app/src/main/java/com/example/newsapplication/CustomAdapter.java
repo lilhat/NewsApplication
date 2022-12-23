@@ -2,6 +2,7 @@ package com.example.newsapplication;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -15,10 +16,12 @@ import java.util.List;
 public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     private final Context context;
     private final List<Headlines> headlines;
+    private SelectListener listener;
 
-    public CustomAdapter(Context context, List<Headlines> headlines) {
+    public CustomAdapter(Context context, List<Headlines> headlines, SelectListener listener) {
         this.context = context;
         this.headlines = headlines;
+        this.listener = listener;
     }
 
     @NonNull
@@ -32,12 +35,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
 
-        holder.news_title.setText(headlines.get(position).getTitle());
-        holder.news_source.setText(headlines.get(position).getSource().getName());
+        holder.news_title.setText(headlines.get(holder.getAdapterPosition()).getTitle());
+        holder.news_source.setText(headlines.get(position).getSource_id());
 
-        if (headlines.get(position).getUrlToImage()!=null && !headlines.get(position).getUrlToImage().isEmpty()){
-            Picasso.get().load(headlines.get(position).getUrlToImage()).into(holder.news_img);
+        if (headlines.get(position).getImage_url()!=null && !headlines.get(position).getImage_url().isEmpty()){
+            Picasso.get().load(headlines.get(position).getImage_url()).into(holder.news_img);
         }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.OnNewsClicked(headlines.get(holder.getAdapterPosition()));
+            }
+        });
 
     }
 

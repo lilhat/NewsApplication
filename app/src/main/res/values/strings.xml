@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">NewsBits</string>
-    <string name="api_key">b6aabd7f50724223a6f0aeeb93206f12</string>
+    <string name="api_key">pub_149302058f4d98a8edef92c902d9acd74c811</string>
     <string name="item_search">Search</string>
     <string name="item_share">Share</string>
     <string name="item_like">Like</string>
@@ -20,6 +20,17 @@
     <string name="default_date">DD/MM/YYYY</string>
     <string name="default_description">Description</string>
     <string name="default_img_description">News Image</string>
+    <string name="category_bus">business</string>
+    <string name="category_ent">entertainment</string>
+    <string name="category_env">environment</string>
+    <string name="category_foo">food</string>
+    <string name="category_hea">health</string>
+    <string name="category_pol">politics</string>
+    <string name="category_sci">science</string>
+    <string name="category_spo">sports</string>
+    <string name="category_tec">technology</string>
+    <string name="category_top">top</string>
+    <string name="category_wor">world</string>
     <string name="refresh_xml" />
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

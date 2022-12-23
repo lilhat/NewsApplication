@@ -1,21 +1,23 @@
 package com.example.newsapplication.Models;
 
-public class Headlines {
-    Source source = null;
+import java.io.Serializable;
+
+public class Headlines implements Serializable {
+    String source_id = null;
     String author = "";
     String title = "";
     String description = "";
-    String url = "";
-    String urlToImage = "";
-    String publisher = "";
+    String link = "";
+    String image_url = "";
+    String pubDate = "";
     String content = "";
 
-    public Source getSource() {
-        return source;
+    public String getSource_id() {
+        return source_id;
     }
 
-    public void setSource(Source source) {
-        this.source = source;
+    public void setSource_id(String source_id) {
+        this.source_id = source_id;
     }
 
     public String getAuthor() {
@@ -42,28 +44,28 @@ public class Headlines {
         this.description = description;
     }
 
-    public String getUrl() {
-        return url;
+    public String getLink() {
+        return link;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public String getUrlToImage() {
-        return urlToImage;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setUrlToImage(String urlToImage) {
-        this.urlToImage = urlToImage;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
-    public String getPublisher() {
-        return publisher;
+    public String getPubDate() {
+        return pubDate;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setPubDate(String pubDate) {
+        this.pubDate = pubDate;
     }
 
     public String getContent() {

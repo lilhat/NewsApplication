@@ -1,11 +1,12 @@
 package com.example.newsapplication.Models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ApiResponse {
+public class ApiResponse implements Serializable {
     String status;
     int totalResults;
-    List<Headlines> articles;
+    List<Headlines> results;
 
     public String getStatus() {
         return status;
@@ -23,11 +24,11 @@ public class ApiResponse {
         this.totalResults = totalResults;
     }
 
-    public List<Headlines> getArticles() {
-        return articles;
+    public List<Headlines> getResults() {
+        return results;
     }
 
-    public void setArticles(List<Headlines> articles) {
-        this.articles = articles;
+    public void setResults(List<Headlines> results) {
+        this.results = results;
     }
 }
