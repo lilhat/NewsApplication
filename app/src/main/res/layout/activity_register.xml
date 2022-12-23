@@ -1,0 +1,124 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height = "match_parent"
+    tools:context = ".MainActivity">
+
+    <TextView
+        android:text = "@string/default_login"
+        android:layout_width="wrap_content"
+        android:layout_height = "wrap_content"
+        android:id = "@+id/loginTitle"
+        android:textSize = "30sp"
+        android:layout_alignParentTop = "true"
+        android:layout_centerHorizontal = "true" />
+
+    <TextView
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "@string/app_name"
+        android:id = "@+id/appName"
+        android:layout_below = "@+id/loginTitle"
+        android:layout_centerHorizontal = "true"
+        android:textColor = "@color/dark_sky_blue"
+        android:textSize = "30sp" />
+
+    <EditText
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:id = "@+id/nameEntry"
+        android:hint = "@string/hint_name"
+        android:focusable = "true"
+        android:layout_marginTop = "46dp"
+        android:layout_below = "@+id/newsLogo"
+        android:layout_alignParentStart = "true"
+        android:layout_alignParentEnd = "true" />
+
+    <ImageView
+        android:id="@+id/newsLogo"
+        android:layout_width="129dp"
+        android:layout_height="124dp"
+        android:layout_below="@+id/loginTitle"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordEntry"
+        android:hint="@string/hint_password"
+        android:layout_below="@+id/nameEntry"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/nameEntry"
+/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/attempts_remaining"
+        android:id="@+id/attemptsLeft"
+        android:layout_below="@+id/passwordEntry"
+        android:layout_alignParentStart="true"
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/facebook_login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:text="@string/facebook_login"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
+
+    <Button
+        android:id="@+id/google_login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/facebook_login_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-48dp"
+        android:layout_marginEnd="0dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:text="@string/google_login"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
+
+    <TextView
+        android:id="@+id/register_here"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-167dp"
+        android:layout_marginBottom="288dp"
+        android:layout_toEndOf="@id/facebook_login_btn"
+        android:textSize="20sp"
+        android:text="@string/no_account" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_login"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/loginTitle"
+        android:backgroundTint="@color/pastel_orange"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel_text"
+        android:id="@+id/button2"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/loginTitle"
+        android:backgroundTint="@color/pastel_orange"/>
+
+</RelativeLayout>
