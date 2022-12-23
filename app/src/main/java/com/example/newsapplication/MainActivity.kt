@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    lateinit var loadingPB: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity() {
         val recommendedFragment=RecommendedFragment()
         val favouriteFragment=FavouriteFragment()
 
-        loadingPB = findViewById(R.id.idPBLoading)
-        loadingPB.visibility = View.VISIBLE
         setCurrentFragment(preferredFragment)
 
         bottomNavigationView.setOnItemSelectedListener {
@@ -49,8 +47,6 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.flFragment,fragment)
             commit()
         }
-        loadingPB.visibility = View.GONE
-
     }
 
 

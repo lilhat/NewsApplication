@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
@@ -28,7 +29,7 @@
                 android:textSize="12sp"></Button>
 
             <Button
-                android:id="@+id/btn_12"
+                android:id="@+id/btn_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
@@ -118,6 +119,17 @@
                 android:textSize="12sp"></Button>
         </LinearLayout>
     </HorizontalScrollView>
+
+    <ProgressBar
+        android:id="@+id/idPBLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_main"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+        tools:layout_editor_absoluteX="-7dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_main"

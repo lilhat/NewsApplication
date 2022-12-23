@@ -18,6 +18,8 @@ import com.example.newsapplication.R
 import com.example.newsapplication.RequestManager
 
 class PreferredFragment:Fragment(R.layout.fragment_preferred),SelectListener{
+
+    private var progressBar : ProgressBar? = null
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +33,8 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),SelectListener{
     private val listener = object : OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
             showNews(list)
+            progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
+            progressBar?.visibility = View.INVISIBLE
         }
 
         override fun onError(message: String?) {

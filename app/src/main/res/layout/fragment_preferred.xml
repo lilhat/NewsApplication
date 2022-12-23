@@ -7,14 +7,14 @@
     tools:context=".MainActivity">
 
     <ProgressBar
-        android:id="@+id/idPBLoading2"
+        android:id="@+id/idPBLoading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
-        android:layout_marginBottom="4dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_main"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_main"
+        app:layout_constraintTop_toTopOf="@+id/recycler_main"
         tools:layout_editor_absoluteX="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
