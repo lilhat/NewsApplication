@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CustomViewHolder extends RecyclerView.ViewHolder{
-    TextView news_title, news_source;
+    TextView news_title, news_source, news_text, news_creator;
     ImageView news_img;
     CardView cardView;
     public CustomViewHolder(@NonNull View itemView) {
@@ -17,8 +17,11 @@ public class CustomViewHolder extends RecyclerView.ViewHolder{
 
         news_title = itemView.findViewById(R.id.news_title);
         news_source = itemView.findViewById(R.id.news_source);
+        news_text = itemView.findViewById(R.id.news_text);
+        news_creator = itemView.findViewById(R.id.news_creator);
         news_img = itemView.findViewById(R.id.news_img);
         cardView = itemView.findViewById(R.id.main_container);
+
 
     }
 }
