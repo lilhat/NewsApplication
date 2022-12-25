@@ -35,19 +35,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
 
-        holder.news_title.setText(headlines.get(holder.getAdapterPosition()).getTitle());
-        holder.news_source.setText(headlines.get(position).getSource_id());
-
         if (headlines.get(position).getImage_url()!=null && !headlines.get(position).getImage_url().isEmpty()){
             Picasso.get().load(headlines.get(position).getImage_url()).into(holder.news_img);
+            holder.news_title.setText(headlines.get(position).getTitle());
+            holder.news_source.setText(headlines.get(position).getSource_id());
+            holder.news_text.setText(headlines.get(position).getDescription());
+            holder.news_creator.setText(headlines.get(position).getAuthor());
+
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.OnNewsClicked(headlines.get(holder.getAdapterPosition()));
+                }
+            });
+        }
+        else {
+            headlines.remove(position);
         }
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.OnNewsClicked(headlines.get(holder.getAdapterPosition()));
-            }
-        });
+
+
+
 
     }
 
