@@ -52,6 +52,26 @@
 
                     </TextView>
                     <TextView
+                        android:id="@+id/detail_category"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/gray"
+                        android:alpha="0.8"
+                        android:textSize="16sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/detail_country"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/gray"
+                        android:alpha="0.8"
+                        android:textSize="16sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                    <TextView
                         android:id="@+id/detail_time"
                         android:layout_marginTop="6dp"
                         android:textColor="@color/black"

@@ -1,16 +1,20 @@
 package com.example.newsapplication.Models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Headlines implements Serializable {
     String source_id = null;
-    String author = "";
+    List creator;
     String title = "";
     String description = "";
     String link = "";
     String image_url = "";
+    List country;
+    List category;
     String pubDate = "";
     String content = "";
+
 
     public String getSource_id() {
         return source_id;
@@ -20,12 +24,12 @@ public class Headlines implements Serializable {
         this.source_id = source_id;
     }
 
-    public String getAuthor() {
-        return author;
+    public List getCreator() {
+        return creator;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setCreator(List creator) {
+        this.creator = creator;
     }
 
     public String getTitle() {
@@ -58,6 +62,22 @@ public class Headlines implements Serializable {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    public List getCountry() {
+        return country;
+    }
+
+    public void setCountry(List country) {
+        this.country = country;
+    }
+
+    public List getCategory() {
+        return category;
+    }
+
+    public void setCategory(List category) {
+        this.category = category;
     }
 
     public String getPubDate() {

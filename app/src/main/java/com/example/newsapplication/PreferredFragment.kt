@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),SelectListener{
         }
 
         override fun onError(message: String?) {
-            TODO("Not yet implemented")
+            Toast.makeText(activity, "Error cannot load", Toast.LENGTH_SHORT).show()
         }
 
     }
