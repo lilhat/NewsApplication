@@ -58,4 +58,6 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),SelectListener{
         val intent = Intent(activity, DetailsActivity::class.java)
         startActivity(intent.putExtra("data", headlines))
     }
+
+
 }
