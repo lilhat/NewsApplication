@@ -12,10 +12,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="559dp"
+        android:layout_height="407dp"
         android:layout_margin="6dp"
         android:weightSum="3">
 
+
+        <TextView
+            android:id="@+id/news_more"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:scrollbarSize="18sp"
+            android:text="@string/read_more"
+            android:textColor="@color/dark_sky_blue"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/news_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/news_title">
+
+        </TextView>
 
         <TextView
             android:id="@+id/news_title"
@@ -62,35 +78,35 @@
 
         </TextView>
 
+
         <ImageView
             android:id="@+id/news_img"
             android:layout_width="348dp"
             android:layout_height="206dp"
             android:layout_marginEnd="8dp"
+            android:contentDescription="@string/img_content"
             android:scaleType="centerCrop"
             android:src="@drawable/not_available"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/news_creator"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.629"
+            app:layout_constraintHorizontal_bias="0.592"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.322"
+            app:layout_constraintTop_toBottomOf="@+id/news_source"
             tools:ignore="ImageContrastCheck"></ImageView>
-
 
         <TextView
             android:id="@+id/news_creator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="292dp"
+            android:layout_marginBottom="8dp"
             android:maxLines="1"
             android:scrollbarSize="18sp"
             android:textColor="@color/dark_sky_blue"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/news_text"
             app:layout_constraintEnd_toEndOf="@+id/news_title"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/news_title"
-            app:layout_constraintTop_toBottomOf="@+id/news_title">
+            app:layout_constraintStart_toStartOf="@+id/news_title">
 
         </TextView>
 
@@ -98,14 +114,15 @@
             android:id="@+id/news_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginBottom="8dp"
+            android:maxLines="4"
             android:scrollbarSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/news_more"
             app:layout_constraintEnd_toEndOf="@+id/news_title"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/news_title"
-            app:layout_constraintTop_toBottomOf="@+id/news_img">
+            app:layout_constraintStart_toStartOf="@+id/news_title">
 
         </TextView>
 

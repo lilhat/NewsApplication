@@ -4,19 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.Models.ApiResponse
 import com.example.newsapplication.Models.Headlines
-import com.example.newsapplication.CustomAdapter
-import com.example.newsapplication.OnFetchDataListener
-import com.example.newsapplication.R
-import com.example.newsapplication.RequestManager
 
 class PreferredFragment:Fragment(R.layout.fragment_preferred),SelectListener{
 
@@ -52,7 +47,13 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),SelectListener{
             recyclerView.layoutManager = GridLayoutManager(activity, 1)
             recyclerView.adapter = adapter
         }
+        recyclerView!!.post { adapter.notifyDataSetChanged() }
+        if (!recyclerView.isComputingLayout && recyclerView.scrollState == SCROLL_STATE_IDLE) {
+            recyclerView.adapter?.notifyDataSetChanged()
+        }
     }
+
+
 
     override fun OnNewsClicked(headlines: Headlines?) {
         val intent = Intent(activity, DetailsActivity::class.java)
