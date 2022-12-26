@@ -4,20 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteX="19dp"
+    tools:layout_editor_absoluteY="-78dp">
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_main"
-        tools:layout_editor_absoluteX="6dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="32dp">
 
             <Button
                 android:id="@+id/btn_1"
@@ -26,16 +30,20 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_bus"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="31dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_ent"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="131dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_3"
@@ -44,7 +52,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_env"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="268dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_4"
@@ -53,7 +63,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_foo"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="390dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_5"
@@ -62,7 +74,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_hea"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="490dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_6"
@@ -71,7 +85,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_pol"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="590dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_7"
@@ -80,7 +96,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_sci"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="691dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_8"
@@ -89,7 +107,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_spo"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="791dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_9"
@@ -98,7 +118,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_tec"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="891dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_10"
@@ -107,7 +129,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_top"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="1005dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
 
             <Button
                 android:id="@+id/btn_11"
@@ -116,7 +140,9 @@
                 android:layout_margin="6dp"
                 android:padding="6dp"
                 android:text="@string/category_wor"
-                android:textSize="12sp"></Button>
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="1105dp"
+                tools:layout_editor_absoluteY="38dp"></Button>
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -129,19 +155,18 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/recycler_main"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-        tools:layout_editor_absoluteX="-7dp" />
+        app:layout_constraintVertical_bias="0.574"
+        tools:layout_editor_absoluteX="39dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_main"
-        android:layout_width="372dp"
-        android:layout_height="498dp"
-        android:layout_margin="20dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869">
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
 
     </androidx.recyclerview.widget.RecyclerView>
 

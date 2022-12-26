@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">NewsBits</string>
     <string name="api_key">pub_149302058f4d98a8edef92c902d9acd74c811</string>
+    <string name="api_key2">pub_150062e14ee2a74d4da97cab8b5dd391df074</string>
     <string name="item_search">Search</string>
     <string name="item_share">Share</string>
     <string name="item_like">Like</string>

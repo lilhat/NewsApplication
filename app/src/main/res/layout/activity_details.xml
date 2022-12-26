@@ -34,16 +34,7 @@
 
         app:titleTextColor="@color/white" />
 
-    <FrameLayout
-        android:id="@+id/flFragment"
-        android:layout_width="match_parent"
-        android:layout_height="593dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -110,28 +101,31 @@
 
                         <TextView
                             android:id="@+id/detail_category"
-                            android:layout_marginTop="6dp"
-                            android:textColor="@color/gray"
-                            android:alpha="0.8"
-                            android:textSize="16sp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:alpha="0.8"
+                            android:textColor="@color/gray"
+                            android:textSize="16sp">
 
                         </TextView>
+
                         <TextView
                             android:id="@+id/detail_country"
-                            android:layout_marginTop="6dp"
-                            android:textColor="@color/gray"
-                            android:alpha="0.8"
-                            android:textSize="16sp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:alpha="0.8"
+                            android:textColor="@color/gray"
+                            android:textSize="16sp">
 
                         </TextView>
+
                         <TextView
                             android:id="@+id/detail_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             tools:layout_editor_absoluteX="-132dp"
@@ -158,7 +152,6 @@
             </LinearLayout>
         </ScrollView>
 
-    </FrameLayout>
 
 </LinearLayout>
 
