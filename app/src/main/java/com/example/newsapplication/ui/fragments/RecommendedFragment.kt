@@ -58,8 +58,9 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended), SelectListene
 
 
     override fun OnNewsClicked(headlines: Headlines?) {
-        val intent = Intent(activity, DetailsActivity::class.java)
-        startActivity(intent.putExtra("data", headlines))
+        val myIntent = Intent(context, DetailsActivity::class.java)
+        myIntent.putExtra("data", headlines)
+        context?.startActivity(myIntent)
     }
 
 

@@ -3,44 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools = "http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height = "match_parent"
-    tools:context = ".ui.MainActivity">
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/main_toolbar"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/pastel_orange"
-        app:layout_constraintBottom_toTopOf="@+id/appBarLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
-
-        app:titleTextColor="@color/white" />
+    tools:context = ".ui.MainActivity"
+    android:layout_margin="16dp">
 
     <RelativeLayout
-        android:layout_width="381dp"
-        android:layout_height="653dp"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
         tools:context=".ui.MainActivity">
-
 
         <TextView
             android:id="@+id/loginTitle"
@@ -141,28 +112,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="-168dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginBottom="171dp"
+            android:layout_marginStart="-167dp"
+            android:layout_marginEnd="139dp"
+            android:layout_marginBottom="185dp"
             android:layout_toEndOf="@id/facebook_login_btn"
             android:text="@string/no_account"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/register_btn"
-            android:layout_width="111dp"
-            android:layout_height="47dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="122dp"
-            android:layout_marginEnd="-79dp"
-            android:layout_marginBottom="161dp"
-            android:layout_toStartOf="@+id/loginTitle"
-            android:backgroundTint="@color/dark_sky_blue"
-            android:text="@string/default_register" />
-
-        <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -173,7 +131,7 @@
             android:text="@string/default_login" />
 
         <Button
-            android:id="@+id/cancel_btn"
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

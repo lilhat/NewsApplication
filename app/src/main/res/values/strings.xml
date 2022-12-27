@@ -22,7 +22,7 @@
     <string name="google_login">Login with Google</string>
     <string name="facebook_register">Register with Facebook</string>
     <string name="google_register">Register with Google</string>
-    <string name="no_account">No account? Register here</string>
+    <string name="no_account">No account?</string>
     <string name="cancel_text">Cancel</string>
     <string name="default_date">DD/MM/YYYY</string>
     <string name="default_description">Description</string>
@@ -54,4 +54,6 @@
     <string name="menu_profile">Profile</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_logout">Logout</string>
+    <string name="terms_conditions">I agree to the terms and conditions</string>
+    <string name="push_notifications">I agree to receive notifications and updates</string>
 </resources>

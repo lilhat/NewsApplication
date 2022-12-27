@@ -4,15 +4,15 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/loginActivity"
             android:icon="@drawable/ic_baseline_account_circle_24"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="@string/menu_settings" />
         <item
-            android:id="@+id/nav_logout"
+            android:id="@+id/registerActivity"
             android:icon="@drawable/ic_baseline_logout_24"
             android:title="@string/menu_logout" />
     </group>

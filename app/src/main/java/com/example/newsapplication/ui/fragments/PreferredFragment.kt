@@ -1,4 +1,5 @@
 package com.example.newsapplication.ui.fragments
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.*
@@ -15,7 +17,6 @@ import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.ui.DetailsActivity
 
 class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, View.OnClickListener{
-
 
     private var progressBar : ProgressBar? = null
 
@@ -31,6 +32,11 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
+        buttonSetup(view)
+
+    }
+
+    fun buttonSetup(view: View){
         val b1 = view?.findViewById<Button>(R.id.btn_1)
         b1?.setOnClickListener(this)
         val b2 = view?.findViewById<Button>(R.id.btn_2)
@@ -53,7 +59,6 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
         b10?.setOnClickListener(this)
         val b11 = view?.findViewById<Button>(R.id.btn_11)
         b11?.setOnClickListener(this)
-
     }
 
     private val listener = object : OnFetchDataListener<ApiResponse> {
@@ -80,8 +85,10 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
     }
 
     override fun OnNewsClicked(headlines: Headlines?) {
-        val intent = Intent(activity, DetailsActivity::class.java)
-        startActivity(intent.putExtra("data", headlines))
+        val myIntent = Intent(context, DetailsActivity::class.java)
+        myIntent.putExtra("data", headlines)
+        context?.startActivity(myIntent)
+
     }
 
     override fun onClick(p0: View?) {
@@ -92,4 +99,6 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
         val manager = RequestManager(activity)
         manager.getNewsHeadlines(listener, buttonText, null)
     }
+
+
 }

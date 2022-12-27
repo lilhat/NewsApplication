@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -55,10 +56,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
+
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
+        navigationView.setupWithNavController(navController)
 
 
 
@@ -85,29 +89,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        displaySelectedScreen(item);
-        //make this method blank
-        return true;
+        displaySelectedScreen(item)
+        return true
     }
+
 
     private fun displaySelectedScreen(item: MenuItem) {
         val itemName = item.toString()
         val profile = this.getString(R.string.menu_profile)
-        val settings = this.getString(R.string.menu_settings)
+
         val logout = this.getString(R.string.menu_logout)
         var intent: Intent?
         when(itemName){
             profile -> {
                 intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+
             }
-            settings -> {
-                intent = Intent(this, RegisterActivity::class.java)
-                startActivity(intent)
-            }
+
             logout -> {
-                intent = Intent(this, DetailsActivity::class.java)
-                startActivity(intent)
+                intent = Intent(this, RegisterActivity::class.java)
             }
         }
 

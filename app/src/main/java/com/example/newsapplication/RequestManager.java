@@ -7,8 +7,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.newsapplication.Models.ApiResponse;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
 
 import java.io.IOException;
 

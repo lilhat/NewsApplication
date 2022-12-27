@@ -16,6 +16,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_recommendedFragment_to_settingsFragment2"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_recommendedFragment_to_registerActivity"
+            app:destination="@id/registerActivity" />
+        <action
+            android:id="@+id/action_recommendedFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -28,6 +37,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_favouriteFragment_to_settingsFragment2"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_registerActivity"
+            app:destination="@id/registerActivity" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
     </fragment>
     <fragment
         android:id="@+id/preferredFragment"
@@ -40,9 +58,30 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_preferredFragment_to_settingsFragment2"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_preferredFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_preferredFragment_to_registerActivity"
+            app:destination="@id/registerActivity" />
     </fragment>
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.example.newsapplication.ui.fragments.ArticleFragment"
         android:label="ArticleFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.newsapplication.ui.fragments.SettingsFragment"
+        android:label="SettingsFragment" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.newsapplication.ui.LoginActivity"
+        android:label="LoginActivity" />
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.newsapplication.ui.RegisterActivity"
+        android:label="RegisterActivity" />
 </navigation>

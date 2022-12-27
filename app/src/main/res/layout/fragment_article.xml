@@ -1,6 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-146dp"
+        tools:layout_editor_absoluteY="39dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="-146dp"
+            tools:layout_editor_absoluteY="39dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardElevation="8dp"
+                tools:layout_editor_absoluteX="-138dp"
+                tools:layout_editor_absoluteY="47dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="-132dp"
+                    tools:layout_editor_absoluteY="53dp">
+
+                    <TextView
+                        android:id="@+id/detail_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        tools:layout_editor_absoluteX="-132dp"
+                        tools:layout_editor_absoluteY="53dp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/detail_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/not_available"
+                        tools:layout_editor_absoluteX="-132dp"
+                        tools:layout_editor_absoluteY="96dp">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/detail_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_sky_blue"
+                        android:textSize="16sp"
+                        tools:layout_editor_absoluteX="-132dp"
+                        tools:layout_editor_absoluteY="352dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/detail_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:alpha="0.8"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/detail_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:alpha="0.8"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/detail_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:layout_editor_absoluteX="-132dp"
+                        tools:layout_editor_absoluteY="380dp">
+
+                    </TextView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/detail_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="-134dp"
+                tools:layout_editor_absoluteY="428dp">
+
+            </TextView>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+
+
