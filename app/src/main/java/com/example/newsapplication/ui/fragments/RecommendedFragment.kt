@@ -1,4 +1,4 @@
-package com.example.newsapplication
+package com.example.newsapplication.ui.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +10,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapplication.*
 import com.example.newsapplication.Models.ApiResponse
 import com.example.newsapplication.Models.Headlines
+import com.example.newsapplication.ui.DetailsActivity
 
-class PreferredFragment:Fragment(R.layout.fragment_preferred),SelectListener{
+class RecommendedFragment:Fragment(R.layout.fragment_recommended), SelectListener {
 
     private var progressBar : ProgressBar? = null
     public override fun onCreateView(

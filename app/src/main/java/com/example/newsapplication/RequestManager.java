@@ -7,6 +7,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.newsapplication.Models.ApiResponse;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +31,7 @@ public class RequestManager {
     public void getNewsHeadlines(OnFetchDataListener<ApiResponse> listener, String category, String query)
     {
         CallNewsApi callNewsApi = retrofit.create(CallNewsApi.class);
-        Call<ApiResponse> call = callNewsApi.callHeadlines(context.getString(R.string.api_key2) , "gb", category, "en", query);
+        Call<ApiResponse> call = callNewsApi.callHeadlines(context.getString(R.string.api_key) , "gb", category, "en", query);
 
         try {
             call.enqueue(new Callback<ApiResponse>() {

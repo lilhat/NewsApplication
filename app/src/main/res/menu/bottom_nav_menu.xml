@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/preferred"
+        android:id="@+id/preferredFragment"
         android:title="@string/item_preferred"
         android:icon="@drawable/ic_preferred_foreground"/>
     <item
-        android:id="@+id/recommend"
+        android:id="@+id/recommendedFragment"
         android:title="@string/item_recommend"
         android:icon="@drawable/ic_recommend_foreground"/>
     <item
-        android:id="@+id/favourite"
+        android:id="@+id/favouriteFragment"
         android:title="@string/item_favourite"
         android:icon="@drawable/ic_favourite_foreground"/>
 </menu>
