@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -31,7 +32,8 @@ class ArticleFragment:Fragment(R.layout.fragment_article) {
         val img = view?.findViewById<ImageView>(R.id.detail_img)
         val countryString: String?
         var headlines: String? = "";
-
+        val progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
+        progressBar?.visibility = View.INVISIBLE
         if (arguments != null) {
             headlines = arguments?.getString("Headlines")
         }
@@ -39,5 +41,10 @@ class ArticleFragment:Fragment(R.layout.fragment_article) {
             Log.d(TAG,headlines)
         }
         return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 }

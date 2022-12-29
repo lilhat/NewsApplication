@@ -17,7 +17,6 @@ import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.ui.DetailsActivity
 
 class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, View.OnClickListener{
-
     private var progressBar : ProgressBar? = null
 
     public override fun onCreateView(

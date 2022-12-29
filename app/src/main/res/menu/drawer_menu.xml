@@ -4,7 +4,7 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/loginActivity"
+            android:id="@+id/profileActivity"
             android:icon="@drawable/ic_baseline_account_circle_24"
             android:title="@string/menu_profile" />
         <item
@@ -12,7 +12,7 @@
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="@string/menu_settings" />
         <item
-            android:id="@+id/registerActivity"
+            android:id="@+id/logoutFragment"
             android:icon="@drawable/ic_baseline_logout_24"
             android:title="@string/menu_logout" />
     </group>

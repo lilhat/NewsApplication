@@ -17,14 +17,33 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_recommendedFragment_to_settingsFragment2"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_recommendedFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_recommendedFragment_to_registerActivity"
-            app:destination="@id/registerActivity" />
+            app:destination="@id/registerActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_recommendedFragment_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            android:id="@+id/action_recommendedFragment_to_logoutFragment"
+            app:destination="@id/logoutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_recommendedFragment_to_profileActivity"
+            app:destination="@id/profileActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -38,14 +57,33 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_favouriteFragment_to_settingsFragment2"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_favouriteFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_favouriteFragment_to_registerActivity"
-            app:destination="@id/registerActivity" />
+            app:destination="@id/registerActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_favouriteFragment_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            android:id="@+id/action_favouriteFragment_to_logoutFragment"
+            app:destination="@id/logoutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_favouriteFragment_to_profileActivity"
+            app:destination="@id/profileActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/preferredFragment"
@@ -59,14 +97,33 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_preferredFragment_to_settingsFragment2"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_preferredFragment_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            android:id="@+id/action_preferredFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_preferredFragment_to_registerActivity"
-            app:destination="@id/registerActivity" />
+            app:destination="@id/registerActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_preferredFragment_to_logoutFragment"
+            app:destination="@id/logoutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_preferredFragment_to_profileActivity"
+            app:destination="@id/profileActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/articleFragment"
@@ -84,4 +141,20 @@
         android:id="@+id/registerActivity"
         android:name="com.example.newsapplication.ui.RegisterActivity"
         android:label="RegisterActivity" />
+    <fragment
+        android:id="@+id/logoutFragment"
+        android:name="com.example.newsapplication.ui.fragments.LogoutFragment"
+        android:label="LogoutFragment" >
+        <action
+            android:id="@+id/action_logoutFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <activity
+        android:id="@+id/profileActivity"
+        android:name="com.example.newsapplication.ui.ProfileActivity"
+        android:label="ProfileActivity" />
 </navigation>

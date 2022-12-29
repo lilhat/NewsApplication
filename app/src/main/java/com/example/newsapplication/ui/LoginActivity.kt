@@ -1,6 +1,7 @@
 package com.example.newsapplication.ui
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
+    private val auth = FirebaseAuth.getInstance()
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,40 +35,47 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.passwordEntry)
         val loginBtn = findViewById<Button>(R.id.login_btn)
         val registerBtn = findViewById<Button>(R.id.register_btn)
-        val db = Firebase.firestore
-        val auth = FirebaseAuth.getInstance()
-        loginBtn.setOnClickListener {
-            val emailTxt = email.text.toString()
-            val passwordTxt = password.text.toString()
-            if (emailTxt.isEmpty() || passwordTxt.isEmpty()) {
-                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
-            } else {
-                val user = hashMapOf(
-                    "email" to emailTxt,
-                    "password" to passwordTxt
-                )
-                var isEmpty = false;
-                val col = db.collection("users").whereEqualTo("email", emailTxt)
-                    .limit(1).get()
-                    .addOnCompleteListener(OnCompleteListener<QuerySnapshot?> { task ->
-                        if (task.isSuccessful) {
-                            isEmpty = task.result.isEmpty
-                        }
-                    })
-                auth.signInWithEmailAndPassword(emailTxt, passwordTxt)
-                if (isEmpty) {
-                    // TODO - Check if password matches
-                    Toast.makeText(this, "User logged in", Toast.LENGTH_SHORT).show()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show()
-                }
-            }
-            registerBtn.setOnClickListener {
-                startActivity(Intent(this, RegisterActivity::class.java))
-            }
+        registerBtn.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+        loginBtn.setOnClickListener{
+            val emailTxt = email.text.toString().trim()
+            val passwordTxt = password.text.toString().trim()
+            loginUser(emailTxt, passwordTxt)
         }
     }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            Toast.makeText(baseContext, "Already logged in", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+    }
+
+
+    private fun loginUser(email: String, password: String) {
+        val email = email
+        val pass = password
+        auth.signInWithEmailAndPassword(email, pass)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+                    Toast.makeText(this, "User signed in", Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
+                    finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(this, "Email or password is invalid",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
