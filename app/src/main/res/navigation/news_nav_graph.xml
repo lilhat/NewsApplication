@@ -17,22 +17,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_recommendedFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
             android:id="@+id/action_recommendedFragment_to_registerActivity"
             app:destination="@id/registerActivity"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_recommendedFragment_to_logoutFragment"
-            app:destination="@id/logoutFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -44,6 +30,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_recommendedFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_recommendedFragment_to_logoutActivity"
+            app:destination="@id/logoutActivity" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -57,22 +49,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_favouriteFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
             android:id="@+id/action_favouriteFragment_to_registerActivity"
             app:destination="@id/registerActivity"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_favouriteFragment_to_logoutFragment"
-            app:destination="@id/logoutFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -84,6 +62,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_favouriteFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_logoutActivity"
+            app:destination="@id/logoutActivity" />
     </fragment>
     <fragment
         android:id="@+id/preferredFragment"
@@ -97,22 +81,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_preferredFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
             android:id="@+id/action_preferredFragment_to_registerActivity"
             app:destination="@id/registerActivity"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_preferredFragment_to_logoutFragment"
-            app:destination="@id/logoutFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -124,15 +94,17 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_preferredFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_preferredFragment_to_logoutActivity"
+            app:destination="@id/logoutActivity" />
     </fragment>
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.example.newsapplication.ui.fragments.ArticleFragment"
         android:label="ArticleFragment" />
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.newsapplication.ui.fragments.SettingsFragment"
-        android:label="SettingsFragment" />
     <activity
         android:id="@+id/loginActivity"
         android:name="com.example.newsapplication.ui.LoginActivity"
@@ -141,20 +113,16 @@
         android:id="@+id/registerActivity"
         android:name="com.example.newsapplication.ui.RegisterActivity"
         android:label="RegisterActivity" />
-    <fragment
-        android:id="@+id/logoutFragment"
-        android:name="com.example.newsapplication.ui.fragments.LogoutFragment"
-        android:label="LogoutFragment" >
-        <action
-            android:id="@+id/action_logoutFragment_to_favouriteFragment"
-            app:destination="@id/favouriteFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
     <activity
         android:id="@+id/profileActivity"
         android:name="com.example.newsapplication.ui.ProfileActivity"
         android:label="ProfileActivity" />
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.example.newsapplication.ui.SettingsActivity"
+        android:label="SettingsActivity" />
+    <activity
+        android:id="@+id/logoutActivity"
+        android:name="com.example.newsapplication.ui.LogoutActivity"
+        android:label="LogoutActivity" />
 </navigation>

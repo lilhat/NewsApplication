@@ -149,8 +149,20 @@
 
                 </TextView>
 
+                <Button
+                    android:id="@+id/full_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/full_text"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/dark_sky_blue">
+
+                </Button>
+
             </LinearLayout>
+
         </ScrollView>
+
 
 
 </LinearLayout>

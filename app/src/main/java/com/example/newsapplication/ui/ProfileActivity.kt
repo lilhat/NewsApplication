@@ -3,6 +3,7 @@ package com.example.newsapplication.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -25,6 +26,7 @@ class ProfileActivity: AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.register_btn)
         val submitButton = findViewById<Button>(R.id.submit_btn)
         val mToolbar = findViewById<Toolbar>(R.id.main_toolbar)
+        val orText = findViewById<TextView>(R.id.or_text)
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         profileName = findViewById(R.id.profile_name)
@@ -44,9 +46,14 @@ class ProfileActivity: AppCompatActivity() {
         if(currentUser != null){
             Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
             profileName.text = auth.currentUser?.email
+            loginButton.visibility = View.INVISIBLE
+            registerButton.visibility = View.INVISIBLE
+            orText.visibility = View.INVISIBLE
+
         }
 
     }
+
 
     override fun onResume() {
         super.onResume()

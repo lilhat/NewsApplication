@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,17 +35,23 @@ class RegisterActivity : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.emailEntry)
         val password = findViewById<EditText>(R.id.passwordEntry)
         val registerBtn = findViewById<Button>(R.id.register_btn)
+        val cancelBtn = findViewById<Button>(R.id.cancel_btn)
+        val termsCheckBox = findViewById<CheckBox>(R.id.terms_checkbox)
         registerBtn.setOnClickListener {
             val usernameTxt = username.text.toString().trim()
             val emailTxt = email.text.toString().trim()
             val passwordTxt = password.text.toString().trim()
-            signUpUser(usernameTxt, emailTxt, passwordTxt)
+            val termsChecked = termsCheckBox.isChecked
+            signUpUser(usernameTxt, emailTxt, passwordTxt, termsChecked)
+        }
+        cancelBtn.setOnClickListener{
+            finish()
         }
     }
 
 
 
-    private fun signUpUser(username: String, email: String, password: String) {
+    private fun signUpUser(username: String, email: String, password: String, checked: Boolean) {
         val username = username
         val email = email
         val pass = password
@@ -56,6 +63,10 @@ class RegisterActivity : AppCompatActivity() {
         }
         if (pass.length < 6) {
             Toast.makeText(this, "Password must be more than 6 characters", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!checked){
+            Toast.makeText(this, "You must agree to the terms of service", Toast.LENGTH_SHORT).show()
             return
         }
 

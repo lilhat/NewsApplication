@@ -1,7 +1,10 @@
 package com.example.newsapplication.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.R
 import com.squareup.picasso.Picasso
+
 
 class DetailsActivity : AppCompatActivity() {
     var headlines = object : Headlines(){}
@@ -26,6 +30,7 @@ class DetailsActivity : AppCompatActivity() {
         val time = findViewById<TextView>(R.id.detail_time)
         val text = findViewById<TextView>(R.id.detail_text)
         val img = findViewById<ImageView>(R.id.detail_img)
+        val fullButton = findViewById<Button>(R.id.full_button)
         val countryString: String?
         headlines = intent.getSerializableExtra("data") as Headlines
 
@@ -56,6 +61,9 @@ class DetailsActivity : AppCompatActivity() {
         }
 
         Picasso.get().load(headlines.image_url).into(img)
+        fullButton.setOnClickListener{
+            launchUrl(headlines.link)
+        }
 
 
     }
@@ -68,5 +76,11 @@ class DetailsActivity : AppCompatActivity() {
         }
         return true
     }
+
+    private fun launchUrl(url: String){
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
+    }
+
     private fun String.titleCaseFirstChar() = replaceFirstChar(Char::titlecase)
 }

@@ -47,6 +47,22 @@
                 android:value="com.example.newsapplication.ui.MainActivity" />
         </activity>
         <activity
+            android:name=".ui.SettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.newsapplication.ui.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.LogoutActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.newsapplication.ui.MainActivity" />
+        </activity>
+        <activity
             android:name=".ui.MainActivity"
             android:exported="true" >
             <intent-filter>

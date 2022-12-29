@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.passwordEntry)
         val loginBtn = findViewById<Button>(R.id.login_btn)
         val registerBtn = findViewById<Button>(R.id.register_btn)
+        val cancelBtn = findViewById<Button>(R.id.cancel_btn)
         registerBtn.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
@@ -42,6 +43,9 @@ class LoginActivity : AppCompatActivity() {
             val emailTxt = email.text.toString().trim()
             val passwordTxt = password.text.toString().trim()
             loginUser(emailTxt, passwordTxt)
+        }
+        cancelBtn.setOnClickListener{
+            finish()
         }
     }
 
