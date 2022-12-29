@@ -26,10 +26,10 @@ public class RequestManager {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void getNewsHeadlines(OnFetchDataListener<ApiResponse> listener, String category, String query)
+    public void getNewsHeadlines(OnFetchDataListener<ApiResponse> listener, String category, String query, Integer page)
     {
         CallNewsApi callNewsApi = retrofit.create(CallNewsApi.class);
-        Call<ApiResponse> call = callNewsApi.callHeadlines(context.getString(R.string.api_key) , "gb", category, "en", query);
+        Call<ApiResponse> call = callNewsApi.callHeadlines(context.getString(R.string.api_key) , "gb", category, "en", query, page);
 
         try {
             call.enqueue(new Callback<ApiResponse>() {
@@ -69,7 +69,8 @@ public class RequestManager {
                 @Query("country") String country,
                 @Query("category") String category,
                 @Query("language") String language,
-                @Query("q") String query
+                @Query("q") String query,
+                @Query("page") Integer page
 
         );
     }

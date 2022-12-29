@@ -1,5 +1,4 @@
 package com.example.newsapplication.ui.fragments
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.*
@@ -16,16 +15,18 @@ import com.example.newsapplication.Models.ApiResponse
 import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.ui.DetailsActivity
 
+
 class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, View.OnClickListener{
     private var progressBar : ProgressBar? = null
-
+    private lateinit var manager: RequestManager
+    private var i = 1
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val manager = RequestManager(activity)
-        manager.getNewsHeadlines(listener, null, null)
+        manager = RequestManager(activity)
+        manager.getNewsHeadlines(listener, null, null, null)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -81,6 +82,16 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
             recyclerView.layoutManager = GridLayoutManager(activity, 1)
             recyclerView.adapter = adapter
         }
+        recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    i += 1
+                    manager = RequestManager(activity)
+                    manager.getNewsHeadlines(listener, null, null, i)
+                }
+            }
+        })
     }
 
     override fun OnNewsClicked(headlines: Headlines?) {
@@ -96,7 +107,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
         val b = p0 as Button
         val buttonText = b.text.toString()
         val manager = RequestManager(activity)
-        manager.getNewsHeadlines(listener, buttonText, null)
+        manager.getNewsHeadlines(listener, buttonText, null, null)
     }
 
 

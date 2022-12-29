@@ -24,7 +24,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended), SelectListene
         savedInstanceState: Bundle?
     ): View? {
         val manager = RequestManager(activity)
-        manager.getNewsHeadlines(listener, null, null)
+        manager.getNewsHeadlines(listener, null, null, null)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
