@@ -1,12 +1,15 @@
 package com.example.newsapplication.ui.fragments
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +23,22 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
     private var progressBar : ProgressBar? = null
     private lateinit var manager: RequestManager
     private var i = 1
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var sharedPreferences: SharedPreferences
+    private val SHARED_PREF_NAME = "MyPref"
+    private val KEY_BUSBOX = "Bus_Box"
+    private val KEY_ENTBOX = "Ent_Box"
+    private val KEY_ENVBOX = "Env_Box"
+    private val KEY_FOOBOX = "Foo_Box"
+    private val KEY_HEABOX = "Hea_Box"
+    private val KEY_WORBOX = "Wor_Box"
+    private val KEY_TOPBOX = "Top_Box"
+    private val KEY_POLBOX = "Pol_Box"
+    private val KEY_SPOBOX = "Spo_Box"
+    private val KEY_SCIBOX = "Sci_Box"
+    private val KEY_TECBOX = "Tec_Box"
+
+
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,33 +51,75 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = context?.getSharedPreferences(SHARED_PREF_NAME,
+            AppCompatActivity.MODE_PRIVATE
+        )!!
+        editor = sharedPreferences.edit()
         buttonSetup(view)
 
     }
 
     fun buttonSetup(view: View){
-        val b1 = view?.findViewById<Button>(R.id.btn_1)
-        b1?.setOnClickListener(this)
-        val b2 = view?.findViewById<Button>(R.id.btn_2)
-        b2?.setOnClickListener(this)
-        val b3 = view?.findViewById<Button>(R.id.btn_3)
-        b3?.setOnClickListener(this)
-        val b4 = view?.findViewById<Button>(R.id.btn_4)
-        b4?.setOnClickListener(this)
-        val b5 = view?.findViewById<Button>(R.id.btn_5)
-        b5?.setOnClickListener(this)
-        val b6 = view?.findViewById<Button>(R.id.btn_6)
-        b6?.setOnClickListener(this)
-        val b7 = view?.findViewById<Button>(R.id.btn_7)
-        b7?.setOnClickListener(this)
-        val b8 = view?.findViewById<Button>(R.id.btn_8)
-        b8?.setOnClickListener(this)
-        val b9 = view?.findViewById<Button>(R.id.btn_9)
-        b9?.setOnClickListener(this)
-        val b10 = view?.findViewById<Button>(R.id.btn_10)
-        b10?.setOnClickListener(this)
-        val b11 = view?.findViewById<Button>(R.id.btn_11)
-        b11?.setOnClickListener(this)
+        val busButton = view?.findViewById<Button>(R.id.bus_btn)
+        if(!isChecked(KEY_BUSBOX)){
+            busButton?.visibility = View.GONE
+        }
+        busButton?.setOnClickListener(this)
+        val entButton = view?.findViewById<Button>(R.id.ent_btn)
+        if(!isChecked(KEY_ENTBOX)){
+            entButton?.visibility = View.GONE
+        }
+        entButton?.setOnClickListener(this)
+        val envButton = view?.findViewById<Button>(R.id.env_btn)
+        if(!isChecked(KEY_ENVBOX)){
+            envButton?.visibility = View.GONE
+        }
+        envButton?.setOnClickListener(this)
+        val fooButton = view?.findViewById<Button>(R.id.foo_btn)
+        if(!isChecked(KEY_FOOBOX)){
+            fooButton?.visibility = View.GONE
+        }
+        fooButton?.setOnClickListener(this)
+        val heaButton = view?.findViewById<Button>(R.id.hea_btn)
+        if(!isChecked(KEY_HEABOX)){
+            heaButton?.visibility = View.GONE
+        }
+        heaButton?.setOnClickListener(this)
+        val polButton = view?.findViewById<Button>(R.id.pol_btn)
+        if(!isChecked(KEY_POLBOX)){
+            polButton?.visibility = View.GONE
+        }
+        polButton?.setOnClickListener(this)
+        val sciButton = view?.findViewById<Button>(R.id.sci_btn)
+        if(!isChecked(KEY_SCIBOX)){
+            sciButton?.visibility = View.GONE
+        }
+        sciButton?.setOnClickListener(this)
+        val spoButton = view?.findViewById<Button>(R.id.spo_btn)
+        if(!isChecked(KEY_SPOBOX)){
+            spoButton?.visibility = View.GONE
+        }
+        spoButton?.setOnClickListener(this)
+        val tecButton = view?.findViewById<Button>(R.id.tec_btn)
+        if(!isChecked(KEY_TECBOX)){
+            tecButton?.visibility = View.GONE
+        }
+        tecButton?.setOnClickListener(this)
+        val topButton = view?.findViewById<Button>(R.id.top_btn)
+        if(!isChecked(KEY_TOPBOX)){
+            topButton?.visibility = View.GONE
+        }
+        topButton?.setOnClickListener(this)
+        val worButton = view?.findViewById<Button>(R.id.wor_btn)
+        if(!isChecked(KEY_WORBOX)){
+            worButton?.visibility = View.GONE
+        }
+        worButton?.setOnClickListener(this)
+    }
+
+    private fun isChecked(key: String): Boolean{
+        val isChecked = sharedPreferences.getBoolean(key, false)
+        return isChecked
     }
 
     private val listener = object : OnFetchDataListener<ApiResponse> {

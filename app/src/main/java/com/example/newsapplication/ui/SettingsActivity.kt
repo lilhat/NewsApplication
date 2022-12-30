@@ -4,14 +4,20 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.CompoundButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.newsapplication.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import org.checkerframework.checker.units.qual.K
+import org.w3c.dom.Text
 
 class SettingsActivity: AppCompatActivity() {
     private lateinit var busCheckBox: CheckBox
@@ -25,8 +31,11 @@ class SettingsActivity: AppCompatActivity() {
     private lateinit var spoCheckBox: CheckBox
     private lateinit var polCheckBox: CheckBox
     private lateinit var sciCheckBox: CheckBox
+    private lateinit var checkBoxes: List<CheckBox>
+    private lateinit var keyList: List<String>
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var auth: FirebaseAuth
     private val SHARED_PREF_NAME = "MyPref"
     private val KEY_BUSBOX = "Bus_Box"
     private val KEY_ENTBOX = "Ent_Box"
@@ -50,6 +59,7 @@ class SettingsActivity: AppCompatActivity() {
         val mToolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val loggedText = findViewById<TextView>(R.id.logged_text)
         busCheckBox = findViewById(R.id.check_bus)
         entCheckBox = findViewById(R.id.check_ent)
         envCheckBox = findViewById(R.id.check_env)
@@ -61,47 +71,50 @@ class SettingsActivity: AppCompatActivity() {
         spoCheckBox = findViewById(R.id.check_spo)
         polCheckBox = findViewById(R.id.check_pol)
         sciCheckBox = findViewById(R.id.check_sci)
+
+        checkBoxes = mutableListOf(busCheckBox,entCheckBox,envCheckBox,fooCheckBox,tecCheckBox,
+            worCheckBox,topCheckBox,heaCheckBox,spoCheckBox,polCheckBox,sciCheckBox)
+
+        keyList = mutableListOf(KEY_BUSBOX,KEY_ENTBOX,KEY_ENVBOX,KEY_FOOBOX,KEY_TECBOX,
+            KEY_WORBOX,KEY_TOPBOX,KEY_HEABOX,KEY_SPOBOX,KEY_POLBOX,KEY_SCIBOX)
+
         val submitButton = findViewById<Button>(R.id.submit_btn)
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,
             MODE_PRIVATE)
         editor = sharedPreferences.edit()
-
-        setupCheckBox(busCheckBox, KEY_BUSBOX)
-        setupCheckBox(entCheckBox, KEY_ENTBOX)
-        setupCheckBox(envCheckBox, KEY_ENVBOX)
-        setupCheckBox(fooCheckBox, KEY_FOOBOX)
-        setupCheckBox(heaCheckBox, KEY_HEABOX)
-        setupCheckBox(spoCheckBox, KEY_SPOBOX)
-        setupCheckBox(polCheckBox, KEY_POLBOX)
-        setupCheckBox(tecCheckBox, KEY_TECBOX)
-        setupCheckBox(sciCheckBox, KEY_SCIBOX)
-        setupCheckBox(worCheckBox, KEY_WORBOX)
-        setupCheckBox(topCheckBox, KEY_TOPBOX)
-
-        // TODO - Send to firestore database
-
-        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,
-        MODE_PRIVATE)
-
-        tickCheckBox(busCheckBox, KEY_BUSBOX)
-        tickCheckBox(entCheckBox, KEY_ENTBOX)
-        tickCheckBox(envCheckBox, KEY_ENVBOX)
-        tickCheckBox(fooCheckBox, KEY_FOOBOX)
-        tickCheckBox(heaCheckBox, KEY_HEABOX)
-        tickCheckBox(spoCheckBox, KEY_SPOBOX)
-        tickCheckBox(polCheckBox, KEY_POLBOX)
-        tickCheckBox(tecCheckBox, KEY_TECBOX)
-        tickCheckBox(sciCheckBox, KEY_SCIBOX)
-        tickCheckBox(worCheckBox, KEY_WORBOX)
-        tickCheckBox(topCheckBox, KEY_TOPBOX)
-
-
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        if(currentUser == null) {
+            hideCheckBoxes()
+            loggedText.visibility = View.VISIBLE
+        }
+        else{
+            setupCheckBoxes()
+            loggedText.visibility = View.INVISIBLE
+        }
 
         submitButton?.setOnClickListener{
             getCategories()
             finish()
         }
 
+    }
+
+    private fun setupCheckBoxes(){
+        var i = 0
+        for(checkBox in checkBoxes){
+            val key = keyList[i]
+            setupCheckBox(checkBox, key)
+            i += 1
+        }
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,
+            MODE_PRIVATE)
+        i = 0
+        for(checkBox in checkBoxes){
+            val key = keyList[i]
+            tickCheckBox(checkBox, key)
+            i += 1
+        }
     }
 
     private fun setupCheckBox(checkBox: CheckBox, key: String){
@@ -115,6 +128,18 @@ class SettingsActivity: AppCompatActivity() {
     private fun tickCheckBox(checkBox: CheckBox, key: String){
         val isChecked = sharedPreferences.getBoolean(key, false)
         checkBox.isChecked = isChecked
+    }
+
+    private fun hideCheckBoxes(){
+        for(checkBox in checkBoxes){
+            hideCheckBox(checkBox)
+        }
+    }
+
+    private fun hideCheckBox(checkBox: CheckBox){
+        checkBox.alpha = 0.5F
+        checkBox.isClickable = false
+
     }
 
     private fun addCategory(checkBox: CheckBox){
@@ -134,19 +159,10 @@ class SettingsActivity: AppCompatActivity() {
 
 
     fun getCategories(){
-        addCategory(busCheckBox)
-        addCategory(entCheckBox)
-        addCategory(envCheckBox)
-        addCategory(fooCheckBox)
-        addCategory(tecCheckBox)
-        addCategory(worCheckBox)
-        addCategory(topCheckBox)
-        addCategory(heaCheckBox)
-        addCategory(spoCheckBox)
-        addCategory(polCheckBox)
-        addCategory(sciCheckBox)
+        for(checkBox in checkBoxes){
+            addCategory(checkBox)
+        }
         Toast.makeText(this, "Preferred categories: $categoryList", Toast.LENGTH_LONG).show()
-
     }
 
 }

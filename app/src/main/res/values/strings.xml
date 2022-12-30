@@ -44,6 +44,7 @@
     <string name="logout_sucess">Logged out successfully</string>
     <string name="already_logout">Already logged out</string>
     <string name="full_text">See full content on website</string>
+    <string name="logged_text">Must be logged in to set preferences</string>
     <string name="return_home">Return Home</string>
     <string name="or_text">OR</string>
     <string name="done_text">Done</string>

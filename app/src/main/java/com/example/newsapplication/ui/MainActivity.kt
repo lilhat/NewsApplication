@@ -97,7 +97,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item);
     }
 
-
+    override fun onResume() {
+        super.onResume()
+    }
 
 
     override fun onSupportNavigateUp(): Boolean {

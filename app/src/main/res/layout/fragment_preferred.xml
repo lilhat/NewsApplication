@@ -24,7 +24,7 @@ tools:layout_editor_absoluteY="-78dp">
         tools:layout_editor_absoluteY="32dp">
 
         <Button
-            android:id="@+id/btn_1"
+            android:id="@+id/bus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -35,7 +35,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_2"
+            android:id="@+id/ent_btn"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_margin="6dp"
@@ -46,7 +46,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_3"
+            android:id="@+id/env_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -57,7 +57,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_4"
+            android:id="@+id/foo_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -68,7 +68,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_5"
+            android:id="@+id/hea_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -79,7 +79,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_6"
+            android:id="@+id/pol_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -90,7 +90,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_7"
+            android:id="@+id/sci_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -101,7 +101,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_8"
+            android:id="@+id/spo_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -112,7 +112,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_9"
+            android:id="@+id/tec_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -123,7 +123,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_10"
+            android:id="@+id/top_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
@@ -134,7 +134,7 @@ tools:layout_editor_absoluteY="-78dp">
             tools:layout_editor_absoluteY="38dp"></Button>
 
         <Button
-            android:id="@+id/btn_11"
+            android:id="@+id/wor_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
