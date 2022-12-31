@@ -10,27 +10,33 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapplication.*
 import com.example.newsapplication.Models.ApiResponse
 import com.example.newsapplication.Models.Headlines
+import com.example.newsapplication.R
 import com.example.newsapplication.ui.activities.DetailsActivity
+import com.example.newsapplication.ui.activities.MainActivity
 import com.example.newsapplication.ui.adapters.CustomAdapter
 import com.example.newsapplication.ui.adapters.OnFetchDataListener
 import com.example.newsapplication.ui.adapters.RequestManager
 import com.example.newsapplication.ui.adapters.SelectListener
 
-class RecommendedFragment:Fragment(R.layout.fragment_recommended),
+class SearchFragment:Fragment(R.layout.fragment_search),
     SelectListener {
 
     private var progressBar : ProgressBar? = null
+
+
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        container?.removeAllViews()
+        val bundle = this.arguments
+        val query = bundle!!.getString("message")
         val manager =
             RequestManager(activity)
-        manager.getNewsHeadlines(listener, null, null, null)
+        manager.getNewsHeadlines(listener, null, query, null)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

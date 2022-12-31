@@ -9,13 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.R
-import com.example.newsapplication.RequestManager
-import com.squareup.picasso.Picasso
 
 class ArticleFragment:Fragment(R.layout.fragment_article) {
     public override fun onCreateView(

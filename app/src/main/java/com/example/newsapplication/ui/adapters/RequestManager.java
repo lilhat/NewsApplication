@@ -1,4 +1,4 @@
-package com.example.newsapplication;
+package com.example.newsapplication.ui.adapters;
 
 import static android.content.ContentValues.TAG;
 
@@ -7,8 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.newsapplication.Models.ApiResponse;
-
-import java.io.IOException;
+import com.example.newsapplication.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;

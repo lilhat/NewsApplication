@@ -1,8 +1,7 @@
-package com.example.newsapplication.ui
+package com.example.newsapplication.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -13,7 +12,6 @@ import com.example.newsapplication.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import org.w3c.dom.Text
 
 class ProfileActivity: AppCompatActivity() {
     private val db = Firebase.firestore

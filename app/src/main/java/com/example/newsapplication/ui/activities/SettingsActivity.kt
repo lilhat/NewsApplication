@@ -1,4 +1,4 @@
-package com.example.newsapplication.ui
+package com.example.newsapplication.ui.activities
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -14,10 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.newsapplication.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import org.checkerframework.checker.units.qual.K
-import org.w3c.dom.Text
 
 class SettingsActivity: AppCompatActivity() {
     private lateinit var busCheckBox: CheckBox

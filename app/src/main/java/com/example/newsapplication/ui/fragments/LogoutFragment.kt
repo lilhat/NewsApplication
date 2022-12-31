@@ -10,8 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.newsapplication.R
-import com.example.newsapplication.ui.LoginActivity
-import com.example.newsapplication.ui.MainActivity
+import com.example.newsapplication.ui.activities.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 

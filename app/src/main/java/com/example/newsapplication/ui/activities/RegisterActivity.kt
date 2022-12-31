@@ -1,4 +1,4 @@
-package com.example.newsapplication.ui
+package com.example.newsapplication.ui.activities
 
 import android.content.ContentValues.TAG
 import android.os.Bundle

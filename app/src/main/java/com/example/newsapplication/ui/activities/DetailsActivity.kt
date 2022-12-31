@@ -1,21 +1,17 @@
-package com.example.newsapplication.ui
+package com.example.newsapplication.ui.activities
 
-import android.content.ClipData.Item
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.newsapplication.FavouritesDataHelper
+import com.example.newsapplication.ui.adapters.FavouritesDataHelper
 import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.R
 import com.squareup.picasso.Picasso
@@ -119,7 +115,10 @@ class DetailsActivity : AppCompatActivity() {
             }
             else{
                 item.icon = getDrawable(R.drawable.ic_baseline_favorite_24)
-                favouritesDataHelper = FavouritesDataHelper(this)
+                favouritesDataHelper =
+                    FavouritesDataHelper(
+                        this
+                    )
                 val res = favouritesDataHelper.insertFavouriteData(titleText, sourceText, countryText, categoryText, timeText, textText, imgText)
                 if(res){
                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()

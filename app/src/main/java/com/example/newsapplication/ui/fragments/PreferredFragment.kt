@@ -6,20 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.*
 import com.example.newsapplication.Models.ApiResponse
 import com.example.newsapplication.Models.Headlines
-import com.example.newsapplication.ui.DetailsActivity
+import com.example.newsapplication.ui.activities.DetailsActivity
+import com.example.newsapplication.ui.adapters.CustomAdapter
+import com.example.newsapplication.ui.adapters.OnFetchDataListener
+import com.example.newsapplication.ui.adapters.RequestManager
+import com.example.newsapplication.ui.adapters.SelectListener
 
 
-class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, View.OnClickListener{
+class PreferredFragment:Fragment(R.layout.fragment_preferred),
+    SelectListener, View.OnClickListener{
     private var progressBar : ProgressBar? = null
     private lateinit var manager: RequestManager
     private var i = 1
@@ -38,13 +42,13 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
     private val KEY_SCIBOX = "Sci_Box"
     private val KEY_TECBOX = "Tec_Box"
 
-
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        manager = RequestManager(activity)
+        manager =
+            RequestManager(activity)
         manager.getNewsHeadlines(listener, null, null, null)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -122,7 +126,8 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
         return isChecked
     }
 
-    private val listener = object : OnFetchDataListener<ApiResponse> {
+    private val listener = object :
+        OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
             showNews(list)
             progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
@@ -137,22 +142,29 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
 
     private fun showNews(list: MutableList<Headlines>?){
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
-        val adapter = CustomAdapter(activity, list, this)
+        val adapter = CustomAdapter(
+            activity,
+            list,
+            this
+        )
         if (recyclerView != null) {
-            recyclerView.setHasFixedSize(true)
-            recyclerView.layoutManager = GridLayoutManager(activity, 1)
-            recyclerView.adapter = adapter
+            recyclerView!!.setHasFixedSize(true)
+            recyclerView!!.layoutManager = GridLayoutManager(activity, 1)
+            recyclerView!!.adapter = adapter
         }
-        recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1)) {
-                    i += 1
-                    manager = RequestManager(activity)
-                    manager.getNewsHeadlines(listener, null, null, i)
-                }
-            }
-        })
+//        recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//                super.onScrollStateChanged(recyclerView, newState)
+//                if (!recyclerView.canScrollVertically(1)) {
+//                    i += 1
+//                    manager =
+//                        RequestManager(
+//                            activity
+//                        )
+//                    manager.getNewsHeadlines(listener, null, null, i)
+//                }
+//            }
+//        })
     }
 
     override fun OnNewsClicked(headlines: Headlines?) {
@@ -167,9 +179,34 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred), SelectListener, V
         progressBar?.visibility = View.VISIBLE
         val b = p0 as Button
         val buttonText = b.text.toString()
-        val manager = RequestManager(activity)
+        val manager =
+            RequestManager(activity)
         manager.getNewsHeadlines(listener, buttonText, null, null)
     }
+
+//    private fun initScrollListener() {
+//        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//                super.onScrollStateChanged(recyclerView, newState)
+//            }
+//
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                val gridLayoutManager = recyclerView.layoutManager as GridLayoutManager?
+//
+//                if (true) {
+//                    if (gridLayoutManager != null && gridLayoutManager.findLastCompletelyVisibleItemPosition() == head.size() - 1) {
+//                        //bottom of list!
+//                        loadMore()
+//                        isLoading = true
+//                    }
+//                }
+//            }
+//
+//
+//        })
+//
+//    }
 
 
 }

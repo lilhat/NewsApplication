@@ -1,4 +1,4 @@
-package com.example.newsapplication;
+package com.example.newsapplication.ui.adapters;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.newsapplication.R;
 
 public class CustomViewHolder extends RecyclerView.ViewHolder{
     TextView news_title, news_source, news_text, news_creator;

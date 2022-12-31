@@ -107,22 +107,22 @@
         android:label="ArticleFragment" />
     <activity
         android:id="@+id/loginActivity"
-        android:name="com.example.newsapplication.ui.LoginActivity"
+        android:name="com.example.newsapplication.ui.activities.LoginActivity"
         android:label="LoginActivity" />
     <activity
         android:id="@+id/registerActivity"
-        android:name="com.example.newsapplication.ui.RegisterActivity"
+        android:name="com.example.newsapplication.ui.activities.RegisterActivity"
         android:label="RegisterActivity" />
     <activity
         android:id="@+id/profileActivity"
-        android:name="com.example.newsapplication.ui.ProfileActivity"
+        android:name="com.example.newsapplication.ui.activities.ProfileActivity"
         android:label="ProfileActivity" />
     <activity
         android:id="@+id/settingsActivity"
-        android:name="com.example.newsapplication.ui.SettingsActivity"
+        android:name="com.example.newsapplication.ui.activities.SettingsActivity"
         android:label="SettingsActivity" />
     <activity
         android:id="@+id/logoutActivity"
-        android:name="com.example.newsapplication.ui.LogoutActivity"
+        android:name="com.example.newsapplication.ui.activities.LogoutActivity"
         android:label="LogoutActivity" />
 </navigation>

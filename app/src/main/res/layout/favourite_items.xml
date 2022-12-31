@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="8dp"
+    android:layout_margin="14dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="407dp"
+        android:layout_margin="6dp"
+        android:weightSum="3">
+
+
+        <TextView
+            android:id="@+id/news_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:maxLines="3"
+            android:scrollbarSize="22sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/news_source"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:maxLines="1"
+            android:scrollbarSize="18sp"
+            android:textColor="@color/dark_sky_blue"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/news_title"
+            app:layout_constraintStart_toStartOf="@+id/news_title"
+            app:layout_constraintTop_toBottomOf="@+id/news_title">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/news_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:maxLines="1"
+            android:scrollbarSize="18sp"
+            android:textColor="@color/dark_sky_blue"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/news_title"
+            app:layout_constraintStart_toStartOf="@+id/news_title"
+            app:layout_constraintTop_toBottomOf="@+id/news_title">
+
+        </TextView>
+
+
+        <ImageView
+            android:id="@+id/news_img"
+            android:layout_width="348dp"
+            android:layout_height="206dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/img_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/not_available"
+            app:layout_constraintBottom_toTopOf="@+id/news_creator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.592"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/news_source"
+            tools:ignore="ImageContrastCheck"></ImageView>
+
+        <TextView
+            android:id="@+id/news_creator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:maxLines="1"
+            android:scrollbarSize="18sp"
+            android:textColor="@color/dark_sky_blue"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/news_text"
+            app:layout_constraintEnd_toEndOf="@+id/news_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/news_title">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/news_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:maxLines="4"
+            android:scrollbarSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/news_title"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/news_title">
+
+        </TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

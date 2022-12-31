@@ -1,8 +1,7 @@
-package com.example.newsapplication.ui
+package com.example.newsapplication.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast

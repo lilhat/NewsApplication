@@ -1,21 +1,16 @@
-package com.example.newsapplication.ui
+package com.example.newsapplication.ui.activities
 
-import android.content.ContentValues
-import android.content.Intent
+
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,22 +18,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapplication.R
-import com.example.newsapplication.ui.fragments.FavouriteFragment
-import com.example.newsapplication.ui.fragments.PreferredFragment
-import com.example.newsapplication.ui.fragments.RecommendedFragment
-import com.google.android.gms.tasks.OnCompleteListener
+import com.example.newsapplication.ui.fragments.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.tasks.await
-
-
-
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -49,6 +36,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
+    private lateinit var entry: CharSequence
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +75,42 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate((R.menu.toolbar_layout), menu)
+        val search = menu?.findItem(R.id.search)
+        val searchView = menu?.findItem(R.id.search)?.actionView as SearchView
+        search?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                // TODO: do something...
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                // TODO: do something...
+                return true
+            }
+        })
+        searchView.queryHint = "Search keywords..."
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val searchFragment = SearchFragment()
+                val manager = supportFragmentManager
+                val transaction = manager.beginTransaction()
+                entry = searchView.query
+                val query = entry.toString()
+                val bundle = Bundle()
+                bundle.putString("message", query)
+                searchFragment.arguments = bundle
+
+                transaction.replace(R.id.flFragment, searchFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+        })
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -95,10 +119,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
 
@@ -110,6 +130,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         //displaySelectedScreen(item)
         return true
+    }
+
+    fun getQuery(): CharSequence {
+        return entry
     }
 
     private fun getUsername(){
