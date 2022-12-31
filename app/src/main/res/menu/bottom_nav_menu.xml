@@ -3,13 +3,13 @@
     <item
         android:id="@+id/preferredFragment"
         android:title="@string/item_preferred"
-        android:icon="@drawable/ic_preferred_foreground"/>
+        android:icon="@drawable/ic_baseline_star_48"/>
     <item
         android:id="@+id/recommendedFragment"
         android:title="@string/item_recommend"
-        android:icon="@drawable/ic_recommend_foreground"/>
+        android:icon="@drawable/ic_baseline_check_48"/>
     <item
         android:id="@+id/favouriteFragment"
         android:title="@string/item_favourite"
-        android:icon="@drawable/ic_favourite_foreground"/>
+        android:icon="@drawable/ic_baseline_favorite_48"/>
 </menu>

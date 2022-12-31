@@ -66,10 +66,8 @@ class SearchFragment:Fragment(R.layout.fragment_search),
             recyclerView.layoutManager = GridLayoutManager(activity, 1)
             recyclerView.adapter = adapter
         }
-        recyclerView!!.post { adapter.notifyDataSetChanged() }
-        if (!recyclerView.isComputingLayout && recyclerView.scrollState == SCROLL_STATE_IDLE) {
-            recyclerView.adapter?.notifyDataSetChanged()
-        }
+        recyclerView?.adapter?.notifyDataSetChanged()
+        // TODO - Return back to settings fragment from details activity
     }
 
 
