@@ -1,7 +1,6 @@
 package com.example.newsapplication.ui.fragments
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +14,7 @@ import com.example.newsapplication.Models.ApiResponse
 import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.R
 import com.example.newsapplication.ui.activities.DetailsActivity
-import com.example.newsapplication.ui.adapters.CustomAdapter
-import com.example.newsapplication.ui.adapters.OnFetchDataListener
-import com.example.newsapplication.ui.adapters.OnLoadMoreListener
-import com.example.newsapplication.ui.adapters.RequestManager
-import com.example.newsapplication.ui.adapters.SelectListener
+import com.example.newsapplication.ui.adapters.*
 
 class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     SelectListener {
@@ -39,7 +34,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        manager = RequestManager(activity)
+        manager = activity?.let { RequestManager(it) }!!
         manager.getNewsHeadlines(listener, listener2, null, null)
     }
 
@@ -73,11 +68,13 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     private fun showNews(list: MutableList<Headlines>?){
         recyclerView = view?.findViewById(R.id.recycler_main)!!
-        adapter = CustomAdapter(
-            activity,
-            list,
-            this
-        )
+        adapter = activity?.let {
+            CustomAdapter(
+                it,
+                list!!,
+                this
+            )
+        }!!
         if (recyclerView != null) {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = GridLayoutManager(activity, 1)

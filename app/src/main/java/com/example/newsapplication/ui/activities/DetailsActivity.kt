@@ -62,7 +62,7 @@ class DetailsActivity : AppCompatActivity() {
         }
         title.text = titleText
         if(headlines.creator != null){
-            authorText = headlines.creator[0].toString()
+            authorText = headlines.creator!![0].toString()
             author.text = authorText
         }
         else{
@@ -70,8 +70,8 @@ class DetailsActivity : AppCompatActivity() {
             authorText = getString(R.string.unknown_author)
         }
 
-        categoryText = headlines.category[0].toString().titleCaseFirstChar()
-        val countryList = headlines.country[0].toString().split("\\s".toRegex()).toTypedArray()
+        categoryText = headlines.category?.get(0).toString().titleCaseFirstChar()
+        val countryList = headlines.country?.get(0).toString().split("\\s".toRegex()).toTypedArray()
         countryText = if(countryList.size > 1){
             countryList[0].titleCaseFirstChar() + " " + countryList[1].titleCaseFirstChar()
 
@@ -86,7 +86,7 @@ class DetailsActivity : AppCompatActivity() {
         } else{
             headlines.content
         }
-        sourceText = headlines.source_id
+        sourceText = headlines.source_id.toString()
         text.text = textText
         Picasso.get().load(imgText).into(img)
         fullButton.setOnClickListener{

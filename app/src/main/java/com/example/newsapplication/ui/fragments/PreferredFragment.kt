@@ -53,7 +53,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
-        manager = RequestManager(activity)
+        manager = activity?.let { RequestManager(it) }!!
         manager.getNewsHeadlines(listener, listener2, null, null)
         sharedPreferences = context?.getSharedPreferences(SHARED_PREF_NAME,
             AppCompatActivity.MODE_PRIVATE)!!
@@ -156,11 +156,13 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
 
     private fun showNews(list: MutableList<Headlines>?){
         recyclerView = view?.findViewById(R.id.recycler_main)!!
-        adapter = CustomAdapter(
-            activity,
-            list,
-            this
-        )
+        adapter = activity?.let {
+            CustomAdapter(
+                it,
+                list!!,
+                this
+            )
+        }!!
         if (recyclerView != null) {
             recyclerView!!.setHasFixedSize(true)
             recyclerView!!.layoutManager = GridLayoutManager(activity, 1)
@@ -185,9 +187,8 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         progressBar?.visibility = View.VISIBLE
         val b = p0 as Button
         val buttonText = b.text.toString()
-        val manager =
-            RequestManager(activity)
-       manager.getNewsHeadlines(listener, listener2, buttonText, null)
+        activity?.let { RequestManager(it) }
+            ?.getNewsHeadlines(listener, listener2, buttonText, null)
     }
 
     private val scrollListener = object : RecyclerView.OnScrollListener(){

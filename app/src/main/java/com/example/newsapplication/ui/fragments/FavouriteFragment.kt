@@ -39,10 +39,12 @@ class FavouriteFragment:Fragment(R.layout.fragment_favourite){
             FavouritesDataHelper(activity)
         val cursor = favouritesDataHelper.favouriteData
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
-        val adapter = FavouritesAdapter(
-            activity,
-            cursor
-        )
+        val adapter = activity?.let {
+            FavouritesAdapter(
+                it,
+                cursor
+            )
+        }
         if (recyclerView != null) {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = GridLayoutManager(activity, 1)

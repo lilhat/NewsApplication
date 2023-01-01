@@ -36,7 +36,7 @@ class SearchFragment:Fragment(R.layout.fragment_search),
         val bundle = this.arguments
         query = bundle?.getString("message").toString()
         manager =
-            RequestManager(activity)
+            activity?.let { RequestManager(it) }!!
         manager.getNewsHeadlines(listener, listener2, null, query)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -75,11 +75,13 @@ class SearchFragment:Fragment(R.layout.fragment_search),
     }
 
     private fun showNews(list: MutableList<Headlines>?){
-        adapter = CustomAdapter(
-            activity,
-            list,
-            this
-        )
+        adapter = activity?.let {
+            CustomAdapter(
+                it,
+                list!!,
+                this
+            )
+        }!!
         if (recyclerView != null) {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = GridLayoutManager(activity, 1)
