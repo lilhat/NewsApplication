@@ -14,6 +14,7 @@ import com.example.newsapplication.Models.ApiResponse
 import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.R
 import com.example.newsapplication.ui.activities.DetailsActivity
+import com.example.newsapplication.ui.activities.FavouriteDetailsActivity
 import com.example.newsapplication.ui.adapters.*
 
 class RecommendedFragment:Fragment(R.layout.fragment_recommended),
@@ -23,6 +24,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     private var progressBar : ProgressBar? = null
     private lateinit var recyclerView: RecyclerView
     private var isScrolling = false
+    private lateinit var favouritesDataHelper: FavouritesDataHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -113,9 +115,18 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
 
     override fun OnNewsClicked(headlines: Headlines?) {
-        val myIntent = Intent(context, DetailsActivity::class.java)
-        myIntent.putExtra("data", headlines)
-        context?.startActivity(myIntent)
+        favouritesDataHelper = FavouritesDataHelper(activity)
+        if(favouritesDataHelper.checkData(headlines?.title)){
+            val myIntent = Intent(context, FavouriteDetailsActivity::class.java)
+            myIntent.putExtra("data", headlines)
+            context?.startActivity(myIntent)
+        }
+        else{
+            val myIntent = Intent(context, DetailsActivity::class.java)
+            myIntent.putExtra("data", headlines)
+            context?.startActivity(myIntent)
+        }
+
     }
 
 

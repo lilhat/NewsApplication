@@ -23,6 +23,14 @@
                 android:value="com.example.newsapplication.ui.activities.MainActivity" />
         </activity>
         <activity
+            android:name=".ui.activities.FavouriteDetailsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.newsapplication.ui.activities.MainActivity" />
+        </activity>
+        <activity
             android:name=".ui.activities.LoginActivity"
             android:exported="false"
             android:parentActivityName=".ui.activities.MainActivity" >

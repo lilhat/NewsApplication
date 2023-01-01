@@ -54,7 +54,7 @@ class CustomAdapter(
             .into((holder as CustomViewHolder).news_img)
         holder.news_title.text = headlines[position].title
         holder.news_source.text = headlines[position].source_id
-        if (headlines[position].description != null && !headlines[position].description.isEmpty()) {
+        if (headlines[position].description != null && headlines[position].description.isNotEmpty()) {
             holder.news_text.text = headlines[position].description
         } else {
             holder.news_text.text = headlines[position].content

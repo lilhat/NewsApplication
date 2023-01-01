@@ -34,7 +34,7 @@ class RequestManager(var context: Context) {
             CallNewsApi::class.java
         )
         val call = callNewsApi.callHeadlines(
-            context.getString(R.string.api_key3),
+            context.getString(R.string.api_key4),
             "gb",
             category,
             "en",

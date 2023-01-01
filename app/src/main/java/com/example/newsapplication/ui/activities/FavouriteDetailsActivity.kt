@@ -17,7 +17,7 @@ import com.example.newsapplication.R
 import com.squareup.picasso.Picasso
 
 
-class DetailsActivity : AppCompatActivity() {
+class FavouriteDetailsActivity : AppCompatActivity() {
     var headlines = object : Headlines(){}
     private lateinit var titleText: String
     private lateinit var authorText: String
@@ -101,7 +101,7 @@ class DetailsActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.details_toolbar_layout, menu)
+        menuInflater.inflate(R.menu.favourites_toolbar_layout, menu)
         return true
     }
 
@@ -114,19 +114,14 @@ class DetailsActivity : AppCompatActivity() {
         }
         else if(item.itemId == R.id.like){
             if(favouritesDataHelper.checkData(titleText)){
-                Toast.makeText(this, "Already saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Removed from favourites", Toast.LENGTH_SHORT).show()
+                item.icon = getDrawable(R.drawable.ic_baseline_favorite_border_24)
+                favouritesDataHelper.removeData(titleText)
+
             }
             else{
                 item.icon = getDrawable(R.drawable.ic_baseline_favorite_24)
-
-                val res = favouritesDataHelper.insertFavouriteData(titleText, sourceText, authorText,
-                    countryText, categoryText, timeText, textText, linkText, imgText)
-                if(res){
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-                }
+                Toast.makeText(this, "Not saved", Toast.LENGTH_SHORT).show()
             }
 
         }
