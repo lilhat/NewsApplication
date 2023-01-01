@@ -2,7 +2,6 @@ package com.example.newsapplication.ui.fragments
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.*
 import com.example.newsapplication.Models.ApiResponse
@@ -43,24 +41,22 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
     private val KEY_TECBOX = "Tec_Box"
     private lateinit var adapter: CustomAdapter
     private lateinit var recyclerView: RecyclerView
-
+    private var isScrolling = false
 
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        manager =
-            RequestManager(activity)
-        manager.getNewsHeadlines(listener, listener2, null, null)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
+        manager = RequestManager(activity)
+        manager.getNewsHeadlines(listener, listener2, null, null)
         sharedPreferences = context?.getSharedPreferences(SHARED_PREF_NAME,
-            AppCompatActivity.MODE_PRIVATE
-        )!!
+            AppCompatActivity.MODE_PRIVATE)!!
         editor = sharedPreferences.edit()
         buttonSetup(view)
 
@@ -68,7 +64,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
 
 
 
-    fun buttonSetup(view: View){
+    private fun buttonSetup(view: View){
         val busButton = view?.findViewById<Button>(R.id.bus_btn)
         if(!isChecked(KEY_BUSBOX)){
             busButton?.visibility = View.GONE
@@ -126,21 +122,20 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         worButton?.setOnClickListener(this)
     }
 
-    private fun isChecked(key: String): Boolean{
-        val isChecked = sharedPreferences.getBoolean(key, false)
-        return isChecked
+    private fun isChecked(key: String): Boolean {
+        return sharedPreferences.getBoolean(key, false)
     }
 
     private val listener = object :
         OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
             showNews(list)
-            progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
+            progressBar = view?.findViewById(R.id.idPBLoading)
             progressBar?.visibility = View.INVISIBLE
         }
 
         override fun onError(message: String?) {
-            TODO("Not yet implemented")
+            Toast.makeText(activity, "Error cannot load", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -149,7 +144,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         OnLoadMoreListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
             addNews(list)
-            progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
+            progressBar = view?.findViewById(R.id.idPBLoading)
             progressBar?.visibility = View.INVISIBLE
         }
 
@@ -160,7 +155,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
     }
 
     private fun showNews(list: MutableList<Headlines>?){
-        recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)!!
+        recyclerView = view?.findViewById(R.id.recycler_main)!!
         adapter = CustomAdapter(
             activity,
             list,
@@ -186,7 +181,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
     }
 
     override fun onClick(p0: View?) {
-        progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
+        progressBar = view?.findViewById(R.id.idPBLoading)
         progressBar?.visibility = View.VISIBLE
         val b = p0 as Button
         val buttonText = b.text.toString()
@@ -195,9 +190,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
        manager.getNewsHeadlines(listener, listener2, buttonText, null)
     }
 
-    var isScrolling = false
-
-    val scrollListener = object : RecyclerView.OnScrollListener(){
+    private val scrollListener = object : RecyclerView.OnScrollListener(){
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){

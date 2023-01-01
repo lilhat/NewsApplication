@@ -100,7 +100,7 @@ class SearchFragment:Fragment(R.layout.fragment_search),
 
     var isScrolling = false
 
-    val scrollListener = object : RecyclerView.OnScrollListener(){
+    private val scrollListener = object : RecyclerView.OnScrollListener(){
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
@@ -112,7 +112,7 @@ class SearchFragment:Fragment(R.layout.fragment_search),
             super.onScrolled(recyclerView, dx, dy)
 
             if (!recyclerView.canScrollVertically(1)) {
-
+                progressBar?.visibility = View.VISIBLE
                 manager.getNewsHeadlines(listener, listener2, null, query)
                 isScrolling = false
 

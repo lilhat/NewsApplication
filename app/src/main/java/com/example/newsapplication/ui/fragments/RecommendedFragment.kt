@@ -27,22 +27,19 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     private lateinit var adapter: CustomAdapter
     private var progressBar : ProgressBar? = null
     private lateinit var recyclerView: RecyclerView
+    private var isScrolling = false
 
-    public override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)!!
-
-        manager =
-            RequestManager(activity)
+        manager = RequestManager(activity)
         manager.getNewsHeadlines(listener, listener2, null, null)
     }
 
@@ -50,7 +47,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
         OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
             showNews(list)
-            progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
+            progressBar = view?.findViewById(R.id.idPBLoading)
             progressBar?.visibility = View.INVISIBLE
         }
 
@@ -64,7 +61,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
         OnLoadMoreListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
             addNews(list)
-            progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
+            progressBar = view?.findViewById(R.id.idPBLoading)
             progressBar?.visibility = View.INVISIBLE
         }
 
@@ -75,7 +72,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     }
 
     private fun showNews(list: MutableList<Headlines>?){
-        recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)!!
+        recyclerView = view?.findViewById(R.id.recycler_main)!!
         adapter = CustomAdapter(
             activity,
             list,
@@ -95,9 +92,8 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     }
 
 
-    var isScrolling = false
 
-    val scrollListener = object : RecyclerView.OnScrollListener(){
+    private val scrollListener = object : RecyclerView.OnScrollListener(){
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
@@ -109,7 +105,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
             super.onScrolled(recyclerView, dx, dy)
 
             if (!recyclerView.canScrollVertically(1)) {
-
+                progressBar?.visibility = View.VISIBLE
                 manager.getNewsHeadlines(listener, listener2, null, null)
                 isScrolling = false
 

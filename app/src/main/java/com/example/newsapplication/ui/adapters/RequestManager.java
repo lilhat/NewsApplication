@@ -53,7 +53,6 @@ public class RequestManager {
                            listener.onFetchData(apiResponse.body().getResults(), apiResponse.message());
                        }
                        else{
-                            oldHeadlines = apiResponse.body().getResults();
                             newHeadlines = response.body().getResults();
                            Log.d(TAG,"response.raw().request().url();"+response.raw().request().url());
                            listener2.onFetchData(newHeadlines, response.message());

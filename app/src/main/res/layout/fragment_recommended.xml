@@ -15,7 +15,6 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/recycler_main"
         app:layout_constraintEnd_toEndOf="@+id/recycler_main"
-        app:layout_constraintStart_toEndOf="@+id/recycler_main"
         app:layout_constraintStart_toStartOf="@+id/recycler_main"
         app:layout_constraintTop_toTopOf="@+id/recycler_main" />
 
