@@ -26,18 +26,20 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     private var isScrolling = false
     private lateinit var favouritesDataHelper: FavouritesDataHelper
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        manager = activity?.let { RequestManager(it) }!!
+        manager.getNewsHeadlines(listener, listener2, null, null)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        manager = activity?.let { RequestManager(it) }!!
-        manager.getNewsHeadlines(listener, listener2, null, null)
+
     }
 
     private val listener = object :
@@ -119,6 +121,10 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
         if(favouritesDataHelper.checkData(headlines?.title)){
             val myIntent = Intent(context, FavouriteDetailsActivity::class.java)
             myIntent.putExtra("data", headlines)
+            myIntent.addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP
+            )
             context?.startActivity(myIntent)
         }
         else{

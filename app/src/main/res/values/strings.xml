@@ -50,6 +50,7 @@
     <string name="return_home">Return Home</string>
     <string name="or_text">OR</string>
     <string name="done_text">Done</string>
+    <string name="no_favourites">No Favourites Saved</string>
     <string name="select_text">Select Preferred Categories:</string>
     <string name="refresh_xml" />
     <!-- TODO: Remove or change this placeholder text -->
