@@ -26,7 +26,7 @@ class SearchFragment:Fragment(R.layout.fragment_search),
     private lateinit var adapter: CustomAdapter
     private var progressBar : ProgressBar? = null
     private lateinit var recyclerView: RecyclerView
-
+    private lateinit var query: String
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,11 +34,16 @@ class SearchFragment:Fragment(R.layout.fragment_search),
     ): View? {
         container?.removeAllViews()
         val bundle = this.arguments
-        val query = bundle!!.getString("message")
+        query = bundle?.getString("message").toString()
         manager =
             RequestManager(activity)
         manager.getNewsHeadlines(listener, listener2, null, query)
         return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)!!
     }
 
     private val listener = object :
@@ -70,7 +75,6 @@ class SearchFragment:Fragment(R.layout.fragment_search),
     }
 
     private fun showNews(list: MutableList<Headlines>?){
-        recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)!!
         adapter = CustomAdapter(
             activity,
             list,
@@ -109,7 +113,7 @@ class SearchFragment:Fragment(R.layout.fragment_search),
 
             if (!recyclerView.canScrollVertically(1)) {
 
-                manager.getNewsHeadlines(listener, listener2, null, null)
+                manager.getNewsHeadlines(listener, listener2, null, query)
                 isScrolling = false
 
             }
