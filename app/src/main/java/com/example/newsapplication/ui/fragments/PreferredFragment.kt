@@ -2,11 +2,14 @@ package com.example.newsapplication.ui.fragments
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,10 +19,7 @@ import com.example.newsapplication.*
 import com.example.newsapplication.Models.ApiResponse
 import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.ui.activities.DetailsActivity
-import com.example.newsapplication.ui.adapters.CustomAdapter
-import com.example.newsapplication.ui.adapters.OnFetchDataListener
-import com.example.newsapplication.ui.adapters.RequestManager
-import com.example.newsapplication.ui.adapters.SelectListener
+import com.example.newsapplication.ui.adapters.*
 
 
 class PreferredFragment:Fragment(R.layout.fragment_preferred),
@@ -41,6 +41,9 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
     private val KEY_SPOBOX = "Spo_Box"
     private val KEY_SCIBOX = "Sci_Box"
     private val KEY_TECBOX = "Tec_Box"
+    private lateinit var adapter: CustomAdapter
+    private lateinit var recyclerView: RecyclerView
+
 
     public override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +52,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
     ): View? {
         manager =
             RequestManager(activity)
-        manager.getNewsHeadlines(listener, null, null, null)
+        manager.getNewsHeadlines(listener, listener2, null, null)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -62,6 +65,8 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         buttonSetup(view)
 
     }
+
+
 
     fun buttonSetup(view: View){
         val busButton = view?.findViewById<Button>(R.id.bus_btn)
@@ -140,9 +145,23 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
 
     }
 
+    private val listener2 = object :
+        OnLoadMoreListener<ApiResponse> {
+        override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
+            addNews(list)
+            progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
+            progressBar?.visibility = View.INVISIBLE
+        }
+
+        override fun onError(message: String?) {
+            Toast.makeText(activity, "Error cannot load", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
     private fun showNews(list: MutableList<Headlines>?){
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
-        val adapter = CustomAdapter(
+        recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)!!
+        adapter = CustomAdapter(
             activity,
             list,
             this
@@ -151,20 +170,12 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
             recyclerView!!.setHasFixedSize(true)
             recyclerView!!.layoutManager = GridLayoutManager(activity, 1)
             recyclerView!!.adapter = adapter
+            recyclerView.addOnScrollListener(this@PreferredFragment.scrollListener)
         }
-//        recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                if (!recyclerView.canScrollVertically(1)) {
-//                    i += 1
-//                    manager =
-//                        RequestManager(
-//                            activity
-//                        )
-//                    manager.getNewsHeadlines(listener, null, null, i)
-//                }
-//            }
-//        })
+    }
+
+    private fun addNews(list: MutableList<Headlines>?){
+        adapter.addNews(list)
     }
 
     override fun OnNewsClicked(headlines: Headlines?) {
@@ -181,32 +192,31 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         val buttonText = b.text.toString()
         val manager =
             RequestManager(activity)
-        manager.getNewsHeadlines(listener, buttonText, null, null)
+       manager.getNewsHeadlines(listener, listener2, buttonText, null)
     }
 
-//    private fun initScrollListener() {
-//        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//            }
-//
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                val gridLayoutManager = recyclerView.layoutManager as GridLayoutManager?
-//
-//                if (true) {
-//                    if (gridLayoutManager != null && gridLayoutManager.findLastCompletelyVisibleItemPosition() == head.size() - 1) {
-//                        //bottom of list!
-//                        loadMore()
-//                        isLoading = true
-//                    }
-//                }
-//            }
-//
-//
-//        })
-//
-//    }
+    var isScrolling = false
+
+    val scrollListener = object : RecyclerView.OnScrollListener(){
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                isScrolling = true
+            }
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            if (!recyclerView.canScrollVertically(1)) {
+
+                manager.getNewsHeadlines(listener, listener2, null, null)
+                isScrolling = false
+
+            }
+
+        }
+    }
 
 
 }

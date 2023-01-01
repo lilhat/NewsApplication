@@ -7,7 +7,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.newsapplication.Models.ApiResponse;
+import com.example.newsapplication.Models.Headlines;
 import com.example.newsapplication.R;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,9 +18,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public class RequestManager {
+    Response<ApiResponse> apiResponse = null;
+    List<Headlines> oldHeadlines;
+    List<Headlines>  newHeadlines;
+    Integer page = 0;
     Context context;
     String text;
     Retrofit retrofit = new Retrofit.Builder()
@@ -25,10 +33,10 @@ public class RequestManager {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void getNewsHeadlines(OnFetchDataListener<ApiResponse> listener, String category, String query, Integer page)
+    public void getNewsHeadlines(OnFetchDataListener<ApiResponse> listener, OnLoadMoreListener listener2, String category, String query)
     {
         CallNewsApi callNewsApi = retrofit.create(CallNewsApi.class);
-        Call<ApiResponse> call = callNewsApi.callHeadlines(context.getString(R.string.api_key) , "gb", category, "en", query, page);
+        Call<ApiResponse> call = callNewsApi.callHeadlines(context.getString(R.string.api_key2) , "gb", category, "en", query, page);
 
         try {
             call.enqueue(new Callback<ApiResponse>() {
@@ -37,8 +45,22 @@ public class RequestManager {
                    if (!response.isSuccessful()){
                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                    }
-                   Log.d(TAG,"response.raw().request().url();"+response.raw().request().url());
-                   listener.onFetchData(response.body().getResults(), response.message());
+                   else{
+                       page += 1;
+                       if(apiResponse == null){
+                           apiResponse = response;
+                           Log.d(TAG,"response.raw().request().url();"+response.raw().request().url());
+                           listener.onFetchData(apiResponse.body().getResults(), apiResponse.message());
+                       }
+                       else{
+                            oldHeadlines = apiResponse.body().getResults();
+                            newHeadlines = response.body().getResults();
+                           Log.d(TAG,"response.raw().request().url();"+response.raw().request().url());
+                           listener2.onFetchData(newHeadlines, response.message());
+                       }
+
+                   }
+
                 }
 
                 @Override

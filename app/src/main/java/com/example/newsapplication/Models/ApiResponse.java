@@ -7,6 +7,7 @@ public class ApiResponse implements Serializable {
     String status;
     int totalResults;
     List<Headlines> results;
+    int nextPage;
 
     public String getStatus() {
         return status;
@@ -30,5 +31,13 @@ public class ApiResponse implements Serializable {
 
     public void setResults(List<Headlines> results) {
         this.results = results;
+    }
+
+    public int getNextPage() {
+        return nextPage;
+    }
+
+    public void setNextPage(int nextPage) {
+        this.nextPage = nextPage;
     }
 }
