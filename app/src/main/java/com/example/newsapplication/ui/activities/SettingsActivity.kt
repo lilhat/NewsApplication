@@ -13,6 +13,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.newsapplication.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class SettingsActivity: AppCompatActivity() {
@@ -32,6 +35,8 @@ class SettingsActivity: AppCompatActivity() {
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
+    private lateinit var gso: GoogleSignInOptions
+    private lateinit var gsc: GoogleSignInClient
     private val SHARED_PREF_NAME = "MyPref"
     private val KEY_BUSBOX = "Bus_Box"
     private val KEY_ENTBOX = "Ent_Box"
@@ -80,9 +85,22 @@ class SettingsActivity: AppCompatActivity() {
         editor = sharedPreferences.edit()
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        gsc = GoogleSignIn.getClient(this, gso)
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+
         if(currentUser == null) {
-            hideCheckBoxes()
-            loggedText.visibility = View.VISIBLE
+            if(account == null){
+                hideCheckBoxes()
+                loggedText.visibility = View.VISIBLE
+            }
+            else{
+                setupCheckBoxes()
+                loggedText.visibility = View.INVISIBLE
+            }
         }
         else{
             setupCheckBoxes()

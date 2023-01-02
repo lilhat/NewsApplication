@@ -23,7 +23,6 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     private lateinit var manager: RequestManager
     private lateinit var adapter: CustomAdapter
     private var progressBar : ProgressBar? = null
-    private lateinit var recyclerView: RecyclerView
     private var isScrolling = false
     private lateinit var favouritesDataHelper: FavouritesDataHelper
 
@@ -72,7 +71,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     }
 
     private fun showNews(list: MutableList<Headlines>?){
-        recyclerView = view?.findViewById(R.id.recycler_main)!!
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
         adapter = activity?.let {
             CustomAdapter(
                 it,

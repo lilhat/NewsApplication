@@ -105,35 +105,36 @@
             android:text="@string/attempts_remaining"
             android:textSize="22sp" />
 
-        <Button
+
+        <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="226dp"
-            android:backgroundTint="@android:color/holo_blue_dark"
-            android:drawablePadding="8dp"
-            android:padding="8dp"
-            android:text="@string/facebook_login"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:layout_above="@+id/register_btn"
+            android:layout_below="@+id/attemptsLeft"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="23dp"
+            android:contentDescription="@string/facebook_login"
+            android:minHeight="48dp" />
 
-        <Button
-            android:id="@+id/google_login_btn"
+        <ImageView
+            android:id="@+id/google_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/cancel_btn"
+            android:layout_below="@+id/passwordEntry"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="58dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="225dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="174dp"
             android:layout_toEndOf="@+id/facebook_login_btn"
-            android:backgroundTint="@android:color/holo_red_dark"
-            android:drawablePadding="8dp"
-            android:padding="8dp"
-            android:text="@string/google_login"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:src="@drawable/btn_google_signin_dark_focus_web">
+
+        </ImageView>
 
         <TextView
             android:id="@+id/register_here"
@@ -154,8 +155,8 @@
             android:layout_height="47dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="122dp"
-            android:layout_marginEnd="-79dp"
+            android:layout_marginStart="146dp"
+            android:layout_marginEnd="-103dp"
             android:layout_marginBottom="161dp"
             android:layout_toStartOf="@+id/loginTitle"
             android:backgroundTint="@color/dark_sky_blue"

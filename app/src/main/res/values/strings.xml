@@ -7,6 +7,9 @@
     <string name="api_key3">pub_151731bd802ed893c4544f475666b325661fe</string>
     <string name="api_key4">pub_151797dfccd0d79262711936c0cd7f7515bc7</string>
     <string name="google_id">670060116767-2k495qmh9ro8rah9d30kj3reskrimn7v.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1466774480515230</string>
+    <string name="fb_login_protocol_scheme">fb1466774480515230</string>
+    <string name="facebook_client_token">be6c0122084cd1227c60fe4aad43ba73</string>
     <string name="item_search">Search</string>
     <string name="item_share">Share</string>
     <string name="item_like">Like</string>

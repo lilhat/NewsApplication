@@ -21,6 +21,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapplication.R
 import com.example.newsapplication.ui.fragments.SearchFragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -37,9 +40,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var navigationView: NavigationView
     private lateinit var auth: FirebaseAuth
-    private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
     private lateinit var entry: CharSequence
+    private lateinit var email: String
+    private lateinit var gso: GoogleSignInOptions
+    private lateinit var gsc: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +56,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         db = Firebase.firestore
         auth = FirebaseAuth.getInstance()
-        val email = auth.currentUser?.email
+        val currentUser = auth.currentUser
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        gsc = GoogleSignIn.getClient(this, gso)
+
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        if(currentUser != null){
+            email = currentUser.email.toString()
+        }
+        else if (account != null){
+            email = account.email.toString()
+        }
+        else{
+            email = ""
+        }
+
         actionBarDrawerToggle =
             ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
