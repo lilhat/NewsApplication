@@ -61,7 +61,6 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
             AppCompatActivity.MODE_PRIVATE)!!
         editor = sharedPreferences.edit()
         buttonSetup(view)
-
     }
 
 

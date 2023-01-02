@@ -95,19 +95,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate((R.menu.toolbar_layout), menu)
-        val search = menu?.findItem(R.id.search)
         val searchView = menu?.findItem(R.id.search)?.actionView as SearchView
-        search?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                // TODO: do something...
-                return true
-            }
-
-            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                // TODO: do something...
-                return true
-            }
-        })
         searchView.queryHint = "Search keywords..."
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

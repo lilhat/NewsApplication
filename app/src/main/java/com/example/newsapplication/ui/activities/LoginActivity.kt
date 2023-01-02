@@ -63,9 +63,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Facebook login
-        facebookLogin = findViewById<LoginButton>(R.id.facebook_login_btn)
-        facebookLogin.setReadPermissions("email", "public_profile")
-        FacebookSdk.sdkInitialize(this.applicationContext)
+        facebookLogin = findViewById(R.id.facebook_login_btn)
+        facebookLogin.setPermissions("email", "public_profile")
         mCallBackManager = CallbackManager.Factory.create()
 
         facebookLogin.registerCallback(mCallBackManager, object: FacebookCallback<LoginResult> {
