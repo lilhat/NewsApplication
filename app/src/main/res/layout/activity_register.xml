@@ -53,16 +53,6 @@
             android:text="@string/default_register"
             android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/registerTitle"
-            android:layout_centerHorizontal="true"
-            android:text="@string/app_name"
-            android:textColor="@color/dark_sky_blue"
-            android:textSize="30sp" />
-
         <EditText
             android:id="@+id/nameEntry"
             android:layout_width="match_parent"
@@ -103,14 +93,18 @@
             android:hint="@string/hint_password"
             android:inputType="textPassword" />
 
+
         <ImageView
             android:id="@+id/newsLogo"
-            android:layout_width="129dp"
-            android:layout_height="124dp"
+            android:layout_width="180dp"
+            android:layout_height="154dp"
             android:layout_below="@+id/registerTitle"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_launcher_foreground" />
-
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="103dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="104dp"
+            android:src="@drawable/logo" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook_login_btn"
@@ -120,9 +114,9 @@
             android:layout_below="@+id/terms_checkbox"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="33dp"
-            android:layout_marginBottom="61dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginBottom="41dp"
             android:contentDescription="@string/facebook_login"
             android:minHeight="48dp" />
 
@@ -134,25 +128,13 @@
             android:layout_below="@+id/terms_checkbox"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="13dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="57dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="37dp"
             android:layout_toEndOf="@+id/facebook_login_btn"
             android:src="@drawable/btn_google_signin_dark_focus_web">
 
         </ImageView>
-
-        <CheckBox
-            android:id="@+id/terms_checkbox"
-            android:layout_width="258dp"
-            android:layout_height="63dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="419dp"
-            android:layout_marginEnd="51dp"
-            android:text="@string/terms_conditions" />
 
         <CheckBox
             android:id="@+id/notification_checkbox"
@@ -161,10 +143,22 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="70dp"
-            android:layout_marginEnd="51dp"
-            android:layout_marginBottom="221dp"
+            android:layout_marginStart="67dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginBottom="195dp"
             android:text="@string/push_notifications" />
+
+        <CheckBox
+            android:id="@+id/terms_checkbox"
+            android:layout_width="258dp"
+            android:layout_height="63dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="445dp"
+            android:layout_marginEnd="54dp"
+            android:text="@string/terms_conditions" />
 
         <Button
             android:id="@+id/register_btn"

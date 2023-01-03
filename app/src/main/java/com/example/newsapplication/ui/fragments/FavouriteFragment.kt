@@ -17,11 +17,19 @@ import com.example.newsapplication.R
 import com.example.newsapplication.ui.activities.DetailsActivity
 import com.example.newsapplication.ui.activities.FavouriteDetailsActivity
 import com.example.newsapplication.ui.adapters.SelectListener
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 
 class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener{
 
     private lateinit var favouritesDataHelper: FavouritesDataHelper
     private lateinit var noText: TextView
+    private lateinit var auth: FirebaseAuth
+    private lateinit var gso: GoogleSignInOptions
+    private lateinit var gsc: GoogleSignInClient
+    private val loggedText: String = "Must be logged in"
 
     public override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,11 +44,41 @@ class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener{
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
-        setupRecyclerView()
+        noText = view.findViewById(R.id.no_favourites)
+        noText.visibility = View.INVISIBLE
+        if(checkLogin()){
+            setupRecyclerView()
+        }
         val progressBar = view.findViewById<ProgressBar>(R.id.idPBLoading)
         progressBar.visibility = View.INVISIBLE
         noText = view?.findViewById(R.id.no_favourites)!!
         return
+    }
+
+    private fun checkLogin(): Boolean {
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        gsc = GoogleSignIn.getClient(requireContext(), gso)
+        val account = GoogleSignIn.getLastSignedInAccount(requireContext())
+
+        if(currentUser == null) {
+            if(account == null){
+                noText.text = loggedText
+                noText.visibility = View.VISIBLE
+                return false
+            }
+            else{
+                noText.visibility = View.INVISIBLE
+            }
+        }
+        else{
+            noText.visibility = View.INVISIBLE
+        }
+        return true
     }
 
     private fun setupRecyclerView(){
@@ -63,9 +101,6 @@ class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener{
         noText = view?.findViewById(R.id.no_favourites)!!
         if(cursor.count == 0){
             noText.visibility = View.VISIBLE
-        }
-        else{
-            noText.visibility = View.INVISIBLE
         }
 
     }

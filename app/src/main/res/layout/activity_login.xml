@@ -51,16 +51,6 @@
             android:text="@string/default_login"
             android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/loginTitle"
-            android:layout_centerHorizontal="true"
-            android:text="@string/app_name"
-            android:textColor="@color/dark_sky_blue"
-            android:textSize="30sp" />
-
         <EditText
             android:id="@+id/emailEntry"
             android:layout_width="match_parent"
@@ -68,18 +58,19 @@
             android:layout_below="@+id/newsLogo"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="46dp"
-            android:layout_marginEnd="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="-2dp"
             android:focusable="true"
             android:hint="@string/hint_email" />
 
         <ImageView
             android:id="@+id/newsLogo"
-            android:layout_width="129dp"
-            android:layout_height="124dp"
+            android:layout_width="180dp"
+            android:layout_height="154dp"
             android:layout_below="@+id/loginTitle"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:src="@drawable/logo" />
 
         <EditText
             android:id="@+id/passwordEntry"
@@ -94,29 +85,17 @@
             android:inputType="textPassword" />
 
 
-        <TextView
-            android:id="@+id/attemptsLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_below="@+id/passwordEntry"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="18dp"
-            android:text="@string/attempts_remaining"
-            android:textSize="22sp" />
-
-
         <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/register_btn"
-            android:layout_below="@+id/attemptsLeft"
+            android:layout_below="@+id/passwordEntry"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="23dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="36dp"
             android:contentDescription="@string/facebook_login"
             android:minHeight="48dp" />
 
@@ -128,9 +107,9 @@
             android:layout_below="@+id/passwordEntry"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="14dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="174dp"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="189dp"
             android:layout_toEndOf="@+id/facebook_login_btn"
             android:src="@drawable/btn_google_signin_dark_focus_web">
 

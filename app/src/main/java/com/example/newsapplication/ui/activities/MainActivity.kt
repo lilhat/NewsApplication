@@ -1,18 +1,15 @@
 package com.example.newsapplication.ui.activities
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ShareActionProvider
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ShareCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -45,7 +42,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var email: String
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
-
+    private var isLoggedIn: Boolean = false
+    private lateinit var streakText: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val dayStreakCounter = DayStreakCounter(this)
         dayStreakCounter.onUserLogin()
         val streak = dayStreakCounter.streak
-        var streakText = "Streak: $streak"
+        streakText = "Streak: $streak"
 
 
         // Check if logged in
@@ -75,9 +73,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val account = GoogleSignIn.getLastSignedInAccount(this)
         if(currentUser != null){
             email = currentUser.email.toString()
+            isLoggedIn = true
         }
         else if (account != null){
             email = account.email.toString()
+            isLoggedIn = true
         }
         else{
             email = ""
@@ -105,6 +105,48 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
         navigationView.setupWithNavController(navController)
+        hideItem()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        db = Firebase.firestore
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        gsc = GoogleSignIn.getClient(this, gso)
+
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        if(currentUser != null){
+            email = currentUser.email.toString()
+            isLoggedIn = true
+        }
+        else if (account != null){
+            email = account.email.toString()
+            isLoggedIn = true
+        }
+        else{
+            email = ""
+            streakText = ""
+            isLoggedIn = false
+
+        }
+        val headerView = navigationView.getHeaderView(0)
+        val navUsername = headerView.findViewById<View>(R.id.profile_text) as TextView
+        navUsername.text = email
+        val navStreakCounter = headerView.findViewById<View>(R.id.day_streak) as TextView
+        navStreakCounter.text = streakText
+        hideItem()
+    }
+
+    private fun hideItem() {
+        navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+        val navMenu = navigationView.menu
+        navMenu.findItem(R.id.logoutActivity).isVisible = isLoggedIn
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
