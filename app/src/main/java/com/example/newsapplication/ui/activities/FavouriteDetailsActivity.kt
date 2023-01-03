@@ -121,7 +121,7 @@ class FavouriteDetailsActivity : AppCompatActivity() {
             }
             else{
                 item.icon = getDrawable(R.drawable.ic_baseline_favorite_24)
-                Toast.makeText(this, "Not saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Could not be saved", Toast.LENGTH_SHORT).show()
             }
 
         }

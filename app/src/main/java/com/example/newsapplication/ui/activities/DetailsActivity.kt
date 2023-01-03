@@ -121,10 +121,10 @@ class DetailsActivity : AppCompatActivity() {
                 val res = favouritesDataHelper.insertFavouriteData(titleText, sourceText, authorText,
                     countryText, categoryText, timeText, textText, linkText, imgText)
                 if(res){
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Article Saved", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Could not be saved", Toast.LENGTH_SHORT).show()
                 }
             }
 

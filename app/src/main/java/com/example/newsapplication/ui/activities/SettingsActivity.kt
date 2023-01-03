@@ -50,7 +50,6 @@ class SettingsActivity: AppCompatActivity() {
     private val KEY_SCIBOX = "Sci_Box"
     private val KEY_TECBOX = "Tec_Box"
 
-    private val handler: Handler = Handler(Looper.getMainLooper())
 
     var categoryList: MutableList<String> = mutableListOf()
 
