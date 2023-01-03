@@ -112,34 +112,35 @@
             android:src="@drawable/ic_launcher_foreground" />
 
 
-        <Button
-            android:id="@+id/facebook_register_btn"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/passwordEntry"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="136dp"
-            android:backgroundTint="@android:color/holo_blue_dark"
-            android:drawablePadding="8dp"
-            android:padding="8dp"
-            android:text="@string/facebook_register"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:layout_above="@+id/register_btn"
+            android:layout_below="@+id/terms_checkbox"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginBottom="61dp"
+            android:contentDescription="@string/facebook_login"
+            android:minHeight="48dp" />
 
-        <Button
-            android:id="@+id/google_register_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/facebook_register_btn"
+        <ImageView
+            android:id="@+id/google_login"
+            android:layout_width="176dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/cancel_btn"
+            android:layout_below="@+id/terms_checkbox"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="-48dp"
-            android:layout_marginEnd="0dp"
-            android:backgroundTint="@android:color/holo_red_dark"
-            android:drawablePadding="8dp"
-            android:padding="8dp"
-            android:text="@string/google_register"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="57dp"
+            android:layout_toEndOf="@+id/facebook_login_btn"
+            android:src="@drawable/btn_google_signin_dark_focus_web">
+
+        </ImageView>
 
         <CheckBox
             android:id="@+id/terms_checkbox"

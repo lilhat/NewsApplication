@@ -49,6 +49,40 @@ class LoginActivity : AppCompatActivity() {
         val registerBtn = findViewById<Button>(R.id.register_btn)
         val cancelBtn = findViewById<Button>(R.id.cancel_btn)
 
+        setupLogin()
+
+        // Email and Password login
+        registerBtn.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+        loginBtn.setOnClickListener{
+            val emailTxt = email.text.toString().trim()
+            val passwordTxt = password.text.toString().trim()
+            loginUser(emailTxt, passwordTxt)
+        }
+        cancelBtn.setOnClickListener{
+            finish()
+        }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        authStateListener = AuthStateListener {
+            val user = auth.currentUser
+            if(user!=null){
+                Log.d(TAG, "Facebook in")
+            }
+        }
+        auth.addAuthStateListener { auth }
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            Toast.makeText(baseContext, "Already logged in", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+    }
+
+    private fun setupLogin(){
         // Google login
         googleLogin = findViewById(R.id.google_login)
 
@@ -82,48 +116,6 @@ class LoginActivity : AppCompatActivity() {
             }
 
         })
-
-        val accessTokenTracker = object: AccessTokenTracker(){
-            override fun onCurrentAccessTokenChanged(
-                oldAccessToken: AccessToken?,
-                currentAccessToken: AccessToken?
-            ) {
-                if(currentAccessToken == null){
-                    auth.signOut()
-                }
-            }
-
-        }
-
-        // Email and Password login
-        registerBtn.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
-        loginBtn.setOnClickListener{
-            val emailTxt = email.text.toString().trim()
-            val passwordTxt = password.text.toString().trim()
-            loginUser(emailTxt, passwordTxt)
-        }
-        cancelBtn.setOnClickListener{
-            finish()
-        }
-    }
-
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        authStateListener = AuthStateListener {
-            val user = auth.currentUser
-            if(user!=null){
-                Log.d(TAG, "Facebook in")
-            }
-        }
-        auth.addAuthStateListener { auth }
-        val currentUser = auth.currentUser
-        if(currentUser != null){
-            Toast.makeText(baseContext, "Already logged in", Toast.LENGTH_SHORT).show()
-            finish()
-        }
     }
 
 
