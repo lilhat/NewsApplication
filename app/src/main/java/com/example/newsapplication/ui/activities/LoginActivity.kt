@@ -133,7 +133,6 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener{
             if(it.isSuccessful){
                 Log.d(TAG, "Facebook Success")
-                val currentUser = auth.currentUser
                 finish()
             } else{
                 Log.d(TAG, "Facebook Failed")
