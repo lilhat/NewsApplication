@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -32,7 +34,6 @@ import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
-    private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var navigationView: NavigationView
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val dayStreakCounter = DayStreakCounter(this)
         dayStreakCounter.onUserLogin()
         val streak = dayStreakCounter.streak
-        streakText = "Streak: $streak"
+        streakText = "Day Streak: $streak"
 
 
         // Check if logged in
@@ -85,7 +86,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         }
 
-
         // Set up drawer menu
         actionBarDrawerToggle =
             ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
@@ -100,6 +100,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navUsername.text = email
         val navStreakCounter = headerView.findViewById<View>(R.id.day_streak) as TextView
         navStreakCounter.text = streakText
+        val navStreakReward = headerView.findViewById<View>(R.id.streak_reward) as ImageView
+        if(streak > 6){
+            navStreakReward.visibility = View.VISIBLE
+        }
+        else {
+            navStreakReward.visibility = View.INVISIBLE
+        }
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -111,6 +118,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onResume() {
         super.onResume()
+
+        val dayStreakCounter = DayStreakCounter(this)
+        dayStreakCounter.onUserLogin()
+        val streak = dayStreakCounter.streak
+        streakText = "Day Streak: $streak"
+
         db = Firebase.firestore
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -140,6 +153,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navUsername.text = email
         val navStreakCounter = headerView.findViewById<View>(R.id.day_streak) as TextView
         navStreakCounter.text = streakText
+        val navStreakReward = headerView.findViewById<View>(R.id.streak_reward) as ImageView
+        if(streak > 6){
+            navStreakReward.visibility = View.VISIBLE
+        }
+        else{
+            navStreakReward.visibility = View.INVISIBLE
+        }
         hideItem()
     }
 
@@ -178,13 +198,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onCreateOptionsMenu(menu)
     }
 
-//    // Call to update the share intent
-//    private fun setShareIntent(shareIntent: Intent) {
-//        if (mShareActionProvider != null) {
-//            mShareActionProvider.setShareIntent(shareIntent)
-//        }
-//    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -199,46 +212,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        //displaySelectedScreen(item)
         return true
     }
-
-    fun getQuery(): CharSequence {
-        return entry
-    }
-
-    private fun getUsername(){
-        val email = auth.currentUser?.email
-    }
-
-
-//    private fun displaySelectedScreen(item: MenuItem) {
-//        val itemName = item.toString()
-//        val profile = this.getString(R.string.menu_profile)
-//
-//        val logout = this.getString(R.string.menu_logout)
-//        var intent: Intent?
-//        when(itemName){
-//            profile -> {
-//                intent = Intent(this, LoginActivity::class.java)
-//                startActivity(intent)
-//
-//            }
-//
-//            logout -> {
-//                currentUser = auth.currentUser!!
-//                if(currentUser != null){
-//                    auth.signOut()
-//                    Toast.makeText(this, "User signed out", Toast.LENGTH_SHORT).show()
-//                }
-//                else{
-//                    Toast.makeText(this, "Not logged in", Toast.LENGTH_SHORT).show()
-//                }
-//
-//            }
-//        }
-//
-//    }
 
 
 }

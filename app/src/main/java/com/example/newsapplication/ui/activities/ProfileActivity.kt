@@ -78,12 +78,21 @@ class ProfileActivity: AppCompatActivity() {
         super.onResume()
         val currentUser = auth.currentUser
         val account = GoogleSignIn.getLastSignedInAccount(this)
+        val loginButton = findViewById<Button>(R.id.login_btn)
+        val registerButton = findViewById<Button>(R.id.register_btn)
+        val orText = findViewById<TextView>(R.id.or_text)
         if(currentUser != null){
             profileName.text = auth.currentUser?.email
+            loginButton.visibility = View.INVISIBLE
+            registerButton.visibility = View.INVISIBLE
+            orText.visibility = View.INVISIBLE
         }
-        if(account!=null){
+        else if(account!=null){
             email = account.email.toString()
             profileName.text = email
+            loginButton.visibility = View.INVISIBLE
+            registerButton.visibility = View.INVISIBLE
+            orText.visibility = View.INVISIBLE
         }
 
     }

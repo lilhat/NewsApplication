@@ -10,6 +10,23 @@
     android:orientation="vertical">
 
 
+    <ImageView
+        android:id="@+id/streak_reward"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="59dp"
+        android:paddingTop="8dp"
+        android:src="@drawable/streak"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/profile_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.655"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageView>
+
     <TextView
         android:id="@+id/day_streak"
         android:layout_width="126dp"
