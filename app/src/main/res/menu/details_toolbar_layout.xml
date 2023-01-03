@@ -7,9 +7,7 @@
         android:title="@string/item_share"
         android:icon="@drawable/ic_baseline_share_24"
         android:contentDescription="@string/item_share"
-        app:showAsAction="always"
-
-        />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/like"

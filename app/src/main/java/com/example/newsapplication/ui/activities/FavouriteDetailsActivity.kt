@@ -125,6 +125,13 @@ class FavouriteDetailsActivity : AppCompatActivity() {
             }
 
         }
+        else if (item.itemId == R.id.share){
+            val shareText: String = linkText
+            val myShareIntent = Intent(Intent.ACTION_SEND)
+            myShareIntent.type = "text/plain"
+            myShareIntent.putExtra(Intent.EXTRA_TEXT, shareText)
+            startActivity(Intent.createChooser(myShareIntent, "Share to: "))
+        }
         return super.onOptionsItemSelected(item)
     }
 

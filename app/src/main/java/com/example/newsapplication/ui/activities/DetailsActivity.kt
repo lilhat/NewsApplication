@@ -5,15 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ShareActionProvider
 import androidx.appcompat.widget.Toolbar
-import com.example.newsapplication.ui.adapters.FavouritesDataHelper
+import androidx.core.view.MenuItemCompat
 import com.example.newsapplication.Models.Headlines
 import com.example.newsapplication.R
+import com.example.newsapplication.ui.adapters.FavouritesDataHelper
 import com.squareup.picasso.Picasso
 
 
@@ -129,6 +128,13 @@ class DetailsActivity : AppCompatActivity() {
                 }
             }
 
+        }
+        else if(item.itemId == R.id.share){
+            val shareText: String = linkText
+            val myShareIntent = Intent(Intent.ACTION_SEND)
+            myShareIntent.type = "text/plain"
+            myShareIntent.putExtra(Intent.EXTRA_TEXT, shareText)
+            startActivity(Intent.createChooser(myShareIntent, "Share to: "))
         }
         return super.onOptionsItemSelected(item)
     }

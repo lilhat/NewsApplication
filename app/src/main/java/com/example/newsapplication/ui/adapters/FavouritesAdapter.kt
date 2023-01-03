@@ -34,9 +34,9 @@ class FavouritesAdapter(private val mContext: Context, private val mCursor: Curs
             mCursor.getString(mCursor.getColumnIndex(FavouritesDataHelper.COL_CREATOR))
         @SuppressLint("Range") val category =
             mCursor.getString(mCursor.getColumnIndex(FavouritesDataHelper.COL_CATEGORY))
-        @SuppressLint("Range") val country =
-            mCursor.getString(mCursor.getColumnIndex(FavouritesDataHelper.COL_LINK))
         @SuppressLint("Range") val link =
+            mCursor.getString(mCursor.getColumnIndex(FavouritesDataHelper.COL_LINK))
+        @SuppressLint("Range") val country =
             mCursor.getString(mCursor.getColumnIndex(FavouritesDataHelper.COL_COUNTRY))
         @SuppressLint("Range") val time =
             mCursor.getString(mCursor.getColumnIndex(FavouritesDataHelper.COL_TIME))

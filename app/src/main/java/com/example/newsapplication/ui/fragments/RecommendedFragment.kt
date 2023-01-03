@@ -72,7 +72,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     private fun showNews(list: MutableList<Headlines>?){
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
-        adapter = activity?.let {
+        val adapter = activity?.let {
             CustomAdapter(
                 it,
                 list!!,
