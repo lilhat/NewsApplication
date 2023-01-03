@@ -20,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapplication.R
+import com.example.newsapplication.ui.adapters.DayStreakCounter
 import com.example.newsapplication.ui.fragments.SearchFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -54,6 +55,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(mToolbar)
         var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 
+        // Day Streak initialisation
+        val dayStreakCounter = DayStreakCounter(this)
+        dayStreakCounter.onUserLogin()
+        val streak = dayStreakCounter.streak
+        var streakText = "Streak: $streak"
+
+
+        // Check if logged in
         db = Firebase.firestore
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -72,8 +81,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         else{
             email = ""
+            streakText = ""
+
         }
 
+
+        // Set up drawer menu
         actionBarDrawerToggle =
             ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
@@ -85,7 +98,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val headerView = navigationView.getHeaderView(0)
         val navUsername = headerView.findViewById<View>(R.id.profile_text) as TextView
         navUsername.text = email
-
+        val navStreakCounter = headerView.findViewById<View>(R.id.day_streak) as TextView
+        navStreakCounter.text = streakText
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
