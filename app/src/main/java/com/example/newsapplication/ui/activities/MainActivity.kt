@@ -1,9 +1,11 @@
 package com.example.newsapplication.ui.activities
 
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,15 +15,20 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.newsapplication.R
 import com.example.newsapplication.services.APIService
 import com.example.newsapplication.services.BroadcastReceiver
+import com.example.newsapplication.services.MyWorker
 
 import com.example.newsapplication.ui.adapters.DayStreakCounter
 import com.example.newsapplication.ui.fragments.SearchFragment
@@ -34,9 +41,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.concurrent.TimeUnit
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var navigationView: NavigationView
@@ -48,13 +56,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var gsc: GoogleSignInClient
     private var isLoggedIn: Boolean = false
     private lateinit var streakText: String
-    //private val broadcastReceiver = BroadcastReceiver()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
 
         val mToolbar = findViewById<Toolbar>(R.id.main_toolbar)
@@ -173,13 +179,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onStop() {
         super.onStop()
-//        unregisterReceiver(broadcastReceiver)
+        stopService()
+        startServiceViaWorker()
     }
 
-//    fun startService(view: View) {
-//        val serviceIntent = Intent(this, APIService::class.java)
-//        startService(serviceIntent)
-//    }
 
     private fun hideItem() {
         navigationView = findViewById<View>(R.id.nav_view) as NavigationView
@@ -232,7 +235,58 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return true
     }
+
+    public fun onStartServiceClick(v: View) {
+        startService();
+    }
+
+    public fun onStopServiceClick(v: View) {
+        stopService();
+    }
+
+
+    protected override fun onDestroy() {
+        Log.d(TAG, "onDestroy called")
+        stopService()
+        super.onDestroy()
+    }
+
+    fun startService() {
+        Log.d(TAG, "startService called")
+        if (!APIService.isServiceRunning) {
+            val serviceIntent = Intent(this, APIService::class.java)
+            startService(serviceIntent)
+        }
+    }
+
+    fun stopService() {
+        Log.d(TAG, "stopService called")
+        if (APIService.isServiceRunning) {
+            val serviceIntent = Intent(this, APIService::class.java)
+            stopService(serviceIntent)
+        }
+    }
+
+    public fun startServiceViaWorker() {
+        Log.d(TAG, "startServiceViaWorker called");
+        val UNIQUE_WORK_NAME = "StartMyServiceViaWorker";
+        Thread.sleep(10000)
+        val workManager = WorkManager.getInstance(this);
+
+        // As per Documentation: The minimum repeat interval that can be defined is 15 minutes
+        // (same as the JobScheduler API), but in practice 15 doesn't work. Using 16 here
+        val request = PeriodicWorkRequest.Builder(
+            MyWorker::class.java,
+            16,
+            TimeUnit.MINUTES)
+            .build();
+
+        // to schedule a unique work, no matter how many times app is opened i.e. startServiceViaWorker gets called
+        // do check for AutoStart permission
+        workManager.enqueueUniquePeriodicWork(UNIQUE_WORK_NAME, ExistingPeriodicWorkPolicy.REPLACE, request);
+
+    }
+}
     
 
 
-}

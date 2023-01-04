@@ -43,22 +43,11 @@ class SettingsActivity: AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
-    private val SHARED_PREF_NAME = "MyPref"
-    private val KEY_BUSBOX = "Bus_Box"
-    private val KEY_ENTBOX = "Ent_Box"
-    private val KEY_ENVBOX = "Env_Box"
-    private val KEY_FOOBOX = "Foo_Box"
-    private val KEY_HEABOX = "Hea_Box"
-    private val KEY_WORBOX = "Wor_Box"
-    private val KEY_TOPBOX = "Top_Box"
-    private val KEY_POLBOX = "Pol_Box"
-    private val KEY_SPOBOX = "Spo_Box"
-    private val KEY_SCIBOX = "Sci_Box"
-    private val KEY_TECBOX = "Tec_Box"
-    var categoryList: MutableList<String> = mutableListOf()
-    var currentTime: Date = Calendar.getInstance().time
-    private var mIntentFilter: IntentFilter? = null
-    private val broadcastReceiver = BroadcastReceiver()
+
+
+//    var currentTime: Date = Calendar.getInstance().time
+//    private var mIntentFilter: IntentFilter? = null
+//    private val broadcastReceiver = BroadcastReceiver()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,16 +111,13 @@ class SettingsActivity: AppCompatActivity() {
             finish()
         }
         val preferenceButton2 = findViewById<Button>(R.id.set_notifications2)
-        preferenceButton?.setOnClickListener{ v -> startService(v)}
-        preferenceButton2?.setOnClickListener{ v -> stopService(v)}
+//        preferenceButton?.setOnClickListener{ v -> startService(v)}
+//        preferenceButton2?.setOnClickListener{ v -> stopService(v)}
 
-        this.mIntentFilter = IntentFilter()
-        mIntentFilter!!.addAction(BroadcastReceiver.mBroadcastNotification)
     }
 
     override fun onResume() {
         super.onResume()
-        registerReceiver(broadcastReceiver, mIntentFilter)
     }
 
     private fun setupCheckBoxes(){
@@ -184,6 +170,7 @@ class SettingsActivity: AppCompatActivity() {
                 return
             }else{
                 categoryList.add(categoryName)
+
             }
         }
         else{
@@ -199,21 +186,22 @@ class SettingsActivity: AppCompatActivity() {
         Toast.makeText(this, "Preferred categories: $categoryList", Toast.LENGTH_LONG).show()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun startService(view: View){
-        currentTime = Calendar.getInstance().time
-        val serviceIntent = Intent(this, APIService::class.java)
-        val arrayList = categoryList as ArrayList<String>
-        serviceIntent.putExtra("data", arrayList)
-        serviceIntent.putExtra("timestamp", currentTime.time)
-        startService(serviceIntent)
-
-
+    companion object{
+        var categoryList: MutableList<String> = mutableListOf()
+        var preferenceList: MutableList<Int> = mutableListOf()
+        val SHARED_PREF_NAME = "MyPref"
+        val KEY_BUSBOX = "Bus_Box"
+        val KEY_ENTBOX = "Ent_Box"
+        val KEY_ENVBOX = "Env_Box"
+        val KEY_FOOBOX = "Foo_Box"
+        val KEY_HEABOX = "Hea_Box"
+        val KEY_WORBOX = "Wor_Box"
+        val KEY_TOPBOX = "Top_Box"
+        val KEY_POLBOX = "Pol_Box"
+        val KEY_SPOBOX = "Spo_Box"
+        val KEY_SCIBOX = "Sci_Box"
+        val KEY_TECBOX = "Tec_Box"
     }
 
-    private fun stopService(view: View){
-        val serviceIntent = Intent(this, APIService::class.java)
-        stopService(serviceIntent)
-    }
 
 }
