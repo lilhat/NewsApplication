@@ -4,6 +4,7 @@ package com.example.newsapplication.services
 import android.app.*
 import android.content.ContentValues
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -53,7 +54,7 @@ class APIService: Service() {
         notificationIntent.putExtra("data", headlines)
         val pendingIntent = PendingIntent.getActivity(
             this,
-            0, notificationIntent, PendingIntent.FLAG_MUTABLE
+            0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT
         )
         Log.d(TAG, "notification called")
         val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
