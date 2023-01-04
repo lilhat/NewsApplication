@@ -10,11 +10,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapplication.Models.Headlines
+import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.ui.adapters.FavouritesAdapter
 import com.example.newsapplication.ui.adapters.FavouritesDataHelper
 import com.example.newsapplication.R
-import com.example.newsapplication.ui.activities.DetailsActivity
 import com.example.newsapplication.ui.activities.FavouriteDetailsActivity
 import com.example.newsapplication.ui.adapters.SelectListener
 import com.google.android.gms.auth.api.signin.GoogleSignIn

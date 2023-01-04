@@ -4,8 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.example.newsapplication.Models.ApiResponse
-import com.example.newsapplication.Models.Headlines
+import com.example.newsapplication.models.ApiResponse
+import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +26,7 @@ class RequestManager(var context: Context) {
 
     fun getNewsHeadlines(
         listener: OnFetchDataListener<ApiResponse>,
-        listener2: OnLoadMoreListener<*>,
+        listener2: OnLoadMoreListener<*>?,
         category: String?,
         query: String?
     ) {
@@ -34,7 +34,7 @@ class RequestManager(var context: Context) {
             CallNewsApi::class.java
         )
         val call = callNewsApi.callHeadlines(
-            context.getString(R.string.api_key4),
+            context.getString(R.string.api_key),
             "gb",
             category,
             "en",
@@ -64,7 +64,7 @@ class RequestManager(var context: Context) {
                                 ContentValues.TAG,
                                 "response.raw().request().url();" + response.raw().request().url()
                             )
-                            listener2.onFetchData(newHeadlines, response.message())
+                            listener2?.onFetchData(newHeadlines, response.message())
                         }
                     }
                 }

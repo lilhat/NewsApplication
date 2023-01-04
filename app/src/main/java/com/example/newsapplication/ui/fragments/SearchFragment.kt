@@ -1,22 +1,19 @@
 package com.example.newsapplication.ui.fragments
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
-import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapplication.Models.ApiResponse
-import com.example.newsapplication.Models.Headlines
+import com.example.newsapplication.models.ApiResponse
+import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
 import com.example.newsapplication.ui.activities.DetailsActivity
-import com.example.newsapplication.ui.activities.MainActivity
 import com.example.newsapplication.ui.adapters.*
 
 class SearchFragment:Fragment(R.layout.fragment_search),

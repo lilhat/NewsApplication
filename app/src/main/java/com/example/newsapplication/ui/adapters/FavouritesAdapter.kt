@@ -5,10 +5,8 @@ import android.content.Context
 import android.database.Cursor
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapplication.Models.Headlines
+import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
 import com.squareup.picasso.Picasso
 

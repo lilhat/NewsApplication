@@ -7,10 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.ShareActionProvider
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.MenuItemCompat
-import com.example.newsapplication.Models.Headlines
+import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
 import com.example.newsapplication.ui.adapters.FavouritesDataHelper
 import com.squareup.picasso.Picasso

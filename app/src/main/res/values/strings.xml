@@ -56,6 +56,7 @@
     <string name="done_text">Done</string>
     <string name="no_favourites">No Favourites Saved</string>
     <string name="select_text">Select Preferred Categories:</string>
+    <string name="set_notifications">Set Notifications</string>
     <string name="refresh_xml" />
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

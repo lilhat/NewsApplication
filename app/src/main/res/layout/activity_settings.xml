@@ -6,6 +6,22 @@
     android:layout_height="match_parent">
 
 
+    <Button
+        android:id="@+id/set_notifications2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:backgroundTint="@color/dark_sky_blue"
+        android:text="@string/set_notifications"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logged_text"
+        app:layout_constraintVertical_bias="0.066">
+
+    </Button>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -190,6 +206,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.781" />
+
     <Button
         android:id="@+id/submit_btn"
         android:layout_width="wrap_content"
@@ -201,4 +218,20 @@
         app:layout_constraintTop_toBottomOf="@+id/check_top">
 
     </Button>
+
+    <Button
+        android:id="@+id/set_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_notifications"
+        app:layout_constraintBottom_toTopOf="@+id/submit_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logged_text"
+        app:layout_constraintVertical_bias="0.809"
+        android:backgroundTint="@color/dark_sky_blue">
+
+    </Button>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

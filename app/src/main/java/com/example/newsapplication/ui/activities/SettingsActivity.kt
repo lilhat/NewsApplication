@@ -1,22 +1,28 @@
 package com.example.newsapplication.ui.activities
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.newsapplication.R
+import com.example.newsapplication.services.APIService
+import com.example.newsapplication.services.BroadcastReceiver
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SettingsActivity: AppCompatActivity() {
     private lateinit var busCheckBox: CheckBox
@@ -49,10 +55,12 @@ class SettingsActivity: AppCompatActivity() {
     private val KEY_SPOBOX = "Spo_Box"
     private val KEY_SCIBOX = "Sci_Box"
     private val KEY_TECBOX = "Tec_Box"
-
-
     var categoryList: MutableList<String> = mutableListOf()
+    var currentTime: Date = Calendar.getInstance().time
+    private var mIntentFilter: IntentFilter? = null
+    private val broadcastReceiver = BroadcastReceiver()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -78,7 +86,10 @@ class SettingsActivity: AppCompatActivity() {
         keyList = mutableListOf(KEY_BUSBOX,KEY_ENTBOX,KEY_ENVBOX,KEY_FOOBOX,KEY_TECBOX,
             KEY_WORBOX,KEY_TOPBOX,KEY_HEABOX,KEY_SPOBOX,KEY_POLBOX,KEY_SCIBOX)
 
+        val preferenceButton = findViewById<Button>(R.id.set_notifications)
         val submitButton = findViewById<Button>(R.id.submit_btn)
+
+
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,
             MODE_PRIVATE)
         editor = sharedPreferences.edit()
@@ -105,12 +116,22 @@ class SettingsActivity: AppCompatActivity() {
             setupCheckBoxes()
             loggedText.visibility = View.INVISIBLE
         }
-
+        getCategories()
         submitButton?.setOnClickListener{
             getCategories()
             finish()
         }
+        val preferenceButton2 = findViewById<Button>(R.id.set_notifications2)
+        preferenceButton?.setOnClickListener{ v -> startService(v)}
+        preferenceButton2?.setOnClickListener{ v -> stopService(v)}
 
+        this.mIntentFilter = IntentFilter()
+        mIntentFilter!!.addAction(BroadcastReceiver.mBroadcastNotification)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(broadcastReceiver, mIntentFilter)
     }
 
     private fun setupCheckBoxes(){
@@ -171,11 +192,28 @@ class SettingsActivity: AppCompatActivity() {
     }
 
 
-    fun getCategories(){
+    private fun getCategories(){
         for(checkBox in checkBoxes){
             addCategory(checkBox)
         }
         Toast.makeText(this, "Preferred categories: $categoryList", Toast.LENGTH_LONG).show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun startService(view: View){
+        currentTime = Calendar.getInstance().time
+        val serviceIntent = Intent(this, APIService::class.java)
+        val arrayList = categoryList as ArrayList<String>
+        serviceIntent.putExtra("data", arrayList)
+        serviceIntent.putExtra("timestamp", currentTime.time)
+        startService(serviceIntent)
+
+
+    }
+
+    private fun stopService(view: View){
+        val serviceIntent = Intent(this, APIService::class.java)
+        stopService(serviceIntent)
     }
 
 }

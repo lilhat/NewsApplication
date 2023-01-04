@@ -1,25 +1,28 @@
 package com.example.newsapplication.ui.activities
 
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapplication.R
+import com.example.newsapplication.services.APIService
+import com.example.newsapplication.services.BroadcastReceiver
+
 import com.example.newsapplication.ui.adapters.DayStreakCounter
 import com.example.newsapplication.ui.fragments.SearchFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -45,10 +48,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var gsc: GoogleSignInClient
     private var isLoggedIn: Boolean = false
     private lateinit var streakText: String
+    //private val broadcastReceiver = BroadcastReceiver()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+
         val mToolbar = findViewById<Toolbar>(R.id.main_toolbar)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         setSupportActionBar(mToolbar)
@@ -118,7 +126,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onResume() {
         super.onResume()
-
+        //registerReceiver(broadcastReceiver, mIntentFilter)
         val dayStreakCounter = DayStreakCounter(this)
         dayStreakCounter.onUserLogin()
         val streak = dayStreakCounter.streak
@@ -162,6 +170,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         hideItem()
     }
+
+    override fun onStop() {
+        super.onStop()
+//        unregisterReceiver(broadcastReceiver)
+    }
+
+//    fun startService(view: View) {
+//        val serviceIntent = Intent(this, APIService::class.java)
+//        startService(serviceIntent)
+//    }
 
     private fun hideItem() {
         navigationView = findViewById<View>(R.id.nav_view) as NavigationView
@@ -214,6 +232,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return true
     }
+    
 
 
 }
