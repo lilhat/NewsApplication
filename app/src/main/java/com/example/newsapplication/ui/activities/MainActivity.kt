@@ -4,6 +4,7 @@ package com.example.newsapplication.ui.activities
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -11,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -62,6 +64,7 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        stopService()
 
         val mToolbar = findViewById<Toolbar>(R.id.main_toolbar)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -132,7 +135,6 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onResume() {
         super.onResume()
-        //registerReceiver(broadcastReceiver, mIntentFilter)
         val dayStreakCounter = DayStreakCounter(this)
         dayStreakCounter.onUserLogin()
         val streak = dayStreakCounter.streak
@@ -179,8 +181,6 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onStop() {
         super.onStop()
-        stopService()
-        startServiceViaWorker()
     }
 
 
@@ -236,8 +236,9 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     public fun onStartServiceClick(v: View) {
-        startService();
+        startService()
     }
 
     public fun onStopServiceClick(v: View) {
@@ -247,15 +248,19 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     protected override fun onDestroy() {
         Log.d(TAG, "onDestroy called")
-        stopService()
+        if(SettingsActivity.isSet){
+            Log.d(TAG, "Is Set")
+            startServiceViaWorker()
+        }
         super.onDestroy()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun startService() {
         Log.d(TAG, "startService called")
         if (!APIService.isServiceRunning) {
             val serviceIntent = Intent(this, APIService::class.java)
-            startService(serviceIntent)
+            startForegroundService(serviceIntent)
         }
     }
 
@@ -270,7 +275,6 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     public fun startServiceViaWorker() {
         Log.d(TAG, "startServiceViaWorker called");
         val UNIQUE_WORK_NAME = "StartMyServiceViaWorker";
-        Thread.sleep(10000)
         val workManager = WorkManager.getInstance(this);
 
         // As per Documentation: The minimum repeat interval that can be defined is 15 minutes

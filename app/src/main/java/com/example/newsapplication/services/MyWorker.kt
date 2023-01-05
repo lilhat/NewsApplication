@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startForegroundService
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.newsapplication.models.ApiResponse
@@ -32,17 +33,19 @@ class MyWorker(
     }
 
     override fun doWork(): Result {
-        sharedPreferences = context.getSharedPreferences(SettingsActivity.SHARED_PREF_NAME,
-            AppCompatActivity.MODE_PRIVATE
-        )
-        getCategories()
-        val random = (0 until categoryList.size).random()
-        Log.i(ContentValues.TAG, "In doWork")
-        val requestManager = RequestManager(context)
-        requestManager.getNewsHeadlines(listener, null, categoryList[random], null)
-
-
-
+        if(SettingsActivity.isSet){
+            sharedPreferences = context.getSharedPreferences(SettingsActivity.SHARED_PREF_NAME,
+                AppCompatActivity.MODE_PRIVATE
+            )
+            getCategories()
+            if(categoryList.isNotEmpty()){
+                val random = (0 until categoryList.size).random()
+                Log.i(ContentValues.TAG, "In doWork")
+                val requestManager = RequestManager(context)
+                requestManager.getNewsHeadlines(listener, null, categoryList[random], null)
+                // TODO - replace random with an incrementing integer
+            }
+        }
         return Result.success()
     }
 
@@ -80,7 +83,6 @@ class MyWorker(
         OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
             firstItem(list)
-            Thread.sleep(5000)
         }
 
         override fun onError(message: String?) {
@@ -97,7 +99,7 @@ class MyWorker(
         Log.d(TAG, "starting service from doWork")
         val intent = Intent(context, APIService::class.java)
         intent.putExtra("data", firstItem)
-        context.startService(intent)
+        startForegroundService(context, intent)
 
     }
 

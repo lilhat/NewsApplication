@@ -44,11 +44,6 @@ class SettingsActivity: AppCompatActivity() {
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
 
-
-//    var currentTime: Date = Calendar.getInstance().time
-//    private var mIntentFilter: IntentFilter? = null
-//    private val broadcastReceiver = BroadcastReceiver()
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,18 +101,38 @@ class SettingsActivity: AppCompatActivity() {
             loggedText.visibility = View.INVISIBLE
         }
         getCategories()
+        isSet = sharedPreferences.getBoolean(setKey, false)
+        if(isSet){
+            preferenceButton.text = removeText
+        }
         submitButton?.setOnClickListener{
             getCategories()
             finish()
         }
-        val preferenceButton2 = findViewById<Button>(R.id.set_notifications2)
-//        preferenceButton?.setOnClickListener{ v -> startService(v)}
-//        preferenceButton2?.setOnClickListener{ v -> stopService(v)}
+        preferenceButton?.setOnClickListener{
+            setNotifications()
+        }
 
     }
 
     override fun onResume() {
         super.onResume()
+    }
+
+    private fun setNotifications(){
+        val preferenceButton = findViewById<Button>(R.id.set_notifications)
+        if(!isSet){
+            preferenceButton.text = removeText
+            isSet = true
+            editor.putBoolean(setKey, isSet)
+            editor.apply()
+        }
+        else{
+            preferenceButton.text = setText
+            isSet = false
+            editor.putBoolean(setKey, isSet)
+            editor.apply()
+        }
     }
 
     private fun setupCheckBoxes(){
@@ -187,8 +202,12 @@ class SettingsActivity: AppCompatActivity() {
     }
 
     companion object{
+        var isSet: Boolean = false
         var categoryList: MutableList<String> = mutableListOf()
         var preferenceList: MutableList<Int> = mutableListOf()
+        val removeText = "Remove Notifications"
+        val setText = "Set Notifications"
+        var setKey = "isSet"
         val SHARED_PREF_NAME = "MyPref"
         val KEY_BUSBOX = "Bus_Box"
         val KEY_ENTBOX = "Ent_Box"

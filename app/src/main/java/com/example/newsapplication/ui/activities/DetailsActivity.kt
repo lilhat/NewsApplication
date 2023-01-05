@@ -43,7 +43,7 @@ class DetailsActivity : AppCompatActivity() {
         val fullButton = findViewById<Button>(R.id.full_button)
         headlines = intent.getSerializableExtra("data") as Headlines
         titleText = headlines.title
-
+//        intent.removeExtra("data")
         timeText = headlines.pubDate
         textText = ""
         if(headlines.image_url != null){
