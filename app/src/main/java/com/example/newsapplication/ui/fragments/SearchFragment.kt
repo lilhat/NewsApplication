@@ -13,8 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.models.ApiResponse
 import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
+import com.example.newsapplication.adapters.*
+import com.example.newsapplication.interfaces.OnFetchDataListener
+import com.example.newsapplication.interfaces.OnLoadMoreListener
+import com.example.newsapplication.interfaces.SelectListener
 import com.example.newsapplication.ui.activities.DetailsActivity
-import com.example.newsapplication.ui.adapters.*
+import com.example.newsapplication.utils.RequestManager
 
 class SearchFragment:Fragment(R.layout.fragment_search),
     SelectListener {

@@ -3,7 +3,6 @@ package com.example.newsapplication.ui.activities
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +16,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -29,10 +27,9 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.example.newsapplication.R
 import com.example.newsapplication.services.APIService
-import com.example.newsapplication.services.BroadcastReceiver
 import com.example.newsapplication.services.MyWorker
 
-import com.example.newsapplication.ui.adapters.DayStreakCounter
+import com.example.newsapplication.utils.DayStreakCounter
 import com.example.newsapplication.ui.fragments.SearchFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

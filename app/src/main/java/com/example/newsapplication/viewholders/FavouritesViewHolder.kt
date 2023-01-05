@@ -1,4 +1,4 @@
-package com.example.newsapplication.ui.adapters
+package com.example.newsapplication.viewholders
 
 import android.view.View
 import android.widget.Button

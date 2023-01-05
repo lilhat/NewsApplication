@@ -1,4 +1,4 @@
-package com.example.newsapplication.ui.adapters
+package com.example.newsapplication.utils
 
 import android.content.ContentValues
 import android.content.Context
@@ -7,6 +7,8 @@ import android.widget.Toast
 import com.example.newsapplication.models.ApiResponse
 import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
+import com.example.newsapplication.interfaces.OnFetchDataListener
+import com.example.newsapplication.interfaces.OnLoadMoreListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +36,7 @@ class RequestManager(var context: Context) {
             CallNewsApi::class.java
         )
         val call = callNewsApi.callHeadlines(
-            context.getString(R.string.api_key),
+            context.getString(R.string.api_key2),
             "gb",
             category,
             "en",

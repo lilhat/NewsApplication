@@ -11,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.newsapplication.ui.adapters.FavouritesDataHelper
+import com.example.newsapplication.utils.FavouritesDataHelper
 import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
 import com.squareup.picasso.Picasso

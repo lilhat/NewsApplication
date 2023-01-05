@@ -1,4 +1,4 @@
-package com.example.newsapplication.ui.adapters
+package com.example.newsapplication.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
+import com.example.newsapplication.interfaces.SelectListener
+import com.example.newsapplication.viewholders.CustomViewHolder
 import com.squareup.picasso.Picasso
 
 class CustomAdapter(

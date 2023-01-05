@@ -5,18 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startForegroundService
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.newsapplication.models.ApiResponse
 import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.ui.activities.SettingsActivity
-import com.example.newsapplication.ui.adapters.OnFetchDataListener
-import com.example.newsapplication.ui.adapters.RequestManager
-import java.text.SimpleDateFormat
+import com.example.newsapplication.interfaces.OnFetchDataListener
+import com.example.newsapplication.utils.RequestManager
 
 
 class MyWorker(

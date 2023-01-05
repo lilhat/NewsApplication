@@ -10,20 +10,6 @@
         android:name="com.example.newsapplication.ui.fragments.RecommendedFragment"
         android:label="RecommendedFragment" >
         <action
-            android:id="@+id/action_recommendedFragment_to_articleFragment"
-            app:destination="@id/articleFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_recommendedFragment_to_registerActivity"
-            app:destination="@id/registerActivity"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
             android:id="@+id/action_recommendedFragment_to_profileActivity"
             app:destination="@id/profileActivity"
             app:enterAnim="@anim/slide_in_right"
@@ -36,28 +22,11 @@
         <action
             android:id="@+id/action_recommendedFragment_to_logoutActivity"
             app:destination="@id/logoutActivity" />
-        <action
-            android:id="@+id/action_recommendedFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.example.newsapplication.ui.fragments.FavouriteFragment"
         android:label="FavouriteFragment" >
-        <action
-            android:id="@+id/action_favouriteFragment_to_articleFragment"
-            app:destination="@id/articleFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_favouriteFragment_to_registerActivity"
-            app:destination="@id/registerActivity"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_favouriteFragment_to_profileActivity"
             app:destination="@id/profileActivity"
@@ -71,28 +40,11 @@
         <action
             android:id="@+id/action_favouriteFragment_to_logoutActivity"
             app:destination="@id/logoutActivity" />
-        <action
-            android:id="@+id/action_favouriteFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/preferredFragment"
         android:name="com.example.newsapplication.ui.fragments.PreferredFragment"
         android:label="PreferredFragment" >
-        <action
-            android:id="@+id/action_preferredFragment_to_articleFragment"
-            app:destination="@id/articleFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_preferredFragment_to_registerActivity"
-            app:destination="@id/registerActivity"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_preferredFragment_to_profileActivity"
             app:destination="@id/profileActivity"
@@ -106,22 +58,7 @@
         <action
             android:id="@+id/action_preferredFragment_to_logoutActivity"
             app:destination="@id/logoutActivity" />
-        <action
-            android:id="@+id/action_preferredFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/articleFragment"
-        android:name="com.example.newsapplication.ui.fragments.ArticleFragment"
-        android:label="ArticleFragment" />
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="com.example.newsapplication.ui.activities.LoginActivity"
-        android:label="LoginActivity" />
-    <activity
-        android:id="@+id/registerActivity"
-        android:name="com.example.newsapplication.ui.activities.RegisterActivity"
-        android:label="RegisterActivity" />
     <activity
         android:id="@+id/profileActivity"
         android:name="com.example.newsapplication.ui.activities.ProfileActivity"
@@ -134,8 +71,4 @@
         android:id="@+id/logoutActivity"
         android:name="com.example.newsapplication.ui.activities.LogoutActivity"
         android:label="LogoutActivity" />
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.newsapplication.ui.fragments.SearchFragment"
-        android:label="SearchFragment" />
 </navigation>

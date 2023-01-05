@@ -1,4 +1,4 @@
-package com.example.newsapplication.ui.adapters
+package com.example.newsapplication.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.R
+import com.example.newsapplication.interfaces.SelectListener
+import com.example.newsapplication.utils.FavouritesDataHelper
+import com.example.newsapplication.viewholders.FavouritesViewHolder
 import com.squareup.picasso.Picasso
 
 class FavouritesAdapter(private val mContext: Context, private val mCursor: Cursor, private val listener: SelectListener) :

@@ -11,17 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.models.Headlines
-import com.example.newsapplication.ui.adapters.FavouritesAdapter
-import com.example.newsapplication.ui.adapters.FavouritesDataHelper
+import com.example.newsapplication.adapters.FavouritesAdapter
+import com.example.newsapplication.utils.FavouritesDataHelper
 import com.example.newsapplication.R
 import com.example.newsapplication.ui.activities.FavouriteDetailsActivity
-import com.example.newsapplication.ui.adapters.SelectListener
+import com.example.newsapplication.interfaces.SelectListener
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
-class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener{
+class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener {
 
     private lateinit var favouritesDataHelper: FavouritesDataHelper
     private lateinit var noText: TextView
