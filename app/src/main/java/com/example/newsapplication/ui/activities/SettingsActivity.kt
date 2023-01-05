@@ -6,11 +6,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -70,7 +66,7 @@ class SettingsActivity: AppCompatActivity() {
         keyList = mutableListOf(KEY_BUSBOX,KEY_ENTBOX,KEY_ENVBOX,KEY_FOOBOX,KEY_TECBOX,
             KEY_WORBOX,KEY_TOPBOX,KEY_HEABOX,KEY_SPOBOX,KEY_POLBOX,KEY_SCIBOX)
 
-        val preferenceButton = findViewById<Button>(R.id.set_notifications)
+        val notificationSwitch = findViewById<Switch>(R.id.set_notifications)
         val submitButton = findViewById<Button>(R.id.submit_btn)
 
 
@@ -103,13 +99,14 @@ class SettingsActivity: AppCompatActivity() {
         getCategories()
         isSet = sharedPreferences.getBoolean(setKey, false)
         if(isSet){
-            preferenceButton.text = removeText
+            notificationSwitch.isChecked = true
         }
         submitButton?.setOnClickListener{
             getCategories()
             finish()
         }
-        preferenceButton?.setOnClickListener{
+        notificationSwitch?.setOnCheckedChangeListener { _, isChecked ->
+            isSet = isChecked
             setNotifications()
         }
 
@@ -120,18 +117,16 @@ class SettingsActivity: AppCompatActivity() {
     }
 
     private fun setNotifications(){
-        val preferenceButton = findViewById<Button>(R.id.set_notifications)
+        val notificationSwitch = findViewById<Switch>(R.id.set_notifications)
         if(!isSet){
-            preferenceButton.text = removeText
-            isSet = true
             editor.putBoolean(setKey, isSet)
             editor.apply()
+            notificationSwitch.isChecked = false
         }
         else{
-            preferenceButton.text = setText
-            isSet = false
             editor.putBoolean(setKey, isSet)
             editor.apply()
+            notificationSwitch.isChecked = true
         }
     }
 

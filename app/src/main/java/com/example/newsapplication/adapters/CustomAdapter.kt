@@ -40,7 +40,8 @@ class CustomAdapter(
                 headlines.removeAt(position)
                 notifyItemRemoved(position)
                 notifyItemRangeChanged(position, itemCount)
-            } else if (headlines[position].description == null || headlines[position].description.isEmpty()) {
+            }
+            if (headlines[position].description == null || headlines[position].description.isEmpty()) {
                 if (headlines[position].content == null || headlines[position].content.isEmpty()) {
                     headlines.removeAt(position)
                     notifyItemRemoved(position)

@@ -60,7 +60,6 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         stopService()
 
         val mToolbar = findViewById<Toolbar>(R.id.main_toolbar)
@@ -178,6 +177,10 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onStop() {
         super.onStop()
+        if(SettingsActivity.isSet){
+            Log.d(TAG, "Is Set")
+            startServiceViaWorker()
+        }
     }
 
 
@@ -245,10 +248,6 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     protected override fun onDestroy() {
         Log.d(TAG, "onDestroy called")
-        if(SettingsActivity.isSet){
-            Log.d(TAG, "Is Set")
-            startServiceViaWorker()
-        }
         super.onDestroy()
     }
 
@@ -284,7 +283,7 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         // to schedule a unique work, no matter how many times app is opened i.e. startServiceViaWorker gets called
         // do check for AutoStart permission
-        workManager.enqueueUniquePeriodicWork(UNIQUE_WORK_NAME, ExistingPeriodicWorkPolicy.REPLACE, request);
+        workManager.enqueueUniquePeriodicWork(UNIQUE_WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, request);
 
     }
 }
