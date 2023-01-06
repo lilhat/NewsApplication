@@ -1,6 +1,8 @@
 package com.example.newsapplication.adapters
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +20,7 @@ class CustomAdapter(
     listener: SelectListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val headlines: MutableList<Headlines>?
+    private var headlines: MutableList<Headlines>
     private val listener: SelectListener
 
     init {
@@ -27,8 +29,8 @@ class CustomAdapter(
     }
 
     // Adding more news articles when end of page is reached
-    fun addNews(newHeadlines: List<Headlines>?) {
-        headlines!!.addAll(newHeadlines!!)
+    fun addNews(newHeadlines: MutableList<Headlines>?) {
+        headlines!!.addAll(removeInvalidData(newHeadlines!!))
         notifyDataSetChanged()
     }
 
@@ -40,24 +42,22 @@ class CustomAdapter(
 
     // Remove any headlines that do not contain and image or a description
     private fun removeInvalidData(headlines: MutableList<Headlines>): MutableList<Headlines> {
-        if(itemCount != 0){
-            for(position in 0..itemCount) {
+        val found = mutableListOf<Headlines>()
+        if(headlines.size != 0){
+            for(position in 0 until headlines.size) {
                 if (headlines[position].image_url == null || headlines[position].image_url!!.isEmpty()) {
-                    headlines.removeAt(position)
-                    notifyItemRemoved(position)
-                    notifyItemRangeChanged(position, itemCount)
+                    Log.d(TAG, "Removed due to image url")
+                    found.add(headlines[position])
                 } else if (headlines[position].description == null || headlines[position].description!!.isEmpty()) {
-                    headlines.removeAt(position)
-                    notifyItemRemoved(position)
-                    notifyItemRangeChanged(position, itemCount)
-                } else if (headlines[position].content == null || headlines[position].content!!.isEmpty()){
-                    headlines.removeAt(position)
-                    notifyItemRemoved(position)
-                    notifyItemRangeChanged(position, itemCount)
+                    if (headlines[position].content == null || headlines[position].content!!.isEmpty()){
+                        Log.d(TAG, "Removed due to content")
+                        found.add(headlines[position])
+                    }
                 }
             }
         }
-
+        headlines.removeAll(found)
+        notifyDataSetChanged()
         return headlines
     }
 
@@ -81,8 +81,10 @@ class CustomAdapter(
         holder.cardView.setOnClickListener { listener.OnNewsClicked(headlines[holder.absoluteAdapterPosition]) }
     }
 
+
+
     // Return the size of the list
     override fun getItemCount(): Int {
-        return headlines?.size ?: 0
+        return headlines.size
     }
 }

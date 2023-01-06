@@ -80,10 +80,10 @@ class DetailsActivity : AppCompatActivity() {
         time.text = timeText
 
 
-        textText = if(headlines.description != null){
-            headlines.description!!
-        } else{
-            headlines.content!!
+        if(headlines.description != null){
+            textText = headlines.description!!
+        } else if (headlines.content != null){
+            textText = headlines.content!!
         }
         text.text = textText
 
