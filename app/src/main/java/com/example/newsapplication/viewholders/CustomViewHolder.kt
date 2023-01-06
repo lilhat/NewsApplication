@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.R
 
+// View holder for headline items
 class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var news_title: TextView
     var news_source: TextView

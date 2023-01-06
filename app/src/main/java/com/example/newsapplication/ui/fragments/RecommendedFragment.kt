@@ -22,6 +22,7 @@ import com.example.newsapplication.ui.activities.FavouriteDetailsActivity
 import com.example.newsapplication.utils.FavouritesDataHelper
 import com.example.newsapplication.utils.RequestManager
 
+// Fragment for recommended section
 class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     SelectListener {
     private lateinit var manager: RequestManager
@@ -36,16 +37,19 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        manager = activity?.let { RequestManager(it) }!!
-        manager.getNewsHeadlines(listener, listener2, null, null)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    // Create new request manager and get new articles
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        manager = activity?.let { RequestManager(it) }!!
+        manager.getNewsHeadlines(listener, listener2, null, null)
         super.onViewCreated(view, savedInstanceState)
 
     }
 
+    // Creating a new OnFetchDataListener object
+    // When data is fetched, called show news function with list
     private val listener = object :
         OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
@@ -60,6 +64,8 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     }
 
+    // Creating a new OnLoadMoreListener object
+    // When data is fetched, called add news function with list
     private val listener2 = object :
         OnLoadMoreListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
@@ -74,6 +80,8 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     }
 
+    // Function to setup recycler view
+    // Attach recycler view with custom adapter and add scroll listener
     private fun showNews(list: MutableList<Headlines>?){
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
         adapter = activity?.let {
@@ -92,12 +100,33 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     }
 
+    // Function to call adapter add news function with provided list
     private fun addNews(list: MutableList<Headlines>?){
         adapter.addNews(list)
     }
 
+    // Function to start new intent on article clicked, depending on whether favourite or not
+    override fun OnNewsClicked(headlines: Headlines?) {
+        favouritesDataHelper = FavouritesDataHelper(activity)
+        if(favouritesDataHelper.checkData(headlines?.title)){
+            val myIntent = Intent(context, FavouriteDetailsActivity::class.java)
+            myIntent.putExtra("data", headlines)
+            myIntent.addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP
+            )
+            context?.startActivity(myIntent)
+        }
+        else{
+            val myIntent = Intent(context, DetailsActivity::class.java)
+            myIntent.putExtra("data", headlines)
+            context?.startActivity(myIntent)
+        }
 
+    }
 
+    // Creating a new scroll listener object
+    // If cannot scroll further, more news articles retrieved
     private val scrollListener = object : RecyclerView.OnScrollListener(){
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
@@ -120,24 +149,6 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     }
 
 
-    override fun OnNewsClicked(headlines: Headlines?) {
-        favouritesDataHelper = FavouritesDataHelper(activity)
-        if(favouritesDataHelper.checkData(headlines?.title)){
-            val myIntent = Intent(context, FavouriteDetailsActivity::class.java)
-            myIntent.putExtra("data", headlines)
-            myIntent.addFlags(
-                Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                        Intent.FLAG_ACTIVITY_SINGLE_TOP
-            )
-            context?.startActivity(myIntent)
-        }
-        else{
-            val myIntent = Intent(context, DetailsActivity::class.java)
-            myIntent.putExtra("data", headlines)
-            context?.startActivity(myIntent)
-        }
-
-    }
 
 
 }

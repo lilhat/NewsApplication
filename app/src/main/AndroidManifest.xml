@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApplication"
         tools:targetApi="28" >
-        <receiver android:name=".services.BroadcastReceiver"
+        <receiver android:name=".utils.BroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -99,7 +99,7 @@
                 android:value="" />
         </activity>
         <service
-            android:name=".services.APIService"
+            android:name=".services.NotificationService"
             android:enabled="true"
             android:exported="true"/>
     </application>

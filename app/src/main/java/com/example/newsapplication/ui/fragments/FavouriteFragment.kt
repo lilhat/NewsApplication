@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
+// Fragment for favourites section
 class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener {
 
     private lateinit var favouritesDataHelper: FavouritesDataHelper
@@ -38,10 +39,7 @@ class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-
-
-
-
+    // Check whether user is logged in then setup recycler view
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         noText = view.findViewById(R.id.no_favourites)
         noText.visibility = View.INVISIBLE
@@ -54,6 +52,7 @@ class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener {
         return
     }
 
+    // Function to check whether user is logged in
     private fun checkLogin(): Boolean {
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -80,6 +79,7 @@ class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener {
         return true
     }
 
+    // Function to setup recycler view with favourites adapter
     private fun setupRecyclerView(){
         favouritesDataHelper =
             FavouritesDataHelper(activity)
@@ -104,23 +104,11 @@ class FavouriteFragment:Fragment(R.layout.fragment_favourite), SelectListener {
 
     }
 
+    // Function to launch favourites detail activity when article is clicked
     override fun OnNewsClicked(headlines: Headlines?) {
         val myIntent = Intent(context, FavouriteDetailsActivity::class.java)
         myIntent.putExtra("data", headlines)
         context?.startActivity(myIntent)
     }
-
-//    override fun OnNewsClicked(headlines: Headlines?) {
-//        val myIntent = Intent(context, DetailsActivity::class.java)
-//        myIntent.putExtra("data", headlines)
-//        context?.startActivity(myIntent)
-//
-//    }
-
-//    override fun onClick(p0: View?) {
-//        val progressBar = view?.findViewById<ProgressBar>(R.id.idPBLoading)
-//        progressBar?.visibility = View.VISIBLE
-//
-//    }
 
 }

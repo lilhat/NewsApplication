@@ -205,7 +205,7 @@
 
     </Button>
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/set_notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

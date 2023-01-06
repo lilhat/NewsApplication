@@ -17,12 +17,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+// Activity to display user profile
 class ProfileActivity: AppCompatActivity() {
     private val db = Firebase.firestore
     private lateinit var profileName: TextView
     private lateinit var auth: FirebaseAuth
     private lateinit var email: String
 
+    // Setting up views with account information if logged in
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -57,7 +59,7 @@ class ProfileActivity: AppCompatActivity() {
             }
         }
 
-
+        // Login and register buttons to launch associated intents
         loginButton?.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -73,7 +75,7 @@ class ProfileActivity: AppCompatActivity() {
 
     }
 
-
+    // Whenever activity is resumed update the account information
     override fun onResume() {
         super.onResume()
         val currentUser = auth.currentUser

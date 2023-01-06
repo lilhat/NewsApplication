@@ -1,4 +1,4 @@
-package com.example.newsapplication.services
+package com.example.newsapplication.utils
 
 import android.content.ContentValues
 import android.content.Context
@@ -13,9 +13,10 @@ import com.example.newsapplication.models.ApiResponse
 import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.ui.activities.SettingsActivity
 import com.example.newsapplication.interfaces.OnFetchDataListener
-import com.example.newsapplication.utils.RequestManager
+import com.example.newsapplication.services.NotificationService
 
-
+// Class to do work and start foreground service with provided extras
+// The service is started here instead of BroadcastReceiver to ensure priority is not low
 class MyWorker(
     context: Context,
     params: WorkerParameters?
@@ -29,6 +30,7 @@ class MyWorker(
         this.context = context
     }
 
+    // Function to get news headlines based on preferred categories
     override fun doWork(): Result {
         if(SettingsActivity.isSet){
             sharedPreferences = context.getSharedPreferences(SettingsActivity.SHARED_PREF_NAME,
@@ -45,6 +47,7 @@ class MyWorker(
         return Result.success()
     }
 
+    // Function to call addCategories function for each category
     fun getCategories(){
         addCategories("business", SettingsActivity.KEY_BUSBOX)
         addCategories("entertainment", SettingsActivity.KEY_ENTBOX)
@@ -60,6 +63,7 @@ class MyWorker(
 
     }
 
+    // Function to add category to list if set as true in shared preferences
     fun addCategories(string: String, key: String){
         sharedPreferences = context.getSharedPreferences(SettingsActivity.SHARED_PREF_NAME,
             AppCompatActivity.MODE_PRIVATE
@@ -75,6 +79,7 @@ class MyWorker(
         super.onStopped()
     }
 
+    // OnFetchDataListener which calls firstItem function when data is retrieved
     private val listener = object :
         OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
@@ -87,13 +92,14 @@ class MyWorker(
 
     }
 
-
+    // Function to get the latest news out of the provided list
+    // This function also starts the foreground service after providing the article as an extra
     private fun firstItem(list: MutableList<Headlines>?) {
         val firstItem = list?.get(0)
         Log.d(TAG, "doWork called for: " + this.id)
-        Log.d(TAG, "Service Running: " + APIService.isServiceRunning)
+        Log.d(TAG, "Service Running: " + NotificationService.isServiceRunning)
         Log.d(TAG, "starting service from doWork")
-        val intent = Intent(context, APIService::class.java)
+        val intent = Intent(context, NotificationService::class.java)
         intent.putExtra("data", firstItem)
         startForegroundService(context, intent)
 

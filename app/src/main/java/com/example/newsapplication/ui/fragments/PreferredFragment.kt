@@ -25,7 +25,7 @@ import com.example.newsapplication.ui.activities.FavouriteDetailsActivity
 import com.example.newsapplication.utils.FavouritesDataHelper
 import com.example.newsapplication.utils.RequestManager
 
-
+// Fragment for preferred section
 class PreferredFragment:Fragment(R.layout.fragment_preferred),
     SelectListener, View.OnClickListener{
     private var progressBar : ProgressBar? = null
@@ -58,6 +58,8 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    // Create new request manager and call get news function
+    // Calls button setup function
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         manager = activity?.let { RequestManager(it) }!!
@@ -69,7 +71,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
     }
 
 
-
+    // Function to setup buttons based on shared preferences
     private fun buttonSetup(view: View){
         val busButton = view?.findViewById<Button>(R.id.bus_btn)
         if(!isChecked(KEY_BUSBOX)){
@@ -128,10 +130,13 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         worButton?.setOnClickListener(this)
     }
 
+    // Function to get boolean for inputted key from shared preferences
     private fun isChecked(key: String): Boolean {
         return sharedPreferences.getBoolean(key, false)
     }
 
+    // Creating a new OnFetchDataListener object
+    // When data is fetched, called show news function with list
     private val listener = object :
         OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
@@ -146,6 +151,8 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
 
     }
 
+    // Creating a new OnLoadMoreListener object
+    // When data is fetched, called add news function with list
     private val listener2 = object :
         OnLoadMoreListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
@@ -160,6 +167,8 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
 
     }
 
+    // Function to setup recycler view
+    // Attach recycler view with custom adapter and add scroll listener
     private fun showNews(list: MutableList<Headlines>?){
         recyclerView = view?.findViewById(R.id.recycler_main)!!
         adapter = activity?.let {
@@ -177,10 +186,12 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         }
     }
 
+    // Function to call adapter add news function with provided list
     private fun addNews(list: MutableList<Headlines>?){
         adapter.addNews(list)
     }
 
+    // Function to start new intent on article clicked, depending on whether favourite or not
     override fun OnNewsClicked(headlines: Headlines?) {
         favouritesDataHelper = FavouritesDataHelper(activity)
         if(favouritesDataHelper.checkData(headlines?.title)){
@@ -195,6 +206,7 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
         }
     }
 
+    // Function to get new articles based on category from button
     override fun onClick(p0: View?) {
         progressBar = view?.findViewById(R.id.idPBLoading)
         progressBar?.visibility = View.VISIBLE
@@ -204,6 +216,8 @@ class PreferredFragment:Fragment(R.layout.fragment_preferred),
             ?.getNewsHeadlines(listener, listener2, buttonText, null)
     }
 
+    // Creating a new scroll listener object
+    // If cannot scroll further, more news articles retrieved
     private val scrollListener = object : RecyclerView.OnScrollListener(){
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)

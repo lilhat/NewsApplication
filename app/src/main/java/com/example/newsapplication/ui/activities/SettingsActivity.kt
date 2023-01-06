@@ -1,7 +1,5 @@
 package com.example.newsapplication.ui.activities
 
-import android.content.Intent
-import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -9,17 +7,16 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import com.example.newsapplication.R
-import com.example.newsapplication.services.APIService
-import com.example.newsapplication.services.BroadcastReceiver
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
-import kotlin.collections.ArrayList
 
+// Activity to select categories that the user is interested in
 class SettingsActivity: AppCompatActivity() {
     private lateinit var busCheckBox: CheckBox
     private lateinit var entCheckBox: CheckBox
@@ -40,6 +37,7 @@ class SettingsActivity: AppCompatActivity() {
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
 
+    // Setup views, if user is not logged in then preferences cannot be set
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +64,10 @@ class SettingsActivity: AppCompatActivity() {
         keyList = mutableListOf(KEY_BUSBOX,KEY_ENTBOX,KEY_ENVBOX,KEY_FOOBOX,KEY_TECBOX,
             KEY_WORBOX,KEY_TOPBOX,KEY_HEABOX,KEY_SPOBOX,KEY_POLBOX,KEY_SCIBOX)
 
-        val notificationSwitch = findViewById<Switch>(R.id.set_notifications)
+        val notificationSwitch = findViewById<SwitchCompat>(R.id.set_notifications)
         val submitButton = findViewById<Button>(R.id.submit_btn)
 
-
+        // Using shared preferences to store boolean values associated to category preference
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,
             MODE_PRIVATE)
         editor = sharedPreferences.edit()
@@ -86,6 +84,8 @@ class SettingsActivity: AppCompatActivity() {
             if(account == null){
                 hideCheckBoxes()
                 loggedText.visibility = View.VISIBLE
+                notificationSwitch.isClickable = false
+                notificationSwitch.alpha = 0.5F
             }
             else{
                 setupCheckBoxes()
@@ -112,12 +112,10 @@ class SettingsActivity: AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
+    // Set isSet variable according to whether switch is set
+    // Put boolean variable into shared preferences
     private fun setNotifications(){
-        val notificationSwitch = findViewById<Switch>(R.id.set_notifications)
+        val notificationSwitch = findViewById<SwitchCompat>(R.id.set_notifications)
         if(!isSet){
             editor.putBoolean(setKey, isSet)
             editor.apply()
@@ -130,6 +128,7 @@ class SettingsActivity: AppCompatActivity() {
         }
     }
 
+    // Function to loop through each checkbox and call setup and tick functions
     private fun setupCheckBoxes(){
         var i = 0
         for(checkBox in checkBoxes){
@@ -147,31 +146,36 @@ class SettingsActivity: AppCompatActivity() {
         }
     }
 
+    // Function to check whether checkbox is checked, then putting result into shared preferences
     private fun setupCheckBox(checkBox: CheckBox, key: String){
-        checkBox.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+        checkBox.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
             var aBoolean = b
             editor.putBoolean(key, aBoolean)
             editor.apply()
-        })
+        }
     }
 
+    // Function to tick checkbox depending on previous shared preference input
     private fun tickCheckBox(checkBox: CheckBox, key: String){
         val isChecked = sharedPreferences.getBoolean(key, false)
         checkBox.isChecked = isChecked
     }
 
+    // Function to loop through each checkbox and call hide function
     private fun hideCheckBoxes(){
         for(checkBox in checkBoxes){
             hideCheckBox(checkBox)
         }
     }
 
+    // Function to hide checkbox when user is not logged in
     private fun hideCheckBox(checkBox: CheckBox){
         checkBox.alpha = 0.5F
         checkBox.isClickable = false
 
     }
 
+    // Function to add category to list if associated checkbox is checked
     private fun addCategory(checkBox: CheckBox){
         val categoryName = checkBox.text.toString()
         if(checkBox.isChecked){
@@ -188,20 +192,16 @@ class SettingsActivity: AppCompatActivity() {
         }
     }
 
-
+    // Function to loop through all checkboxes and call add function
     private fun getCategories(){
         for(checkBox in checkBoxes){
             addCategory(checkBox)
         }
-        Toast.makeText(this, "Preferred categories: $categoryList", Toast.LENGTH_LONG).show()
     }
 
     companion object{
         var isSet: Boolean = false
         var categoryList: MutableList<String> = mutableListOf()
-        var preferenceList: MutableList<Int> = mutableListOf()
-        val removeText = "Remove Notifications"
-        val setText = "Set Notifications"
         var setKey = "isSet"
         val SHARED_PREF_NAME = "MyPref"
         val KEY_BUSBOX = "Bus_Box"

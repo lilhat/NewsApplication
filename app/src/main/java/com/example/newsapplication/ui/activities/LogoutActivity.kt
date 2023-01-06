@@ -13,12 +13,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
+// Activity to logout user
 class LogoutActivity: AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
 
-
+    // Calls logout function when activity is created
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logout)
@@ -30,15 +31,19 @@ class LogoutActivity: AppCompatActivity() {
 
         val homeButton = findViewById<Button>(R.id.home_btn)
         val loginButton = findViewById<Button>(R.id.login_btn)
+
+        // Setting home button to finish activity
         homeButton.setOnClickListener {
             finish()
         }
+        // Setting login button to launch login activity
         loginButton.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }
 
+    // Function to logout either from firebase or from google
     private fun logOut() {
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser

@@ -7,6 +7,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+// Class to keep track of the user's streak of using the application
 class DayStreakCounter(private val context: Context) {
 
     private val SHARED_PREF_NAME = "MyPref"
@@ -20,21 +21,21 @@ class DayStreakCounter(private val context: Context) {
         val lastLoginDay = lastLoginDate
         val yesterday = getYesterdayDate(dateFormat, date)
         if (lastLoginDay == null) {
-            // user logged in for the first time
+            // First time login
             updateLastLoginDate(today)
             incrementDays()
         } else {
             when (lastLoginDay) {
                 today -> {
-                    // User logged in the same day , do nothing
+                    // Same day login, do nothing
                 }
                 yesterday -> {
-                    // User logged in consecutive days , add 1
+                    // Increment days if consecutive login
                     updateLastLoginDate(today)
                     incrementDays()
                 }
                 else -> {
-                    // It's been more than a day user logged in, reset the counter to 1
+                    // Reset streak if day is missed
                     updateLastLoginDate(today)
                     resetDays()
                 }
@@ -42,6 +43,7 @@ class DayStreakCounter(private val context: Context) {
         }
     }
 
+    // Function to get yesterdays date using calendar
     private fun getYesterdayDate(simpleDateFormat: DateFormat, date: Date): String {
         val calendar: Calendar = Calendar.getInstance()
         calendar.time = date
@@ -49,10 +51,8 @@ class DayStreakCounter(private val context: Context) {
         return simpleDateFormat.format(calendar.time)
     }
 
-    /**
-     * Update last login date into the storage
-     * @param date
-     */
+
+    // Using shared preferences to store last login date
     private fun updateLastLoginDate(date: String) {
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
@@ -61,10 +61,7 @@ class DayStreakCounter(private val context: Context) {
     }
 
 
-    /**
-     * Get last login date
-     * @return
-     */
+    // Using shared preferences to retrieve last login date
     private val lastLoginDate: String?
         private get() {
             sharedPreferences =
@@ -73,12 +70,14 @@ class DayStreakCounter(private val context: Context) {
         }
 
 
+    // Using shared preferences to retrieve number of consecutive days
     private val consecutiveDays: Int
         private get() {
             sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
             return sharedPreferences.getInt("num_consecutive_days", 0)
         }
 
+    // Incrementing the consecutive days then storing this into shared preferences
     private fun incrementDays() {
         val days = consecutiveDays + 1
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE)
@@ -88,6 +87,7 @@ class DayStreakCounter(private val context: Context) {
         checkStreak()
     }
 
+    // Resetting the days streak to 1
     private fun resetDays() {
         val days = 1
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE)
@@ -96,6 +96,7 @@ class DayStreakCounter(private val context: Context) {
         editor.apply()
     }
 
+    // Checking if the streak of consecutive days is equal to 7, then displaying a message
     private fun checkStreak(){
         val days = sharedPreferences.getInt("num_consecutive_days", 0)
         if (days == 7){

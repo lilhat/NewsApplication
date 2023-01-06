@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.R
 
+// View holder for favourite items
 class FavouritesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var titleText: TextView
     var sourceText: TextView

@@ -51,6 +51,7 @@
     <string name="already_logout">Already logged out</string>
     <string name="full_text">See full content on website</string>
     <string name="logged_text">Must be logged in to set preferences</string>
+    <string name="img_profile">Profile Image</string>
     <string name="return_home">Return Home</string>
     <string name="or_text">OR</string>
     <string name="done_text">Done</string>
@@ -59,6 +60,7 @@
     <string name="set_notifications">Set Notifications</string>
     <string name="refresh_xml" />
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="not_available">N/A</string>
     <string name="title_activity_drawer">DrawerActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

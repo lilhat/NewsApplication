@@ -18,8 +18,11 @@ import com.example.newsapplication.interfaces.OnFetchDataListener
 import com.example.newsapplication.interfaces.OnLoadMoreListener
 import com.example.newsapplication.interfaces.SelectListener
 import com.example.newsapplication.ui.activities.DetailsActivity
+import com.example.newsapplication.ui.activities.FavouriteDetailsActivity
+import com.example.newsapplication.utils.FavouritesDataHelper
 import com.example.newsapplication.utils.RequestManager
 
+// Fragment to display search results
 class SearchFragment:Fragment(R.layout.fragment_search),
     SelectListener {
 
@@ -28,25 +31,31 @@ class SearchFragment:Fragment(R.layout.fragment_search),
     private var progressBar : ProgressBar? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var query: String
+    private lateinit var favouritesDataHelper: FavouritesDataHelper
+    var isScrolling = false
+
     public override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         container?.removeAllViews()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    // Request news articles with query from search
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view?.findViewById(R.id.recycler_main)!!
         val bundle = this.arguments
         query = bundle?.getString("message").toString()
         manager =
             activity?.let { RequestManager(it) }!!
         manager.getNewsHeadlines(listener, listener2, null, query)
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)!!
-    }
-
+    // Creating a new OnFetchDataListener object
+    // When data is fetched, called show news function with list
     private val listener = object :
         OnFetchDataListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
@@ -61,6 +70,8 @@ class SearchFragment:Fragment(R.layout.fragment_search),
 
     }
 
+    // Creating a new OnLoadMoreListener object
+    // When data is fetched, called add news function with list
     private val listener2 = object :
         OnLoadMoreListener<ApiResponse> {
         override fun onFetchData(list: MutableList<Headlines>?, message: String?) {
@@ -75,6 +86,8 @@ class SearchFragment:Fragment(R.layout.fragment_search),
 
     }
 
+    // Function to setup recycler view
+    // Attach recycler view with custom adapter and add scroll listener
     private fun showNews(list: MutableList<Headlines>?){
         adapter = activity?.let {
             CustomAdapter(
@@ -91,18 +104,32 @@ class SearchFragment:Fragment(R.layout.fragment_search),
         }
     }
 
+    // Function to call adapter add news function with provided list
     private fun addNews(list: MutableList<Headlines>?){
         adapter.addNews(list)
     }
 
+    // Function to start new intent on article clicked, depending on whether favourite or not
     override fun OnNewsClicked(headlines: Headlines?) {
-        val myIntent = Intent(context, DetailsActivity::class.java)
-        myIntent.putExtra("data", headlines)
-        context?.startActivity(myIntent)
+        favouritesDataHelper = FavouritesDataHelper(activity)
+        if(favouritesDataHelper.checkData(headlines?.title)){
+            val myIntent = Intent(context, FavouriteDetailsActivity::class.java)
+            myIntent.putExtra("data", headlines)
+            myIntent.addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP
+            )
+            context?.startActivity(myIntent)
+        }
+        else{
+            val myIntent = Intent(context, DetailsActivity::class.java)
+            myIntent.putExtra("data", headlines)
+            context?.startActivity(myIntent)
+        }
     }
 
-    var isScrolling = false
-
+    // Creating a new scroll listener object
+    // If cannot scroll further, more news articles retrieved
     private val scrollListener = object : RecyclerView.OnScrollListener(){
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)

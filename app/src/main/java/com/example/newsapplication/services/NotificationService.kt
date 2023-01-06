@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.getIntent
 import android.os.Build
-import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -14,21 +13,19 @@ import androidx.core.app.NotificationCompat
 import com.example.newsapplication.R
 import com.example.newsapplication.models.Headlines
 import com.example.newsapplication.ui.activities.DetailsActivity
+import com.example.newsapplication.utils.BroadcastReceiver
 import java.util.*
 
-
-class APIService: Service() {
-//    var timer: Timer? = null
-//    var timerTask: TimerTask? = null
-//    var TAG = "Timers"
-//    var Your_X_SECS = 5
+// Service to call notifications with provided headline
+class NotificationService: Service() {
 
     init {
         Log.d(TAG, "constructor called")
         isServiceRunning = false
     }
 
-
+    // Create notification channel when service first created
+    // Setting variable to show service is running
     override fun onCreate() {
         super.onCreate()
         super.onCreate()
@@ -43,61 +40,27 @@ class APIService: Service() {
     }
 
 
+    // Calling send notification function
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand called")
-//        startTimer(intent)
         sendNotification(intent)
         return START_STICKY
 
     }
 
+    // When service is destroyed, set variable to false
+    // Send broadcast to initiate service again
     override fun onDestroy() {
         Log.d(TAG, "onDestroy called")
-//        stopTimerTask()
         isServiceRunning = false
         stopForeground(true)
-
         val broadcastIntent = Intent(this, BroadcastReceiver::class.java)
         sendBroadcast(broadcastIntent)
-
         super.onDestroy()
     }
 
-//    val handler: Handler = Handler()
-//
-//
-//    fun startTimer(intent: Intent?) {
-//        //set a new Timer
-//        timer = Timer()
-//
-//        //initialize the TimerTask's job
-//        initializeTimerTask(intent)
-//
-//        //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
-//        timer!!.schedule(timerTask, 5000, (Your_X_SECS * 1000).toLong()) //
-//        //timer.schedule(timerTask, 5000,1000); //
-//    }
-//
-//    fun stopTimerTask() {
-//        //stop the timer, if it's not already null
-//        if (timer != null) {
-//            timer!!.cancel()
-//            timer = null
-//        }
-//    }
-//
-//    fun initializeTimerTask(intent: Intent?) {
-//        timerTask = object : TimerTask() {
-//            override fun run() {
-//
-//                handler.post {
-//                    sendNotification(intent)
-//                }
-//            }
-//        }
-//    }
-
+    // Function to create notification channel
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val appName = getString(R.string.app_name)
@@ -113,6 +76,7 @@ class APIService: Service() {
         }
     }
 
+    // Function to send notification with data from intent using foreground service
     private fun sendNotification(intent: Intent?){
         val headlines = intent?.getSerializableExtra("data") as Headlines
         val title = headlines.title

@@ -29,7 +29,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-
+// Activity for account registration
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.firestore
@@ -56,8 +56,10 @@ class RegisterActivity : AppCompatActivity() {
         val cancelBtn = findViewById<Button>(R.id.cancel_btn)
         val termsCheckBox = findViewById<CheckBox>(R.id.terms_checkbox)
 
-        setupLogin()
+        // Calling setup social login function
+        setupSocialLogin()
 
+        // If register button is clicked, call signup function with data from fields
         registerBtn.setOnClickListener {
             val usernameTxt = username.text.toString().trim()
             val emailTxt = email.text.toString().trim()
@@ -70,14 +72,10 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // Checking on activity start whether user is already logged in
     override fun onStart() {
         super.onStart()
-        authStateListener = AuthStateListener {
-            val user = auth.currentUser
-            if(user!=null){
-                Log.d(TAG, "Facebook in")
-            }
-        }
+
         auth.addAuthStateListener { auth }
         val currentUser = auth.currentUser
         if(currentUser != null){
@@ -86,7 +84,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLogin(){
+    // Function to setup Google and Facebook login with associated buttons
+    private fun setupSocialLogin(){
         // Google login
         googleLogin = findViewById(R.id.google_login)
 
@@ -122,6 +121,7 @@ class RegisterActivity : AppCompatActivity() {
         })
     }
 
+    // Function to create new user with email and password
     private fun signUpUser(username: String, email: String, password: String, checked: Boolean) {
         val username = username
         val email = email
@@ -158,6 +158,7 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
+    // Function to retrieve facebook login credential to sign in with firebase authentication
     private fun handleFacebookToken(accessToken: AccessToken) {
         Log.d(TAG, "handleFacebookToken$accessToken")
         val credential = FacebookAuthProvider.getCredential(accessToken.token)
@@ -171,11 +172,13 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // Function to launch google sign in intent
     private fun signInGoogle() {
         val intent = gsc.signInIntent
         startActivityForResult(intent, 100)
     }
 
+    // Function to retrieve result from sign in intent
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         mCallBackManager.onActivityResult(requestCode, resultCode, data)
@@ -193,6 +196,8 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
+    // Function to store username and email into separate Firestore database
+    // This can be used in the future to store more information with the user account
     private fun saveUser(username: String, email: String){
         val user = hashMapOf(
             "username" to username,
@@ -223,6 +228,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // Finish the activity when up button is clicked
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
         if (item.itemId == android.R.id.home) {

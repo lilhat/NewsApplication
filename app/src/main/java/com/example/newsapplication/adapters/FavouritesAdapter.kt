@@ -13,14 +13,18 @@ import com.example.newsapplication.utils.FavouritesDataHelper
 import com.example.newsapplication.viewholders.FavouritesViewHolder
 import com.squareup.picasso.Picasso
 
+// Adapter to retrieve data from SQLite database to be placed into view-holder
 class FavouritesAdapter(private val mContext: Context, private val mCursor: Cursor, private val listener: SelectListener) :
     RecyclerView.Adapter<FavouritesViewHolder>() {
+
+    // Inflate favourite items layout after each view is set
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouritesViewHolder {
         return FavouritesViewHolder(
             LayoutInflater.from(mContext).inflate(R.layout.favourite_items, parent, false)
         )
     }
 
+    // Binding each view in the holder with its associated content
     override fun onBindViewHolder(holder: FavouritesViewHolder, position: Int) {
         if (!mCursor.moveToPosition(position)) {
             return
@@ -64,6 +68,8 @@ class FavouritesAdapter(private val mContext: Context, private val mCursor: Curs
         holder.cardView.setOnClickListener { listener.OnNewsClicked(headlines) }
     }
 
+
+    // Return the size of the data in database
     override fun getItemCount(): Int {
         return mCursor.count
     }

@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+// Request manager that uses retrofit to send requests to the news api
 class RequestManager(var context: Context) {
     var apiResponse: Response<ApiResponse>? = null
     var newHeadlines: MutableList<Headlines>? = null
@@ -26,6 +27,7 @@ class RequestManager(var context: Context) {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    // Creating the retrofit object and enqueueing calls
     fun getNewsHeadlines(
         listener: OnFetchDataListener<ApiResponse>,
         listener2: OnLoadMoreListener<*>?,
@@ -50,6 +52,8 @@ class RequestManager(var context: Context) {
                         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                     } else {
                         page += 1
+                        // If the call is being made for the first time, the page should be 0
+                        // so use first listener
                         if (apiResponse == null) {
                             apiResponse = response
                             Log.d(
@@ -60,7 +64,10 @@ class RequestManager(var context: Context) {
                                 apiResponse!!.body()?.results as MutableList<Headlines>?,
                                 apiResponse!!.message()
                             )
-                        } else {
+                        }
+                        // If the call is being made for the second time, page is incremented
+                        // and second listener is used so that the previous response can be combined
+                        else {
                             newHeadlines = response.body()!!.results as MutableList<Headlines>?
                             Log.d(
                                 ContentValues.TAG,
@@ -80,7 +87,7 @@ class RequestManager(var context: Context) {
         }
     }
 
-
+    // Interface defining the parameters of the call
     interface CallNewsApi {
         @GET("news")
         fun callHeadlines(

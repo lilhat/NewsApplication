@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-
+// Activity to authenticate login
 class LoginActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
@@ -49,7 +49,8 @@ class LoginActivity : AppCompatActivity() {
         val registerBtn = findViewById<Button>(R.id.register_btn)
         val cancelBtn = findViewById<Button>(R.id.cancel_btn)
 
-        setupLogin()
+        // Call function to setup social medial login
+        setupSocialLogin()
 
         // Email and Password login
         registerBtn.setOnClickListener {
@@ -65,15 +66,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // Check if user is logged in already when activity is started
+    // If logged in then finish the activity
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        authStateListener = AuthStateListener {
-            val user = auth.currentUser
-            if(user!=null){
-                Log.d(TAG, "Facebook in")
-            }
-        }
         auth.addAuthStateListener { auth }
         val currentUser = auth.currentUser
         if(currentUser != null){
@@ -82,7 +78,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLogin(){
+    // Function to setup both social medial login with buttons
+    private fun setupSocialLogin(){
         // Google login
         googleLogin = findViewById(R.id.google_login)
 
@@ -118,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-
+    // Function to retrieve facebook login credential to sign in with firebase authentication
     private fun handleFacebookToken(accessToken: AccessToken) {
         Log.d(TAG, "handleFacebookToken$accessToken")
         val credential = FacebookAuthProvider.getCredential(accessToken.token)
@@ -132,11 +129,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // Function to launch google sign in intent
     private fun signInGoogle() {
         val intent = gsc.signInIntent
         startActivityForResult(intent, 100)
     }
 
+    // Function to retrieve result from sign in intent
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         mCallBackManager.onActivityResult(requestCode, resultCode, data)
@@ -154,6 +153,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    // Function to login user with email and password
     private fun loginUser(email: String, password: String) {
         val email = email
         val pass = password
@@ -175,7 +175,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-
+    // Setting up button to finish activity
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
         if (item.itemId == android.R.id.home) {

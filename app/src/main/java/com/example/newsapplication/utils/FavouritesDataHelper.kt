@@ -6,12 +6,14 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
+// Class for favourites SQLite database
 class FavouritesDataHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
     init {
         val db = this.writableDatabase
         onCreate(db)
     }
 
+    // Create database with stated columns
     override fun onCreate(db: SQLiteDatabase) {
         val DATABASE_CREATE = ("CREATE TABLE IF NOT EXISTS "
                 + TABLE_NAME + " (" + COL_ID + " integer primary key autoincrement, "
@@ -27,11 +29,13 @@ class FavouritesDataHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAM
         db.execSQL(DATABASE_CREATE)
     }
 
+    // Drop the table and recreate it
     override fun onUpgrade(db: SQLiteDatabase, i: Int, i1: Int) {
         db.execSQL("drop table if exists $TABLE_NAME")
         onCreate(db)
     }
 
+    // Function to insert provided data into database, return boolean representing success
     fun insertFavouriteData(
         title: String?,
         source: String?,
@@ -59,6 +63,7 @@ class FavouritesDataHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAM
         return res != -1L
     }
 
+    // Cursor value to query the database
     val favouriteData: Cursor
         get() {
             val db = this.writableDatabase
@@ -73,13 +78,14 @@ class FavouritesDataHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAM
             )
         }
 
-
+    // Function to check if row with provided title already exists
     fun checkData(title: String?): Boolean {
         val db = this.writableDatabase
         val cursor = db.rawQuery("select * from $TABLE_NAME where $COL_TITLE=?", arrayOf(title))
         return cursor.count != 0
     }
 
+    // Function to remove a row of data with specified title
     fun removeData(title: String?){
         val db = this.writableDatabase
         db.delete(TABLE_NAME, "$COL_TITLE=?", arrayOf(title))
