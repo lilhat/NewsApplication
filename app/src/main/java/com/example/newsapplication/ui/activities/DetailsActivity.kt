@@ -63,8 +63,8 @@ class DetailsActivity : AppCompatActivity() {
             author.text = authorText
         }
         else{
-            author.text = getString(R.string.unknown_author)
             authorText = getString(R.string.unknown_author)
+            author.text = authorText
         }
 
         categoryText = headlines.category?.get(0).toString().titleCaseFirstChar()

@@ -32,7 +32,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_bus"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue" />
 
         <Button
             android:id="@+id/ent_btn"
@@ -43,7 +44,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_ent"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="131dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/env_btn"
@@ -54,7 +56,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_env"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="268dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/foo_btn"
@@ -65,7 +68,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_foo"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="390dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/hea_btn"
@@ -76,7 +80,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_hea"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="490dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/pol_btn"
@@ -87,7 +92,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_pol"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="590dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/sci_btn"
@@ -98,7 +104,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_sci"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="691dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/spo_btn"
@@ -109,7 +116,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_spo"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="791dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/tec_btn"
@@ -120,7 +128,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_tec"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="891dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/top_btn"
@@ -131,7 +140,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_top"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="1005dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
 
         <Button
             android:id="@+id/wor_btn"
@@ -142,7 +152,8 @@ tools:layout_editor_absoluteY="-78dp">
             android:text="@string/category_wor"
             android:textSize="12sp"
             tools:layout_editor_absoluteX="1105dp"
-            tools:layout_editor_absoluteY="38dp"></Button>
+            tools:layout_editor_absoluteY="38dp"
+            android:backgroundTint="@color/dark_sky_blue"/>
     </LinearLayout>
 </HorizontalScrollView>
 

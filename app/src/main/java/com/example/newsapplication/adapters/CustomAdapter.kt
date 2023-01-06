@@ -1,5 +1,6 @@
 package com.example.newsapplication.adapters
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
@@ -19,7 +20,7 @@ class CustomAdapter(
     headlines: MutableList<Headlines>,
     listener: SelectListener
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<CustomViewHolder>() {
     private var headlines: MutableList<Headlines>
     private val listener: SelectListener
 
@@ -29,18 +30,20 @@ class CustomAdapter(
     }
 
     // Adding more news articles when end of page is reached
+    @SuppressLint("NotifyDataSetChanged")
     fun addNews(newHeadlines: MutableList<Headlines>?) {
-        headlines!!.addAll(removeInvalidData(newHeadlines!!))
+        headlines.addAll(removeInvalidData(newHeadlines!!))
         notifyDataSetChanged()
     }
 
     // Inflate headline items layout after each view is set
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.headline_items, parent, false)
         return CustomViewHolder(view)
     }
 
     // Remove any headlines that do not contain and image or a description
+    @SuppressLint("NotifyDataSetChanged")
     private fun removeInvalidData(headlines: MutableList<Headlines>): MutableList<Headlines> {
         val found = mutableListOf<Headlines>()
         if(headlines.size != 0){
@@ -62,9 +65,9 @@ class CustomAdapter(
     }
 
     // Binding each view in the holder with its associated content
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Picasso.get().load(headlines!![position].image_url)
-            .into((holder as CustomViewHolder).news_img)
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
+        Picasso.get().load(headlines[position].image_url)
+            .into(holder.news_img)
         holder.news_title.text = headlines[position].title
         holder.news_source.text = headlines[position].source_id
         if (headlines[position].description != null && headlines[position].description!!.isNotEmpty()) {
@@ -76,7 +79,7 @@ class CustomAdapter(
             val creator = headlines[position].creator
             holder.news_creator.text = creator?.get(0).toString()
         } else {
-            holder.news_creator.text = "Unknown Author"
+            holder.news_creator.text = context.getString(R.string.unknown_author)
         }
         holder.cardView.setOnClickListener { listener.OnNewsClicked(headlines[holder.absoluteAdapterPosition]) }
     }

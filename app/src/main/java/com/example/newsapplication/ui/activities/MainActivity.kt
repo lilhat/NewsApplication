@@ -92,7 +92,6 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onResume() {
         super.onResume()
         setupDrawerText()
-
     }
 
     // Function to setup the drawer menu text

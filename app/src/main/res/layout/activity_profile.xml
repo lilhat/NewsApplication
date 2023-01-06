@@ -101,7 +101,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.189"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_container" />
+        app:layout_constraintTop_toBottomOf="@+id/main_container"
+        android:backgroundTint="@color/dark_sky_blue"/>
 
     <TextView
         android:id="@+id/or_text"
@@ -126,17 +127,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.641"
         app:layout_constraintStart_toEndOf="@+id/login_btn"
-        app:layout_constraintTop_toBottomOf="@+id/main_container" />
+        app:layout_constraintTop_toBottomOf="@+id/main_container"
+        android:backgroundTint="@color/dark_sky_blue"/>
 
     <Button
         android:id="@+id/submit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
-        android:backgroundTint="@color/dark_sky_blue"
         android:text="@string/done_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_container" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
