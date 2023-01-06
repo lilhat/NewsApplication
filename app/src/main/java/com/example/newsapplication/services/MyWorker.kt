@@ -40,7 +40,6 @@ class MyWorker(
                 Log.i(ContentValues.TAG, "In doWork")
                 val requestManager = RequestManager(context)
                 requestManager.getNewsHeadlines(listener, null, categoryList[random], null)
-                // TODO - replace random with an incrementing integer
             }
         }
         return Result.success()

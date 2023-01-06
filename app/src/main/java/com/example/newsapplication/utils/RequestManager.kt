@@ -21,7 +21,7 @@ class RequestManager(var context: Context) {
     var apiResponse: Response<ApiResponse>? = null
     var newHeadlines: MutableList<Headlines>? = null
     var page = 0
-    var retrofit = Retrofit.Builder()
+    private var retrofit = Retrofit.Builder()
         .baseUrl("https://newsdata.io/api/1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -80,7 +80,7 @@ class RequestManager(var context: Context) {
         }
     }
 
-    // TODO - Create another function to search everything
+
     interface CallNewsApi {
         @GET("news")
         fun callHeadlines(
