@@ -37,6 +37,7 @@ class RequestManager(var context: Context) {
         val callNewsApi = retrofit.create(
             CallNewsApi::class.java
         )
+        // Maximum 200 calls a day, if exceeded increment the below api_key variable by 1 (e.g. api_key2)
         val call = callNewsApi.callHeadlines(
             context.getString(R.string.api_key4),
             "gb",
