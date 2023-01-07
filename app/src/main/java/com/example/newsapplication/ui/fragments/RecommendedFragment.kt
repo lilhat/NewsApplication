@@ -1,6 +1,7 @@
 package com.example.newsapplication.ui.fragments
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
     private var progressBar : ProgressBar? = null
     private var isScrolling = false
     private lateinit var favouritesDataHelper: FavouritesDataHelper
+    private var mState: Parcelable? = null
 
 
     override fun onCreateView(
@@ -42,10 +44,25 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     // Create new request manager and get new articles
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        manager = activity?.let { RequestManager(it) }!!
-        manager.getNewsHeadlines(listener, listener2, null, null)
+
+        if(savedInstanceState != null){
+            mState = savedInstanceState.getParcelable("key")
+
+        }
+        else{
+            manager = activity?.let { RequestManager(it) }!!
+            manager.getNewsHeadlines(listener, listener2, null, null)
+        }
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
+        if (mState != null) {
+            recyclerView?.layoutManager?.onRestoreInstanceState(mState);
+        }
     }
 
     // Creating a new OnFetchDataListener object
@@ -98,6 +115,7 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
             recyclerView.addOnScrollListener(this@RecommendedFragment.scrollListener)
         }
 
+
     }
 
     // Function to call adapter add news function with provided list
@@ -146,6 +164,13 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
             }
 
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
+        val state = recyclerView?.layoutManager?.onSaveInstanceState()
+        outState.putParcelable("key", state)
     }
 
 
