@@ -44,25 +44,10 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     // Create new request manager and get new articles
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        if(savedInstanceState != null){
-            mState = savedInstanceState.getParcelable("key")
-
-        }
-        else{
-            manager = activity?.let { RequestManager(it) }!!
-            manager.getNewsHeadlines(listener, listener2, null, null)
-        }
+        manager = activity?.let { RequestManager(it) }!!
+        manager.getNewsHeadlines(listener, listener2, null, null)
         super.onViewCreated(view, savedInstanceState)
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
-        if (mState != null) {
-            recyclerView?.layoutManager?.onRestoreInstanceState(mState);
-        }
     }
 
     // Creating a new OnFetchDataListener object
@@ -114,8 +99,6 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
             recyclerView.adapter = adapter
             recyclerView.addOnScrollListener(this@RecommendedFragment.scrollListener)
         }
-
-
     }
 
     // Function to call adapter add news function with provided list
@@ -145,10 +128,10 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
 
     // Creating a new scroll listener object
     // If cannot scroll further, more news articles retrieved
-    private val scrollListener = object : RecyclerView.OnScrollListener(){
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }
@@ -166,12 +149,6 @@ class RecommendedFragment:Fragment(R.layout.fragment_recommended),
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_main)
-        val state = recyclerView?.layoutManager?.onSaveInstanceState()
-        outState.putParcelable("key", state)
-    }
 
 
 

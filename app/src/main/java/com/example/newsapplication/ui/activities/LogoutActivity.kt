@@ -28,7 +28,7 @@ class LogoutActivity: AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         logOut()
-
+        MainActivity.isLoggedIn = false
         val homeButton = findViewById<Button>(R.id.home_btn)
         val loginButton = findViewById<Button>(R.id.login_btn)
 

@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -41,6 +42,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
+import kotlin.properties.Delegates
 
 
 open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -50,11 +52,11 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var entry: CharSequence
-    private lateinit var email: String
+    private var email: String? = null
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
-    private var isLoggedIn: Boolean = false
-    private lateinit var streakText: String
+    private var streakText: String? = null
+    private var streak: Int? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,14 +86,53 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         // Setup bottom nav menu
         bottomNavigationView.setupWithNavController(navController)
 
-        // Call function to setup drawer text
-        setupDrawerText()
+        // Call function to setup drawer text if savedInstanceState is null
+        if(savedInstanceState != null){
+            Log.d(TAG, "savedInstanceState used")
+            email = savedInstanceState.getString("email").toString()
+            streakText = savedInstanceState.getString("streak").toString()
+            streak = savedInstanceState.getInt("int")
+            isLoggedIn = savedInstanceState.getBoolean("logged")
+        }
+        else{
+            setupDrawerText()
+        }
+
+    }
+
+    // Save user info to outState to be used in onCreate
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("email", email)
+        outState.putString("streak", streakText)
+        streak?.let { outState.putInt("int", it) }
+        outState.putBoolean("logged", isLoggedIn)
     }
 
     // Whenever main activity is resumed, update drawer text
     override fun onResume() {
         super.onResume()
-        setupDrawerText()
+        if(isLoggedIn){
+            val headerView = navigationView.getHeaderView(0)
+            val navUsername = headerView.findViewById<View>(R.id.profile_text) as TextView
+            navUsername.text = email
+            val navStreakCounter = headerView.findViewById<View>(R.id.day_streak) as TextView
+            navStreakCounter.text = streakText
+            val navStreakReward = headerView.findViewById<View>(R.id.streak_reward) as ImageView
+
+            // If day streak is above 6 show the reward badge on drawer header
+            if(streak!! > 6){
+                navStreakReward.visibility = View.VISIBLE
+            }
+            else {
+                navStreakReward.visibility = View.INVISIBLE
+            }
+            hideItem()
+        }
+        else{
+            setupDrawerText()
+        }
+
     }
 
     // Function to setup the drawer menu text
@@ -99,7 +140,7 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         // Day Streak initialisation
         val dayStreakCounter = DayStreakCounter(this)
         dayStreakCounter.onUserLogin()
-        val streak = dayStreakCounter.streak
+        streak = dayStreakCounter.streak
         streakText = "Day Streak: $streak"
 
 
@@ -135,7 +176,7 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val navStreakReward = headerView.findViewById<View>(R.id.streak_reward) as ImageView
 
         // If day streak is above 6 show the reward badge on drawer header
-        if(streak > 6){
+        if(streak!! > 6){
             navStreakReward.visibility = View.VISIBLE
         }
         else {
@@ -252,6 +293,12 @@ open class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         workManager.enqueueUniquePeriodicWork(UNIQUE_WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, request);
 
     }
+
+    companion object{
+        var isLoggedIn: Boolean = false
+    }
+
+
 }
     
 
